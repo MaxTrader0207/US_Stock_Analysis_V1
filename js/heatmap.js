@@ -68,12 +68,23 @@
 
   function render(data) {
     const width = wrap.clientWidth;
-    const height = Math.max(420, Math.round(window.innerHeight * 0.62));
+
+    // 統計總格數，動態拉高畫布高度，確保平均每格有足夠空間顯示文字
+    // （手機寬度有限，格數一多、市值差距一大，固定高度會讓小市值標的擠成無文字色塊）
+    const leafCount = (data.sectors || []).reduce((n, s) => n + (s.children ? s.children.length : 0), 0);
+    const minCellArea = 1900; // 約可容納「代號 + 漲跌幅」兩行文字的最小格子面積
+    const areaBasedHeight = Math.ceil((leafCount * minCellArea) / Math.max(width, 1));
+    const baseHeight = Math.max(420, Math.round(window.innerHeight * 0.62));
+    const height = Math.max(baseHeight, areaBasedHeight);
+
     svg.attr("viewBox", `0 0 ${width} ${height}`).attr("width", width).attr("height", height);
     svg.selectAll("*").remove();
 
+    // 用平方根壓縮市值差異：像加密貨幣這種頭部標的（BTC/ETH）市值是長尾標的的數百倍，
+    // 直接按市值分配面積會讓長尾標的完全擠不出可顯示文字的空間；開根號後大小差距會
+    // 大幅收斂，讓每個標的至少保有可辨識的區塊，同時仍保留「越大市值方塊越大」的排序感。
     const root = d3.hierarchy({ name: "root", children: data.sectors })
-      .sum(d => d.marketCap || d.value || 1)
+      .sum(d => Math.sqrt(Math.max(d.marketCap || d.value || 1, 0.01)))
       .sort((a, b) => b.value - a.value);
 
     d3.treemap()
@@ -113,25 +124,35 @@
 
     cell.each(function (d) {
       const w = d.x1 - d.x0, h = d.y1 - d.y0;
-      if (w < 30 || h < 22) return;
       const g = d3.select(this);
       const fill = textColorFor(d.data.changePercent || 0);
+
+      // 門檻降到很小的格子也能放代號（單行、字級自動縮小），
+      // 只有小到連一行代號都放不下時才整格留白
+      if (w < 16 || h < 12) return;
+
+      const symLen = Math.max(2, (d.data.symbol || "").length);
+      const symSize = Math.max(6.5, Math.min(13, (w - 4) / (symLen * 0.62), h / 2.2));
       g.append("text")
         .attr("class", "sym")
-        .attr("x", 6).attr("y", 16)
-        .attr("font-size", Math.min(13, w / 5))
+        .attr("x", 4).attr("y", Math.min(h - 4, symSize + 4))
+        .attr("font-size", symSize)
         .attr("fill", fill)
         .text(d.data.symbol);
-      if (h > 36) {
+
+      // 有第二行空間才加漲跌幅，字級同樣依格子大小縮放
+      if (h > symSize + 14 && w >= 26) {
         const pct = d.data.changePercent || 0;
+        const pctSize = Math.max(6.5, Math.min(11, w / 6));
         g.append("text")
-          .attr("x", 6).attr("y", 30)
-          .attr("font-size", Math.min(11, w / 6))
+          .attr("x", 4).attr("y", symSize + pctSize + 6)
+          .attr("font-size", pctSize)
           .attr("fill", fill)
           .text((pct >= 0 ? "+" : "") + pct.toFixed(2) + "%");
       }
     });
   }
+
 
   function formatUpdated(iso) {
     try {

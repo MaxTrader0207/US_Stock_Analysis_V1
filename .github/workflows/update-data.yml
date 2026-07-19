@@ -2,7 +2,9 @@ name: Update market data
 
 on:
   schedule:
+    # 美股開盤時段 (UTC 13:30-20:00, 台灣時間 21:30-04:00) 每小時更新熱力圖
     - cron: "15 13-23 * * 1-5"
+    # 台股收盤後更新選股結果 (台灣時間 14:15 = UTC 06:15)
     - cron: "15 6 * * 1-5"
   workflow_dispatch: {}
 

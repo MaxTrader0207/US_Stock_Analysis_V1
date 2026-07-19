@@ -4,7 +4,7 @@
 用法：python scripts/fetch_screener.py
 需求：pip install yfinance pandas
 
-三組選股條件：
+5組選股條件：
 
 【強勢股A】
   1. 日線收盤價 > 日線 30MA
@@ -266,7 +266,7 @@ def build_bullish_b():
     return {
         "id": "bullish-b",
         "name": "多頭股B",
-        "description": "日線30MA近期黃金交叉100MA，且100MA上揚；RSI指標（參數6）>30。母體：美股大型權值股。",
+        "description": "日線30MA近期黃金交叉100MA，且100MA上揚；RSI指標>30。母體：美股大型權值股。",
         "status": "active",
         "results": results,
     }
@@ -317,7 +317,7 @@ def build_pullback_strength():
     return {
         "id": "pullback-strength",
         "name": "拉回轉強",
-        "description": "日線收盤價近期黃金交叉60MA，且60MA上揚；RSI指標（參數6）>30。母體：美股大型權值股。",
+        "description": "日線收盤價近期黃金交叉60MA，且60MA上揚；RSI指標>30。母體：美股大型權值股。",
         "status": "active",
         "results": results,
     }
@@ -374,7 +374,7 @@ def build_breakout_range():
     return {
         "id": "breakout-range",
         "name": "突破區間",
-        "description": "近20個交易日（不含今日）最高價 < 最低價 × 1.15，屬窄幅盤整；今日開盤跳空開高（開盤 > 昨日最高）且收紅K（收盤 > 開盤），視為區間突破確認。母體：美股大型權值股。",
+        "description": "近20個交易日，高低區間振福<15%；今日開盤跳空開高收紅K，視為區間突破確認。母體：美股大型權值股。",
         "status": "active",
         "results": results,
     }

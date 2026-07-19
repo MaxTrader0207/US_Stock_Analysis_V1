@@ -1,0 +1,40 @@
+{
+  "updated": "2026-07-18T14:00:00Z",
+  "note": "這是範例資料，請透過 scripts/fetch_screener.py + GitHub Actions 產生即時資料後覆蓋此檔案",
+  "conditionSets": [
+    {
+      "id": "strength-a",
+      "name": "強勢股A",
+      "description": "日線收盤價 > 日線30MA，且30MA上揚；日線MACD在0軸之上；週線MACD柱狀體翻紅（多頭動能）。母體：美股大型權值股。",
+      "status": "active",
+      "results": [
+        { "symbol": "NVDA", "name": "NVIDIA", "price": 178.2, "changePercent": 2.61, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
+        { "symbol": "AVGO", "name": "Broadcom", "price": 265.0, "changePercent": 1.85, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
+        { "symbol": "AMZN", "name": "Amazon", "price": 228.6, "changePercent": 1.72, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
+        { "symbol": "MSFT", "name": "Microsoft", "price": 512.8, "changePercent": 0.85, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
+        { "symbol": "ORCL", "name": "Oracle", "price": 198.5, "changePercent": 1.05, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] }
+      ]
+    },
+    {
+      "id": "bullish-a",
+      "name": "多頭股A",
+      "description": "日線10MA近期黃金交叉30MA，且30MA上揚；RSI指標（參數6）>60；今日成交量>昨日成交量。母體：美股大型權值股。",
+      "status": "active",
+      "results": [
+        { "symbol": "CSCO", "name": "Cisco", "price": 68.0, "changePercent": 3.15, "badges": ["10MA黃金交叉30MA", "30MA上揚", "RSI6>60", "量增"] },
+        { "symbol": "IBM", "name": "IBM", "price": 258.0, "changePercent": 2.40, "badges": ["10MA黃金交叉30MA", "30MA上揚", "RSI6>60", "量增"] }
+      ]
+    },
+    {
+      "id": "pullback-strength",
+      "name": "拉回轉強",
+      "description": "日線收盤價近期黃金交叉60MA，且60MA上揚；RSI指標（參數6）>30。母體：美股大型權值股。",
+      "status": "active",
+      "results": [
+        { "symbol": "JNJ", "name": "Johnson & Johnson", "price": 162.4, "changePercent": 0.95, "badges": ["收盤黃金交叉60MA", "60MA上揚", "RSI6>30"] },
+        { "symbol": "PG", "name": "Procter & Gamble", "price": 168.0, "changePercent": 0.60, "badges": ["收盤黃金交叉60MA", "60MA上揚", "RSI6>30"] },
+        { "symbol": "KO", "name": "Coca-Cola", "price": 72.0, "changePercent": 0.40, "badges": ["收盤黃金交叉60MA", "60MA上揚", "RSI6>30"] }
+      ]
+    }
+  ]
+}

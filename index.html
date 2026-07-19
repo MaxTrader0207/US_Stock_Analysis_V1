@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
-<title>美股熱力圖｜Market Dashboard</title>
+<title>熱力圖｜Market Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -44,23 +44,24 @@
 <body>
 
 <header class="app-header">
-  <h1><span class="dot"></span>美股日場熱力圖</h1>
+  <h1><span class="dot"></span><span id="map-title">S&amp;P 500 熱力圖</span></h1>
   <span class="meta" id="updated-meta">載入中…</span>
 </header>
 
 <main>
+  <div class="pill-row" id="map-tabs"></div>
   <div class="legend">
     <span class="down">-3%</span>
     <span class="bar"></span>
     <span class="up">+3%</span>
-    <span style="margin-left:8px;">方塊大小＝市值</span>
+    <span style="margin-left:8px;">方塊大小＝市值（期貨/加密貨幣為成交量）</span>
   </div>
   <div id="heatmap-wrap">
     <svg id="treemap"></svg>
   </div>
   <div id="empty" class="empty-state" style="display:none;">
     <strong>沒有可顯示的資料</strong>
-    找不到 data/heatmap.json，請確認 GitHub Actions 是否已產生資料檔。
+    找不到對應的 data/heatmap_*.json，請確認 GitHub Actions 是否已產生資料檔。
   </div>
 </main>
 

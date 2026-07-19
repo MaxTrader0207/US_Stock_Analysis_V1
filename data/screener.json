@@ -1,6 +1,5 @@
 {
-  "updated": "2026-07-18T14:00:00Z",
-  "note": "這是範例資料，請透過 scripts/fetch_screener.py + GitHub Actions 產生即時資料後覆蓋此檔案",
+  "updated": "2026-07-19T10:25:39.279474+00:00",
   "conditionSets": [
     {
       "id": "trend-strength",
@@ -8,24 +7,211 @@
       "description": "日線收盤價 > 日線30MA，且30MA上揚；日線MACD在0軸之上；週線MACD柱狀體翻紅（多頭動能）。母體：美股大型權值股。",
       "status": "active",
       "results": [
-        { "symbol": "NVDA", "name": "NVIDIA", "price": 178.2, "changePercent": 2.61, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
-        { "symbol": "AVGO", "name": "Broadcom", "price": 265.0, "changePercent": 1.85, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
-        { "symbol": "AMZN", "name": "Amazon", "price": 228.6, "changePercent": 1.72, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
-        { "symbol": "MSFT", "name": "Microsoft", "price": 512.8, "changePercent": 0.85, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
-        { "symbol": "ORCL", "name": "Oracle", "price": 198.5, "changePercent": 1.05, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] }
+        {
+          "symbol": "ABT",
+          "name": "Abbott Labs",
+          "price": 100.68,
+          "changePercent": 1.87,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "price": 253.04,
+          "changePercent": 1.23,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "LLY",
+          "name": "Eli Lilly",
+          "price": 1179.11,
+          "changePercent": 0.85,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "UNH",
+          "name": "UnitedHealth",
+          "price": 426.09,
+          "changePercent": 0.64,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "AAPL",
+          "name": "Apple",
+          "price": 333.74,
+          "changePercent": 0.14,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "ABBV",
+          "name": "AbbVie",
+          "price": 254.49,
+          "changePercent": 0.04,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "MRK",
+          "name": "Merck",
+          "price": 127.5,
+          "changePercent": -0.1,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "TMUS",
+          "name": "T-Mobile",
+          "price": 192.43,
+          "changePercent": -0.22,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "BAC",
+          "name": "Bank of America",
+          "price": 61.27,
+          "changePercent": -0.36,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "JPM",
+          "name": "JPMorgan Chase",
+          "price": 341.1,
+          "changePercent": -0.6,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "PG",
+          "name": "Procter & Gamble",
+          "price": 149.98,
+          "changePercent": -1.0,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "MA",
+          "name": "Mastercard",
+          "price": 543.6,
+          "changePercent": -1.44,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "V",
+          "name": "Visa",
+          "price": 358.56,
+          "changePercent": -1.8,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "TMO",
+          "name": "Thermo Fisher",
+          "price": 532.48,
+          "changePercent": -1.97,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "HD",
+          "name": "Home Depot",
+          "price": 338.87,
+          "changePercent": -2.63,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        },
+        {
+          "symbol": "META",
+          "name": "Meta Platforms",
+          "price": 646.01,
+          "changePercent": -2.79,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ]
+        }
       ]
     },
     {
       "id": "condition-2",
       "name": "選股條件二",
-      "description": "規劃中，將於後續版本補上（例如：均線多頭排列＋量能突破）。",
+      "description": "規劃中，將於後續版本補上。",
       "status": "coming-soon",
       "results": []
     },
     {
       "id": "condition-3",
       "name": "選股條件三",
-      "description": "規劃中，將於後續版本補上（例如：法人連買＋融資餘額下降）。",
+      "description": "規劃中，將於後續版本補上。",
       "status": "coming-soon",
       "results": []
     }

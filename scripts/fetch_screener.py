@@ -15,13 +15,23 @@
 【多頭股A】
   1. 日線 10MA 黃金交叉 30MA（近5個交易日內發生交叉，且目前 10MA > 30MA）
   2. 30MA 呈上揚
-  3. RSI 指標（參數6） > 50
+  3. RSI 指標（參數6） > 60
   4. 今日成交量 > 昨日成交量
+
+【多頭股B】
+  1. 日線 30MA 黃金交叉 100MA（近5個交易日內發生交叉，且目前 30MA > 100MA）
+  2. 100MA 呈上揚
+  3. RSI 指標（參數6） > 30
 
 【拉回轉強】
   1. 日線收盤價黃金交叉 60MA（近5個交易日內發生交叉，且目前收盤價 > 60MA）
   2. 60MA 呈上揚
   3. RSI 指標（參數6） > 30
+
+【突破區間】
+  1. 近20個交易日（不含今日）最高價 < 最低價 × 1.15（區間窄幅盤整）
+  2. 今日開盤跳空開高（開盤價 > 昨日最高價）
+  3. 今日收紅K（收盤價 > 開盤價）
 
 「黃金交叉」判定為近 N 個交易日內曾經處於「不高於」狀態、且最新一天已經轉為「高於」，
 用意是抓「剛翻多不久」的標的，而不是只抓「交叉當天」（否則每天符合的標的會很少）。
@@ -175,7 +185,7 @@ def evaluate_bullish_a(symbol, name):
     r = rsi(close, 6)
     if pd.isna(r.iloc[-1]):
         return None
-    rsi_strong = r.iloc[-1] > 50
+    rsi_strong = r.iloc[-1] > 60
 
     volume_up = len(volume) > 1 and volume.iloc[-1] > volume.iloc[-2]
 
@@ -187,7 +197,7 @@ def evaluate_bullish_a(symbol, name):
         "name": name,
         "price": round(float(close.iloc[-1]), 2),
         "changePercent": round(float(pct_change(close)), 2),
-        "badges": ["10MA黃金交叉30MA", "30MA上揚", "RSI6>50", "量增"],
+        "badges": ["10MA黃金交叉30MA", "30MA上揚", "RSI6>60", "量增"],
     }
 
 
@@ -204,13 +214,65 @@ def build_bullish_a():
     return {
         "id": "bullish-a",
         "name": "多頭股A",
-        "description": "日線10MA近期黃金交叉30MA，且30MA上揚；RSI指標>50；今日成交量>昨日成交量。母體：美股大型權值股。",
+        "description": "日線10MA近期黃金交叉30MA，且30MA上揚；RSI指標（參數6）>60；今日成交量>昨日成交量。母體：美股大型權值股。",
         "status": "active",
         "results": results,
     }
 
 
-# ---------- 選股條件三：拉回轉強 ----------
+# ---------- 選股條件三：多頭股B ----------
+
+def evaluate_bullish_b(symbol, name):
+    hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
+    if hist.empty or len(hist) < 110:
+        return None
+    close = hist["Close"]
+
+    ma30 = close.rolling(30).mean()
+    ma100 = close.rolling(100).mean()
+    if pd.isna(ma100.iloc[-6]):
+        return None
+
+    golden_cross = crossed_above(ma30, ma100)
+    ma100_rising = ma100.iloc[-1] > ma100.iloc[-6]
+
+    r = rsi(close, 6)
+    if pd.isna(r.iloc[-1]):
+        return None
+    rsi_ok = r.iloc[-1] > 30
+
+    if not (golden_cross and ma100_rising and rsi_ok):
+        return None
+
+    return {
+        "symbol": symbol,
+        "name": name,
+        "price": round(float(close.iloc[-1]), 2),
+        "changePercent": round(float(pct_change(close)), 2),
+        "badges": ["30MA黃金交叉100MA", "100MA上揚", "RSI6>30"],
+    }
+
+
+def build_bullish_b():
+    results = []
+    for symbol, name in US_LARGE_CAP_TICKERS.items():
+        try:
+            r = evaluate_bullish_b(symbol, name)
+            if r:
+                results.append(r)
+        except Exception as e:
+            print(f"[warn] {symbol}: {e}", file=sys.stderr)
+    results.sort(key=lambda r: r["changePercent"], reverse=True)
+    return {
+        "id": "bullish-b",
+        "name": "多頭股B",
+        "description": "日線30MA近期黃金交叉100MA，且100MA上揚；RSI指標（參數6）>30。母體：美股大型權值股。",
+        "status": "active",
+        "results": results,
+    }
+
+
+# ---------- 選股條件四：拉回轉強 ----------
 
 def evaluate_pullback_strength(symbol, name):
     hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
@@ -228,7 +290,7 @@ def evaluate_pullback_strength(symbol, name):
     r = rsi(close, 6)
     if pd.isna(r.iloc[-1]):
         return None
-    rsi_ok = r.iloc[-1] > 20
+    rsi_ok = r.iloc[-1] > 30
 
     if not (golden_cross and ma60_rising and rsi_ok):
         return None
@@ -238,7 +300,7 @@ def evaluate_pullback_strength(symbol, name):
         "name": name,
         "price": round(float(close.iloc[-1]), 2),
         "changePercent": round(float(pct_change(close)), 2),
-        "badges": ["收盤黃金交叉60MA", "60MA上揚", "RSI6>20"],
+        "badges": ["收盤黃金交叉60MA", "60MA上揚", "RSI6>30"],
     }
 
 
@@ -255,7 +317,64 @@ def build_pullback_strength():
     return {
         "id": "pullback-strength",
         "name": "拉回轉強",
-        "description": "日線收盤價近期黃金交叉60MA，且60MA上揚；RSI指標>20。母體：美股大型權值股。",
+        "description": "日線收盤價近期黃金交叉60MA，且60MA上揚；RSI指標（參數6）>30。母體：美股大型權值股。",
+        "status": "active",
+        "results": results,
+    }
+
+
+# ---------- 選股條件五：突破區間 ----------
+
+def evaluate_breakout_range(symbol, name):
+    hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
+    if hist.empty or len(hist) < 25:
+        return None
+    o, h, l, c = hist["Open"], hist["High"], hist["Low"], hist["Close"]
+
+    # 近20個交易日「不含今日」的高低區間，判斷是否為窄幅盤整
+    window_high = h.iloc[-21:-1]
+    window_low = l.iloc[-21:-1]
+    if len(window_high) < 20:
+        return None
+    range_high = window_high.max()
+    range_low = window_low.min()
+    if pd.isna(range_high) or pd.isna(range_low) or range_low <= 0:
+        return None
+    tight_range = range_high < range_low * 1.15
+
+    today_open = o.iloc[-1]
+    today_close = c.iloc[-1]
+    prev_high = h.iloc[-2]
+
+    gap_up = today_open > prev_high          # 跳空開高：今日開盤 > 昨日最高
+    red_candle = today_close > today_open      # 收紅K：收盤 > 開盤
+
+    if not (tight_range and gap_up and red_candle):
+        return None
+
+    return {
+        "symbol": symbol,
+        "name": name,
+        "price": round(float(today_close), 2),
+        "changePercent": round(float(pct_change(c)), 2),
+        "badges": ["20日區間<15%", "跳空開高", "收紅K"],
+    }
+
+
+def build_breakout_range():
+    results = []
+    for symbol, name in US_LARGE_CAP_TICKERS.items():
+        try:
+            r = evaluate_breakout_range(symbol, name)
+            if r:
+                results.append(r)
+        except Exception as e:
+            print(f"[warn] {symbol}: {e}", file=sys.stderr)
+    results.sort(key=lambda r: r["changePercent"], reverse=True)
+    return {
+        "id": "breakout-range",
+        "name": "突破區間",
+        "description": "近20個交易日（不含今日）最高價 < 最低價 × 1.15，屬窄幅盤整；今日開盤跳空開高（開盤 > 昨日最高）且收紅K（收盤 > 開盤），視為區間突破確認。母體：美股大型權值股。",
         "status": "active",
         "results": results,
     }
@@ -265,7 +384,9 @@ def main():
     condition_sets = [
         build_strength_a(),
         build_bullish_a(),
+        build_bullish_b(),
         build_pullback_strength(),
+        build_breakout_range(),
     ]
     out = {
         "updated": datetime.now(timezone.utc).isoformat(),

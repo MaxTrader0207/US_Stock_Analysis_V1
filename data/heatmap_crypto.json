@@ -1,0 +1,23 @@
+{
+  "updated": "2026-07-18T20:00:00Z",
+  "note": "範例資料，執行 scripts/fetch_heatmap.py 後會被覆蓋",
+  "sectors": [
+    { "name": "Major", "children": [
+      { "symbol": "BTC", "name": "Bitcoin", "price": 118000.0, "changePercent": 1.85, "marketCap": 2350 },
+      { "symbol": "ETH", "name": "Ethereum", "price": 4200.0, "changePercent": 2.40, "marketCap": 505 }
+    ] },
+    { "name": "Large Cap", "children": [
+      { "symbol": "BNB", "name": "BNB", "price": 720.0, "changePercent": 0.60, "marketCap": 105 },
+      { "symbol": "SOL", "name": "Solana", "price": 210.0, "changePercent": 3.30, "marketCap": 110 },
+      { "symbol": "XRP", "name": "XRP", "price": 2.9, "changePercent": -1.40, "marketCap": 168 },
+      { "symbol": "ADA", "name": "Cardano", "price": 0.95, "changePercent": -0.80, "marketCap": 34 }
+    ] },
+    { "name": "Mid Cap", "children": [
+      { "symbol": "DOGE", "name": "Dogecoin", "price": 0.28, "changePercent": 4.10, "marketCap": 42 },
+      { "symbol": "DOT", "name": "Polkadot", "price": 6.8, "changePercent": -0.50, "marketCap": 9 },
+      { "symbol": "AVAX", "name": "Avalanche", "price": 38.0, "changePercent": 1.75, "marketCap": 16 },
+      { "symbol": "LINK", "name": "Chainlink", "price": 24.0, "changePercent": 2.10, "marketCap": 15 },
+      { "symbol": "MATIC", "name": "Polygon", "price": 0.85, "changePercent": -1.10, "marketCap": 8 }
+    ] }
+  ]
+}

@@ -6,9 +6,22 @@
 
 | 頁籤 | 檔案 | 說明 |
 |---|---|---|
-| 1. 美股日場熱力圖 | `index.html` + `js/heatmap.js` | 仿 finviz.com/map 的 D3 squarified treemap，方塊大小＝市值，顏色＝漲跌幅 |
+| 1. 熱力圖 | `index.html` + `js/heatmap.js` | 仿 finviz.com/map 的 D3 squarified treemap，方塊大小＝市值（或成交量），顏色＝漲跌幅。頂部頁籤可切換 6 種市場 |
 | 2. 強勢股選股 | `screener.html` + `js/screener.js` | 多組選股條件（頁籤切換），已實作條件一，條件二、三為預留擴充 |
 | 3. 基本面選股（巴菲特選股法） | `fundamentals.html` | 目前為規劃草案頁，之後補上實際篩選邏輯 |
+
+### 熱力圖的 6 種市場（對應 finviz.com/map 的 t 參數）
+
+| finviz t 參數 | 顯示名稱 | 資料檔 |
+|---|---|---|
+| `sec_dji` | 道瓊 | `data/heatmap_dji.json` |
+| `sec_ndx` | 那斯達克100 | `data/heatmap_ndx.json` |
+| `sec` | S&P 500（預設） | `data/heatmap_sp500.json` |
+| `etf` | ETF | `data/heatmap_etf.json` |
+| `futures` | 期貨 | `data/heatmap_futures.json` |
+| `crypto` | 加密貨幣 | `data/heatmap_crypto.json` |
+
+`scripts/fetch_heatmap.py` 一次執行會產生全部 6 個 JSON。期貨、加密貨幣沒有市值概念，方塊大小改用成交量或固定權重。
 
 三個頁面各自獨立、共用 `css/style.css` 與底部 tabbar，方便日後單獨優化或擴充其中一頁而不影響其他頁。
 
@@ -46,4 +59,4 @@ python -m http.server 8000
 - [ ] `US_LARGE_CAP_TICKERS`（`scripts/fetch_screener.py`）目前是手動維護清單，建議之後改成自動抓取最新 S&P 500 / Nasdaq 100 成分股
 - [ ] 選股條件二、三：在 `fetch_screener.py` 的 `main()` 內比照 `build_condition_1()` 新增函式即可，前端不需改動
 - [ ] `fundamentals.html`：補上巴菲特式基本面篩選的實際抓取與計算邏輯（ROE、負債比、自由現金流等）
-- [ ] 熱力圖目前用精簡權值股清單，如需涵蓋完整 S&P 500，需另外取得成分股＋產業分類對照表
+- [ ] 道瓊（30檔，完整）、那斯達克100（47檔核心權值股，非完整100檔）已依你提供的清單核對；S&P 500 / ETF / 期貨 / 加密貨幣目前仍是精簡代表清單（`scripts/fetch_heatmap.py` 裡的 `*_GROUPS`），如需涵蓋完整成分股，需另外取得成分股＋分類對照表

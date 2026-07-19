@@ -1,20 +1,40 @@
 /* ============================================================
-   美股日場熱力圖 — D3 squarified treemap
-   資料來源：data/heatmap.json (由 scripts/fetch_heatmap.py 產生)
+   熱力圖 — D3 squarified treemap，支援 6 種市場切換
+   對應 finviz.com/map 的 6 個 t 參數：
+     sec_dji  道瓊工業平均
+     sec_ndx  那斯達克100
+     sec      S&P 500（全市場，依板塊分組）
+     etf      ETF
+     futures  期貨
+     crypto   加密貨幣
+   資料來源：data/heatmap_<id>.json (由 scripts/fetch_heatmap.py 產生)
    ============================================================ */
 (function () {
+  const MAPS = [
+    { id: "sec_dji", label: "道瓊", file: "data/heatmap_dji.json", title: "道瓊工業平均熱力圖" },
+    { id: "sec_ndx", label: "那斯達克100", file: "data/heatmap_ndx.json", title: "那斯達克100熱力圖" },
+    { id: "sec", label: "S&P 500", file: "data/heatmap_sp500.json", title: "S&P 500 熱力圖" },
+    { id: "etf", label: "ETF", file: "data/heatmap_etf.json", title: "ETF 熱力圖" },
+    { id: "futures", label: "期貨", file: "data/heatmap_futures.json", title: "期貨熱力圖" },
+    { id: "crypto", label: "加密貨幣", file: "data/heatmap_crypto.json", title: "加密貨幣熱力圖" },
+  ];
+
   const svg = d3.select("#treemap");
   const wrap = document.getElementById("heatmap-wrap");
   const sheet = document.getElementById("detail-sheet");
   const emptyEl = document.getElementById("empty");
   const updatedEl = document.getElementById("updated-meta");
+  const tabsEl = document.getElementById("map-tabs");
+  const titleEl = document.getElementById("map-title");
 
   let hideTimer = null;
+  let activeIdx = 2; // 預設 S&P 500
+  let currentData = null;
+  let resizeT = null;
 
   function colorForChange(pct) {
     const clamped = Math.max(-3, Math.min(3, pct));
     const t = (clamped + 3) / 6; // 0..1
-    // interpolate red -> neutral -> green through 3 stops
     const stops = [
       [255, 77, 106],   // red
       [58, 65, 80],      // neutral
@@ -30,7 +50,6 @@
   }
 
   function textColorFor(pct) {
-    // near-neutral cells get light text for legibility
     return Math.abs(pct) < 0.8 ? "#dbe2ec" : "#0a0e14";
   }
 
@@ -65,7 +84,6 @@
       .paddingInner(2)
       .round(true)(root);
 
-    // sector group labels
     const sectors = svg.selectAll("g.sector")
       .data(root.children)
       .join("g")
@@ -117,25 +135,53 @@
 
   function formatUpdated(iso) {
     try {
-      const d = new Date(iso);
-      return "更新於 " + d.toLocaleString("zh-TW", { hour12: false });
+      return "更新於 " + new Date(iso).toLocaleString("zh-TW", { hour12: false });
     } catch (e) { return ""; }
   }
 
-  fetch("data/heatmap.json", { cache: "no-store" })
-    .then(r => { if (!r.ok) throw new Error("no data"); return r.json(); })
-    .then(data => {
-      if (!data.sectors || !data.sectors.length) throw new Error("empty");
-      updatedEl.textContent = formatUpdated(data.updated);
-      render(data);
-      let resizeT;
-      window.addEventListener("resize", () => {
-        clearTimeout(resizeT);
-        resizeT = setTimeout(() => render(data), 150);
+  function renderTabs() {
+    tabsEl.innerHTML = "";
+    MAPS.forEach((m, i) => {
+      const el = document.createElement("div");
+      el.className = "pill" + (i === activeIdx ? " active" : "");
+      el.textContent = m.label;
+      el.addEventListener("click", () => {
+        if (i === activeIdx) return;
+        activeIdx = i;
+        renderTabs();
+        loadMap();
       });
-    })
-    .catch(() => {
-      updatedEl.textContent = "";
-      emptyEl.style.display = "block";
+      tabsEl.appendChild(el);
     });
+  }
+
+  function loadMap() {
+    const m = MAPS[activeIdx];
+    titleEl.textContent = m.title;
+    emptyEl.style.display = "none";
+    updatedEl.textContent = "載入中…";
+    svg.selectAll("*").remove();
+    currentData = null;
+
+    fetch(m.file, { cache: "no-store" })
+      .then(r => { if (!r.ok) throw new Error("no data"); return r.json(); })
+      .then(data => {
+        if (!data.sectors || !data.sectors.length) throw new Error("empty");
+        currentData = data;
+        updatedEl.textContent = formatUpdated(data.updated);
+        render(data);
+      })
+      .catch(() => {
+        updatedEl.textContent = "";
+        emptyEl.style.display = "block";
+      });
+  }
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => { if (currentData) render(currentData); }, 150);
+  });
+
+  renderTabs();
+  loadMap();
 })();

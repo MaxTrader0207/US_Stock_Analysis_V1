@@ -51,15 +51,20 @@ body{
   background: linear-gradient(180deg, var(--bg) 70%, rgba(10,14,20,0.85));
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
-  display:flex; align-items:baseline; justify-content:space-between; gap:8px;
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
 }
 .app-header h1{
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.2px;
   margin:0;
-  display:flex; align-items:center; gap:8px;
+  display:flex; align-items:center; gap:6px;
+  min-width:0;
+  flex:1 1 auto;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 .app-header h1 .dot{
   width:7px; height:7px; border-radius:50%;
@@ -71,6 +76,7 @@ body{
 @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.35} }
 .app-header .meta{
   font-family: var(--font-mono);
+  flex-shrink:0;
   font-size: 11px;
   color: var(--text-dim);
   white-space:nowrap;

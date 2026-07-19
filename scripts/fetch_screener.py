@@ -15,7 +15,7 @@
 【多頭股A】
   1. 日線 10MA 黃金交叉 30MA（近5個交易日內發生交叉，且目前 10MA > 30MA）
   2. 30MA 呈上揚
-  3. RSI 指標（參數6） > 60
+  3. RSI 指標（參數6） > 50
   4. 今日成交量 > 昨日成交量
 
 【拉回轉強】
@@ -175,7 +175,7 @@ def evaluate_bullish_a(symbol, name):
     r = rsi(close, 6)
     if pd.isna(r.iloc[-1]):
         return None
-    rsi_strong = r.iloc[-1] > 60
+    rsi_strong = r.iloc[-1] > 50
 
     volume_up = len(volume) > 1 and volume.iloc[-1] > volume.iloc[-2]
 
@@ -187,7 +187,7 @@ def evaluate_bullish_a(symbol, name):
         "name": name,
         "price": round(float(close.iloc[-1]), 2),
         "changePercent": round(float(pct_change(close)), 2),
-        "badges": ["10MA黃金交叉30MA", "30MA上揚", "RSI6>60", "量增"],
+        "badges": ["10MA黃金交叉30MA", "30MA上揚", "RSI6>50", "量增"],
     }
 
 
@@ -204,7 +204,7 @@ def build_bullish_a():
     return {
         "id": "bullish-a",
         "name": "多頭股A",
-        "description": "日線10MA近期黃金交叉30MA，且30MA上揚；RSI指標（參數6）>60；今日成交量>昨日成交量。母體：美股大型權值股。",
+        "description": "日線10MA近期黃金交叉30MA，且30MA上揚；RSI指標>50；今日成交量>昨日成交量。母體：美股大型權值股。",
         "status": "active",
         "results": results,
     }
@@ -228,7 +228,7 @@ def evaluate_pullback_strength(symbol, name):
     r = rsi(close, 6)
     if pd.isna(r.iloc[-1]):
         return None
-    rsi_ok = r.iloc[-1] > 30
+    rsi_ok = r.iloc[-1] > 20
 
     if not (golden_cross and ma60_rising and rsi_ok):
         return None
@@ -238,7 +238,7 @@ def evaluate_pullback_strength(symbol, name):
         "name": name,
         "price": round(float(close.iloc[-1]), 2),
         "changePercent": round(float(pct_change(close)), 2),
-        "badges": ["收盤黃金交叉60MA", "60MA上揚", "RSI6>30"],
+        "badges": ["收盤黃金交叉60MA", "60MA上揚", "RSI6>20"],
     }
 
 
@@ -255,7 +255,7 @@ def build_pullback_strength():
     return {
         "id": "pullback-strength",
         "name": "拉回轉強",
-        "description": "日線收盤價近期黃金交叉60MA，且60MA上揚；RSI指標（參數6）>30。母體：美股大型權值股。",
+        "description": "日線收盤價近期黃金交叉60MA，且60MA上揚；RSI指標>20。母體：美股大型權值股。",
         "status": "active",
         "results": results,
     }

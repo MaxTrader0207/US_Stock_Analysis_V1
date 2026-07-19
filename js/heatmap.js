@@ -150,12 +150,19 @@
       }
 
       // 方案二：格子矮但不算窄（常見於同一列擠了很多格子時），
-      // 改成同一行顯示「代號 漲跌幅」，寧可字小一點也要讓漲跌幅露出來
-      const combined = symbol + " " + pctText;
-      const oneLineSize = Math.max(6, Math.min(11, (w - 4) / (combined.length * 0.58), h - 4));
-      if (oneLineSize >= 6 && w >= 30) {
+      // 改成同一行顯示「代號 漲跌幅」，寧可字小一點也要讓漲跌幅露出來。
+      // 空間真的很緊時，漲跌幅先降成 1 位小數，省字元換取塞進去的機會。
+      const pctTextShort = (pct >= 0 ? "+" : "") + pct.toFixed(1) + "%";
+      let combined = symbol + " " + pctText;
+      let oneLineSize = Math.max(5.5, Math.min(11, (w - 4) / (combined.length * 0.58), h - 3));
+      if (oneLineSize < 6.2) {
+        // 完整兩位小數塞不太下，改用縮短版再試一次
+        combined = symbol + " " + pctTextShort;
+        oneLineSize = Math.max(5.5, Math.min(11, (w - 4) / (combined.length * 0.58), h - 3));
+      }
+      if (oneLineSize >= 5.5 && w >= 20 && h >= 10) {
         g.append("text")
-          .attr("x", 4).attr("y", Math.min(h - 3, oneLineSize + 2))
+          .attr("x", 3).attr("y", Math.min(h - 2, oneLineSize + 1))
           .attr("font-size", oneLineSize).attr("fill", fill)
           .text(combined);
         return;

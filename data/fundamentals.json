@@ -1,0 +1,45 @@
+{
+  "updated": "2026-07-18T14:00:00Z",
+  "note": "這是範例資料，請透過 scripts/fetch_fundamentals.py + GitHub Actions 產生即時資料後覆蓋此檔案",
+  "masterSets": [
+    {
+      "id": "buffett",
+      "name": "巴菲特",
+      "description": "近5年平均ROE>15%；最新年度毛利率>40%；負債權益比<50%；連續5年自由現金流>0；本益比<15或低於其5年均值。母體：美股大型權值股。（yfinance財報年限所限，實際檢核年數可能少於5年，詳見各標的badge標註）",
+      "status": "active",
+      "results": [
+        { "symbol": "AAPL", "name": "Apple", "price": 231.4, "changePercent": 1.32, "badges": ["近4年均ROE 32.5%", "毛利率 46.2%", "負債權益比 38%", "FCF連4年為正", "本益比低於5年均值"] },
+        { "symbol": "MA", "name": "Mastercard", "price": 545.2, "changePercent": -0.28, "badges": ["近4年均ROE 68.1%", "毛利率 55.0%", "負債權益比 41%", "FCF連4年為正", "本益比低於5年均值"] },
+        { "symbol": "MSFT", "name": "Microsoft", "price": 512.8, "changePercent": 0.85, "badges": ["近4年均ROE 38.9%", "毛利率 68.9%", "負債權益比 22%", "FCF連4年為正", "本益比低於5年均值"] }
+      ]
+    },
+    {
+      "id": "master-2",
+      "name": "大師二",
+      "description": "選股條件規劃中，待補充後上線。",
+      "status": "coming-soon",
+      "results": []
+    },
+    {
+      "id": "master-3",
+      "name": "大師三",
+      "description": "選股條件規劃中，待補充後上線。",
+      "status": "coming-soon",
+      "results": []
+    },
+    {
+      "id": "master-4",
+      "name": "大師四",
+      "description": "選股條件規劃中，待補充後上線。",
+      "status": "coming-soon",
+      "results": []
+    },
+    {
+      "id": "master-5",
+      "name": "大師五",
+      "description": "選股條件規劃中，待補充後上線。",
+      "status": "coming-soon",
+      "results": []
+    }
+  ]
+}

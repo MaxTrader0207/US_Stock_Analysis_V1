@@ -100,22 +100,39 @@ MAPS = [
 
 
 def fetch_group(name, tickers):
+    """
+    抓取單一分組的報價。改用 history() 抓最近幾個交易日的收盤價來算漲跌幅，
+    而不是用 fast_info 的 last_price / previous_close ——
+    fast_info 在非交易時段（例如週末、假日剛跑排程時）容易把兩者算成同一天，
+    導致漲跌幅全部顯示 0%。用 history() 抓「最近兩個真正有成交的交易日」比較穩。
+    """
     children = []
-    data = yf.Tickers(" ".join(tickers))
     for t in tickers:
         try:
-            info = data.tickers[t].fast_info
-            price = float(info.get("last_price") or 0)
-            prev_close = float(info.get("previous_close") or 0)
+            tk = yf.Ticker(t)
+            hist = tk.history(period="5d", interval="1d", auto_adjust=True)
+            if hist.empty:
+                print(f"[warn] {t}: no history data", file=sys.stderr)
+                continue
+            closes = hist["Close"].dropna()
+            if len(closes) < 1:
+                continue
+            price = float(closes.iloc[-1])
+            prev_close = float(closes.iloc[-2]) if len(closes) >= 2 else price
             chg_pct = ((price - prev_close) / prev_close * 100) if prev_close else 0
 
-            market_cap = info.get("market_cap")
-            if market_cap:
-                size = float(market_cap) / 1e9  # billions
-            else:
-                # 期貨 / 部分商品沒有市值，退而求其次用成交量或固定權重
-                volume = info.get("last_volume") or info.get("regular_market_volume") or 0
-                size = float(volume) / 1e6 if volume else 1.0
+            # 市值優先用 fast_info；期貨/部分商品沒有市值，退而求其次用成交量
+            size = 1.0
+            try:
+                info = tk.fast_info
+                market_cap = info.get("market_cap")
+                if market_cap:
+                    size = float(market_cap) / 1e9  # billions
+                else:
+                    volume = float(hist["Volume"].dropna().iloc[-1]) if "Volume" in hist else 0
+                    size = volume / 1e6 if volume else 1.0
+            except Exception:
+                pass
 
             symbol_display = t.replace("=F", "").replace("-USD", "")
             children.append({

@@ -72,7 +72,7 @@
     // 統計總格數，動態拉高畫布高度，確保平均每格有足夠空間顯示文字
     // （手機寬度有限，格數一多、市值差距一大，固定高度會讓小市值標的擠成無文字色塊）
     const leafCount = (data.sectors || []).reduce((n, s) => n + (s.children ? s.children.length : 0), 0);
-    const minCellArea = 2200; // 約可容納「代號 + 漲跌幅」兩行文字的最小格子面積
+    const minCellArea = 3200; // 進一步拉高，讓格子有更充裕的空間排下兩行文字
     const areaBasedHeight = Math.ceil((leafCount * minCellArea) / Math.max(width, 1));
     const baseHeight = Math.max(420, Math.round(window.innerHeight * 0.62));
     const height = Math.max(baseHeight, areaBasedHeight);
@@ -80,11 +80,13 @@
     svg.attr("viewBox", `0 0 ${width} ${height}`).attr("width", width).attr("height", height);
     svg.selectAll("*").remove();
 
-    // 用平方根壓縮市值差異：像加密貨幣這種頭部標的（BTC/ETH）市值是長尾標的的數百倍，
-    // 直接按市值分配面積會讓長尾標的完全擠不出可顯示文字的空間；開根號後大小差距會
-    // 大幅收斂，讓每個標的至少保有可辨識的區塊，同時仍保留「越大市值方塊越大」的排序感。
+    // 壓縮市值/成交量差異：原本用平方根（0.5次方）壓縮，但像期貨這種
+    // 「能源成交量遠大於金屬」的狀況，即使開根號後 Metals 整個板塊
+    // 相對其他板塊還是太小、手機上顯示區塊被擠得很侷促。改用更強的
+    // 0.35 次方壓縮，讓板塊之間的面積差距進一步收斂，小板塊也能有
+    // 足夠大的顯示區域，同時仍保留「數值越大方塊越大」的相對關係。
     const root = d3.hierarchy({ name: "root", children: data.sectors })
-      .sum(d => Math.sqrt(Math.max(d.marketCap || d.value || 1, 0.01)))
+      .sum(d => Math.pow(Math.max(d.marketCap || d.value || 1, 0.01), 0.35))
       .sort((a, b) => b.value - a.value);
 
     d3.treemap()
@@ -126,7 +128,7 @@
       const w = d.x1 - d.x0, h = d.y1 - d.y0;
       const g = d3.select(this);
       const fill = textColorFor(d.data.changePercent || 0);
-      if (w < 14 || h < 10) return; // 小到連一個字都放不下才整格留白
+      if (w < 12 || h < 9) return; // 小到連一個字都放不下才整格留白
 
       const symbol = d.data.symbol || "";
       const pct = d.data.changePercent || 0;
@@ -134,16 +136,16 @@
       const symLen = Math.max(2, symbol.length);
 
       // 方案一：格子夠高，代號跟漲跌幅分兩行顯示（原本的排版，字比較大、最好讀）
-      const twoLineSymSize = Math.max(6.5, Math.min(13, (w - 4) / (symLen * 0.62), h / 2.6));
-      const twoLineNeedH = twoLineSymSize * 2 + 10;
-      if (h >= twoLineNeedH && w >= 22) {
-        const pctSize = Math.max(6.5, Math.min(11, w / 6, twoLineSymSize - 1));
+      const twoLineSymSize = Math.max(6.2, Math.min(13, (w - 4) / (symLen * 0.62), h / 2.5));
+      const twoLineNeedH = twoLineSymSize * 2 + 7;
+      if (h >= twoLineNeedH && w >= 20) {
+        const pctSize = Math.max(6.2, Math.min(11, w / 6, twoLineSymSize - 0.5));
         g.append("text").attr("class", "sym")
           .attr("x", 4).attr("y", twoLineSymSize + 2)
           .attr("font-size", twoLineSymSize).attr("fill", fill)
           .text(symbol);
         g.append("text")
-          .attr("x", 4).attr("y", twoLineSymSize + pctSize + 6)
+          .attr("x", 4).attr("y", twoLineSymSize + pctSize + 5)
           .attr("font-size", pctSize).attr("fill", fill)
           .text(pctText);
         return;
@@ -154,25 +156,25 @@
       // 空間真的很緊時，漲跌幅先降成 1 位小數，省字元換取塞進去的機會。
       const pctTextShort = (pct >= 0 ? "+" : "") + pct.toFixed(1) + "%";
       let combined = symbol + " " + pctText;
-      let oneLineSize = Math.max(5.5, Math.min(11, (w - 4) / (combined.length * 0.58), h - 3));
-      if (oneLineSize < 6.2) {
+      let oneLineSize = Math.max(5.2, Math.min(11, (w - 3) / (combined.length * 0.56), h - 2));
+      if (oneLineSize < 6) {
         // 完整兩位小數塞不太下，改用縮短版再試一次
         combined = symbol + " " + pctTextShort;
-        oneLineSize = Math.max(5.5, Math.min(11, (w - 4) / (combined.length * 0.58), h - 3));
+        oneLineSize = Math.max(5.2, Math.min(11, (w - 3) / (combined.length * 0.56), h - 2));
       }
-      if (oneLineSize >= 5.5 && w >= 20 && h >= 10) {
+      if (oneLineSize >= 5.2 && w >= 16 && h >= 9) {
         g.append("text")
-          .attr("x", 3).attr("y", Math.min(h - 2, oneLineSize + 1))
+          .attr("x", 2).attr("y", Math.min(h - 2, oneLineSize + 1))
           .attr("font-size", oneLineSize).attr("fill", fill)
           .text(combined);
         return;
       }
 
       // 方案三：真的太小，只放代號（不縮寫、不加漲跌幅）
-      const symOnlySize = Math.max(5.5, Math.min(11, (w - 3) / (symLen * 0.6), h - 3));
-      if (symOnlySize >= 5.5) {
+      const symOnlySize = Math.max(5, Math.min(11, (w - 2) / (symLen * 0.58), h - 2));
+      if (symOnlySize >= 5) {
         g.append("text")
-          .attr("x", 3).attr("y", Math.min(h - 3, symOnlySize + 1))
+          .attr("x", 2).attr("y", Math.min(h - 2, symOnlySize + 1))
           .attr("font-size", symOnlySize).attr("fill", fill)
           .text(symbol);
       }

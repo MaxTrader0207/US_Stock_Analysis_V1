@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """
-抓取美股大型權值股日線／週線資料，計算技術指標並輸出 data/screener.json。
+抓取股票日線／週線資料，計算技術指標並輸出 data/screener.json。
 用法：python scripts/fetch_screener.py
 需求：pip install yfinance pandas
 
-5組選股條件：
+選股母體：scripts/tickers.py 裡的 SCREENER_UNIVERSE
+（道瓊工業平均 + S&P 500精簡清單 + 那斯達克100核心清單 + 費城半導體指數，去重合併）
+
+五組選股條件：
 
 【強勢股A】
   1. 日線收盤價 > 日線 30MA
@@ -40,9 +43,12 @@ N 可透過 CROSS_LOOKBACK 調整。
 RSI 採用 Wilder's 平滑法（三竹股市、XQ全球贏家等台灣主流看盤軟體的標準算法），
 細節見 rsi() 函式內註解。
 
-前端 screener.html / screener.js 是資料驅動的，之後如果要再新增第4組選股條件，
-只要在 main() 裡比照 build_condition_2() 新增一個函式、加進 condition_sets 陣列即可，
-不需要修改前端。
+效能設計：每檔股票的歷史資料只抓一次（1年日線），5組條件共用同一份資料再各自判斷，
+不會每組條件都重新打一次 API——選股母體變大之後這點特別重要，避免 API 呼叫量倍增。
+
+前端 screener.html / screener.js 是資料驅動的，之後如果要再新增第6組選股條件，
+只要在 evaluate_all_conditions() 裡比照既有寫法新增一段判斷、在 main() 的
+condition_meta 裡加一筆設定即可，不需要修改前端。
 """
 import json
 import sys
@@ -51,21 +57,7 @@ from datetime import datetime, timezone
 import pandas as pd
 import yfinance as yf
 
-# TODO: 可依需求增減成分股，或改為自動抓取 S&P 500 / Nasdaq 100 成分股清單
-US_LARGE_CAP_TICKERS = {
-    "AAPL": "Apple", "MSFT": "Microsoft", "NVDA": "NVIDIA", "GOOGL": "Alphabet",
-    "AMZN": "Amazon", "META": "Meta Platforms", "TSLA": "Tesla", "AVGO": "Broadcom",
-    "BRK-B": "Berkshire Hathaway", "JPM": "JPMorgan Chase", "V": "Visa", "MA": "Mastercard",
-    "LLY": "Eli Lilly", "UNH": "UnitedHealth", "JNJ": "Johnson & Johnson", "XOM": "Exxon Mobil",
-    "CVX": "Chevron", "HD": "Home Depot", "PG": "Procter & Gamble", "COST": "Costco",
-    "ORCL": "Oracle", "ABBV": "AbbVie", "MRK": "Merck", "KO": "Coca-Cola", "PEP": "PepsiCo",
-    "ADBE": "Adobe", "CRM": "Salesforce", "NFLX": "Netflix", "AMD": "AMD", "CSCO": "Cisco",
-    "TMO": "Thermo Fisher", "MCD": "McDonald's", "ABT": "Abbott Labs", "WMT": "Walmart",
-    "BAC": "Bank of America", "PFE": "Pfizer", "DIS": "Disney", "NKE": "Nike",
-    "TMUS": "T-Mobile", "CAT": "Caterpillar", "GE": "GE Aerospace", "IBM": "IBM",
-    "QCOM": "Qualcomm", "TXN": "Texas Instruments", "INTC": "Intel", "NOW": "ServiceNow",
-    "AMAT": "Applied Materials", "INTU": "Intuit", "BA": "Boeing", "HON": "Honeywell",
-}
+from tickers import SCREENER_UNIVERSE
 
 CROSS_LOOKBACK = 5  # 判定「近期黃金交叉」回看的交易日數
 
@@ -111,14 +103,20 @@ def pct_change(close):
     return (close.iloc[-1] - prev_close) / prev_close * 100 if prev_close else 0
 
 
-# ---------- 選股條件一：強勢股A ----------
+def base_result(symbol, name, close):
+    return {
+        "symbol": symbol,
+        "name": name,
+        "price": round(float(close.iloc[-1]), 2),
+        "changePercent": round(float(pct_change(close)), 2),
+    }
 
-def evaluate_strength_a(symbol, name):
-    hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
-    if hist.empty or len(hist) < 60:
+
+# ---------- 對同一份 hist 資料，依序判斷 5 組條件 ----------
+
+def check_strength_a(close):
+    if len(close) < 60:
         return None
-    close = hist["Close"]
-
     ma30 = close.rolling(30).mean()
     if pd.isna(ma30.iloc[-1]) or pd.isna(ma30.iloc[-6]):
         return None
@@ -134,46 +132,14 @@ def evaluate_strength_a(symbol, name):
     _, _, osc_w = macd(weekly_close)
     macd_weekly_red = osc_w.iloc[-1] > 0
 
-    if not (above_ma30 and ma30_rising and macd_daily_positive and macd_weekly_red):
+    if above_ma30 and ma30_rising and macd_daily_positive and macd_weekly_red:
+        return ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"]
+    return None
+
+
+def check_bullish_a(close, volume):
+    if len(close) < 40:
         return None
-
-    return {
-        "symbol": symbol,
-        "name": name,
-        "price": round(float(close.iloc[-1]), 2),
-        "changePercent": round(float(pct_change(close)), 2),
-        "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"],
-    }
-
-
-def build_strength_a():
-    results = []
-    for symbol, name in US_LARGE_CAP_TICKERS.items():
-        try:
-            r = evaluate_strength_a(symbol, name)
-            if r:
-                results.append(r)
-        except Exception as e:
-            print(f"[warn] {symbol}: {e}", file=sys.stderr)
-    results.sort(key=lambda r: r["changePercent"], reverse=True)
-    return {
-        "id": "strength-a",
-        "name": "強勢股A",
-        "description": "日線收盤價 > 日線30MA，且30MA上揚；日線MACD在0軸之上；週線MACD柱狀體翻紅（多頭動能）。母體：美股大型權值股。",
-        "status": "active",
-        "results": results,
-    }
-
-
-# ---------- 選股條件二：多頭股A ----------
-
-def evaluate_bullish_a(symbol, name):
-    hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
-    if hist.empty or len(hist) < 40:
-        return None
-    close = hist["Close"]
-    volume = hist["Volume"]
-
     ma10 = close.rolling(10).mean()
     ma30 = close.rolling(30).mean()
     if pd.isna(ma30.iloc[-6]):
@@ -186,48 +152,16 @@ def evaluate_bullish_a(symbol, name):
     if pd.isna(r.iloc[-1]):
         return None
     rsi_strong = r.iloc[-1] > 60
-
     volume_up = len(volume) > 1 and volume.iloc[-1] > volume.iloc[-2]
 
-    if not (golden_cross and ma30_rising and rsi_strong and volume_up):
+    if golden_cross and ma30_rising and rsi_strong and volume_up:
+        return ["10MA黃金交叉30MA", "30MA上揚", "RSI6>60", "量增"]
+    return None
+
+
+def check_bullish_b(close):
+    if len(close) < 110:
         return None
-
-    return {
-        "symbol": symbol,
-        "name": name,
-        "price": round(float(close.iloc[-1]), 2),
-        "changePercent": round(float(pct_change(close)), 2),
-        "badges": ["10MA黃金交叉30MA", "30MA上揚", "RSI6>60", "量增"],
-    }
-
-
-def build_bullish_a():
-    results = []
-    for symbol, name in US_LARGE_CAP_TICKERS.items():
-        try:
-            r = evaluate_bullish_a(symbol, name)
-            if r:
-                results.append(r)
-        except Exception as e:
-            print(f"[warn] {symbol}: {e}", file=sys.stderr)
-    results.sort(key=lambda r: r["changePercent"], reverse=True)
-    return {
-        "id": "bullish-a",
-        "name": "多頭股A",
-        "description": "日線10MA近期黃金交叉30MA，且30MA上揚；RSI指標（參數6）>60；今日成交量>昨日成交量。母體：美股大型權值股。",
-        "status": "active",
-        "results": results,
-    }
-
-
-# ---------- 選股條件三：多頭股B ----------
-
-def evaluate_bullish_b(symbol, name):
-    hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
-    if hist.empty or len(hist) < 110:
-        return None
-    close = hist["Close"]
-
     ma30 = close.rolling(30).mean()
     ma100 = close.rolling(100).mean()
     if pd.isna(ma100.iloc[-6]):
@@ -241,45 +175,14 @@ def evaluate_bullish_b(symbol, name):
         return None
     rsi_ok = r.iloc[-1] > 30
 
-    if not (golden_cross and ma100_rising and rsi_ok):
+    if golden_cross and ma100_rising and rsi_ok:
+        return ["30MA黃金交叉100MA", "100MA上揚", "RSI6>30"]
+    return None
+
+
+def check_pullback_strength(close):
+    if len(close) < 70:
         return None
-
-    return {
-        "symbol": symbol,
-        "name": name,
-        "price": round(float(close.iloc[-1]), 2),
-        "changePercent": round(float(pct_change(close)), 2),
-        "badges": ["30MA黃金交叉100MA", "100MA上揚", "RSI6>30"],
-    }
-
-
-def build_bullish_b():
-    results = []
-    for symbol, name in US_LARGE_CAP_TICKERS.items():
-        try:
-            r = evaluate_bullish_b(symbol, name)
-            if r:
-                results.append(r)
-        except Exception as e:
-            print(f"[warn] {symbol}: {e}", file=sys.stderr)
-    results.sort(key=lambda r: r["changePercent"], reverse=True)
-    return {
-        "id": "bullish-b",
-        "name": "多頭股B",
-        "description": "日線30MA近期黃金交叉100MA，且100MA上揚；RSI指標>30。母體：美股大型權值股。",
-        "status": "active",
-        "results": results,
-    }
-
-
-# ---------- 選股條件四：拉回轉強 ----------
-
-def evaluate_pullback_strength(symbol, name):
-    hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
-    if hist.empty or len(hist) < 70:
-        return None
-    close = hist["Close"]
-
     ma60 = close.rolling(60).mean()
     if pd.isna(ma60.iloc[-6]):
         return None
@@ -292,46 +195,14 @@ def evaluate_pullback_strength(symbol, name):
         return None
     rsi_ok = r.iloc[-1] > 30
 
-    if not (golden_cross and ma60_rising and rsi_ok):
+    if golden_cross and ma60_rising and rsi_ok:
+        return ["收盤黃金交叉60MA", "60MA上揚", "RSI6>30"]
+    return None
+
+
+def check_breakout_range(o, h, l, c):
+    if len(c) < 25:
         return None
-
-    return {
-        "symbol": symbol,
-        "name": name,
-        "price": round(float(close.iloc[-1]), 2),
-        "changePercent": round(float(pct_change(close)), 2),
-        "badges": ["收盤黃金交叉60MA", "60MA上揚", "RSI6>30"],
-    }
-
-
-def build_pullback_strength():
-    results = []
-    for symbol, name in US_LARGE_CAP_TICKERS.items():
-        try:
-            r = evaluate_pullback_strength(symbol, name)
-            if r:
-                results.append(r)
-        except Exception as e:
-            print(f"[warn] {symbol}: {e}", file=sys.stderr)
-    results.sort(key=lambda r: r["changePercent"], reverse=True)
-    return {
-        "id": "pullback-strength",
-        "name": "拉回轉強",
-        "description": "日線收盤價近期黃金交叉60MA，且60MA上揚；RSI指標>30。母體：美股大型權值股。",
-        "status": "active",
-        "results": results,
-    }
-
-
-# ---------- 選股條件五：突破區間 ----------
-
-def evaluate_breakout_range(symbol, name):
-    hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
-    if hist.empty or len(hist) < 25:
-        return None
-    o, h, l, c = hist["Open"], hist["High"], hist["Low"], hist["Close"]
-
-    # 近20個交易日「不含今日」的高低區間，判斷是否為窄幅盤整
     window_high = h.iloc[-21:-1]
     window_low = l.iloc[-21:-1]
     if len(window_high) < 20:
@@ -345,49 +216,83 @@ def evaluate_breakout_range(symbol, name):
     today_open = o.iloc[-1]
     today_close = c.iloc[-1]
     prev_high = h.iloc[-2]
+    gap_up = today_open > prev_high
+    red_candle = today_close > today_open
 
-    gap_up = today_open > prev_high          # 跳空開高：今日開盤 > 昨日最高
-    red_candle = today_close > today_open      # 收紅K：收盤 > 開盤
-
-    if not (tight_range and gap_up and red_candle):
-        return None
-
-    return {
-        "symbol": symbol,
-        "name": name,
-        "price": round(float(today_close), 2),
-        "changePercent": round(float(pct_change(c)), 2),
-        "badges": ["20日區間<15%", "跳空開高", "收紅K"],
-    }
+    if tight_range and gap_up and red_candle:
+        return ["20日區間<15%", "跳空開高", "收紅K"]
+    return None
 
 
-def build_breakout_range():
-    results = []
-    for symbol, name in US_LARGE_CAP_TICKERS.items():
-        try:
-            r = evaluate_breakout_range(symbol, name)
-            if r:
-                results.append(r)
-        except Exception as e:
-            print(f"[warn] {symbol}: {e}", file=sys.stderr)
-    results.sort(key=lambda r: r["changePercent"], reverse=True)
-    return {
-        "id": "breakout-range",
+CONDITION_CHECKS = {
+    "strength-a": lambda hist: check_strength_a(hist["Close"]),
+    "bullish-a": lambda hist: check_bullish_a(hist["Close"], hist["Volume"]),
+    "bullish-b": lambda hist: check_bullish_b(hist["Close"]),
+    "pullback-strength": lambda hist: check_pullback_strength(hist["Close"]),
+    "breakout-range": lambda hist: check_breakout_range(hist["Open"], hist["High"], hist["Low"], hist["Close"]),
+}
+
+CONDITION_META = {
+    "strength-a": {
+        "name": "強勢股A",
+        "description": "日線收盤價 > 日線30MA，且30MA上揚；日線MACD在0軸之上；週線MACD柱狀體翻紅（多頭動能）。",
+    },
+    "bullish-a": {
+        "name": "多頭股A",
+        "description": "日線10MA近期黃金交叉30MA，且30MA上揚；RSI指標（參數6）>60；今日成交量>昨日成交量。",
+    },
+    "bullish-b": {
+        "name": "多頭股B",
+        "description": "日線30MA近期黃金交叉100MA，且100MA上揚；RSI指標（參數6）>30。",
+    },
+    "pullback-strength": {
+        "name": "拉回轉強",
+        "description": "日線收盤價近期黃金交叉60MA，且60MA上揚；RSI指標（參數6）>30。",
+    },
+    "breakout-range": {
         "name": "突破區間",
-        "description": "近20個交易日，高低區間振福<15%；今日開盤跳空開高收紅K，視為區間突破確認。母體：美股大型權值股。",
-        "status": "active",
-        "results": results,
-    }
+        "description": "近20個交易日（不含今日）最高價 < 最低價 × 1.15，屬窄幅盤整；今日開盤跳空開高（開盤 > 昨日最高）且收紅K（收盤 > 開盤），視為區間突破確認。",
+    },
+}
+
+UNIVERSE_NOTE = "母體：道瓊工業平均 + S&P 500精簡清單 + 那斯達克100核心清單 + 費城半導體指數(SOX)，去重合併共102檔。"
 
 
 def main():
-    condition_sets = [
-        build_strength_a(),
-        build_bullish_a(),
-        build_bullish_b(),
-        build_pullback_strength(),
-        build_breakout_range(),
-    ]
+    results_by_condition = {cid: [] for cid in CONDITION_CHECKS}
+
+    for symbol, name in SCREENER_UNIVERSE.items():
+        try:
+            hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
+            if hist.empty:
+                print(f"[warn] {symbol}: no history data", file=sys.stderr)
+                continue
+            close = hist["Close"]
+
+            for cid, check_fn in CONDITION_CHECKS.items():
+                try:
+                    badges = check_fn(hist)
+                except Exception as e:
+                    print(f"[warn] {symbol} [{cid}]: {e}", file=sys.stderr)
+                    continue
+                if badges:
+                    entry = base_result(symbol, name, close)
+                    entry["badges"] = badges
+                    results_by_condition[cid].append(entry)
+        except Exception as e:
+            print(f"[warn] {symbol}: {e}", file=sys.stderr)
+
+    condition_sets = []
+    for cid, meta in CONDITION_META.items():
+        results = sorted(results_by_condition[cid], key=lambda r: r["changePercent"], reverse=True)
+        condition_sets.append({
+            "id": cid,
+            "name": meta["name"],
+            "description": meta["description"] + UNIVERSE_NOTE,
+            "status": "active",
+            "results": results,
+        })
+
     out = {
         "updated": datetime.now(timezone.utc).isoformat(),
         "conditionSets": condition_sets,

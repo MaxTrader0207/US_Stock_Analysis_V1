@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-抓取美股大型權值股的基本面資料，依「傳奇投資大師」的量化選股條件篩選，
+抓取股票的基本面資料，依「傳奇投資大師」的量化選股條件篩選，
 輸出 data/fundamentals.json 供前端「基本面選股」頁籤使用。
 
 用法：python scripts/fetch_fundamentals.py
@@ -34,21 +34,9 @@ from datetime import datetime, timezone
 import pandas as pd
 import yfinance as yf
 
-# 母體跟另外兩個選股頁共用同一批美股大型權值股
-US_LARGE_CAP_TICKERS = {
-    "AAPL": "Apple", "MSFT": "Microsoft", "NVDA": "NVIDIA", "GOOGL": "Alphabet",
-    "AMZN": "Amazon", "META": "Meta Platforms", "TSLA": "Tesla", "AVGO": "Broadcom",
-    "BRK-B": "Berkshire Hathaway", "JPM": "JPMorgan Chase", "V": "Visa", "MA": "Mastercard",
-    "LLY": "Eli Lilly", "UNH": "UnitedHealth", "JNJ": "Johnson & Johnson", "XOM": "Exxon Mobil",
-    "CVX": "Chevron", "HD": "Home Depot", "PG": "Procter & Gamble", "COST": "Costco",
-    "ORCL": "Oracle", "ABBV": "AbbVie", "MRK": "Merck", "KO": "Coca-Cola", "PEP": "PepsiCo",
-    "ADBE": "Adobe", "CRM": "Salesforce", "NFLX": "Netflix", "AMD": "AMD", "CSCO": "Cisco",
-    "TMO": "Thermo Fisher", "MCD": "McDonald's", "ABT": "Abbott Labs", "WMT": "Walmart",
-    "BAC": "Bank of America", "PFE": "Pfizer", "DIS": "Disney", "NKE": "Nike",
-    "TMUS": "T-Mobile", "CAT": "Caterpillar", "GE": "GE Aerospace", "IBM": "IBM",
-    "QCOM": "Qualcomm", "TXN": "Texas Instruments", "INTC": "Intel", "NOW": "ServiceNow",
-    "AMAT": "Applied Materials", "INTU": "Intuit", "BA": "Boeing", "HON": "Honeywell",
-}
+from tickers import SCREENER_UNIVERSE
+
+UNIVERSE_NOTE = "母體：道瓊工業平均 + S&P 500精簡清單 + 那斯達克100核心清單 + 費城半導體指數(SOX)，去重合併共102檔。"
 
 
 def get_row(df, candidates):
@@ -183,7 +171,7 @@ def evaluate_buffett(symbol, name):
 
 def build_buffett():
     results = []
-    for symbol, name in US_LARGE_CAP_TICKERS.items():
+    for symbol, name in SCREENER_UNIVERSE.items():
         try:
             r = evaluate_buffett(symbol, name)
             if r:
@@ -194,7 +182,7 @@ def build_buffett():
     return {
         "id": "buffett",
         "name": "巴菲特",
-        "description": "近5年平均ROE>15%；最新年度毛利率>40%；負債權益比<50%；連續5年自由現金流>0；本益比<15或低於其5年均值。母體：美股大型權值股。（yfinance財報年限所限，實際檢核年數可能少於5年，詳見各標的badge標註）",
+        "description": "近5年平均ROE>15%；最新年度毛利率>40%；負債權益比<50%；連續5年自由現金流>0；本益比<15或低於其5年均值。（yfinance財報年限所限，實際檢核年數可能少於5年，詳見各標的badge標註）" + UNIVERSE_NOTE,
         "status": "active",
         "results": results,
     }

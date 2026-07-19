@@ -72,7 +72,7 @@
     // 統計總格數，動態拉高畫布高度，確保平均每格有足夠空間顯示文字
     // （手機寬度有限，格數一多、市值差距一大，固定高度會讓小市值標的擠成無文字色塊）
     const leafCount = (data.sectors || []).reduce((n, s) => n + (s.children ? s.children.length : 0), 0);
-    const minCellArea = 1900; // 約可容納「代號 + 漲跌幅」兩行文字的最小格子面積
+    const minCellArea = 2200; // 約可容納「代號 + 漲跌幅」兩行文字的最小格子面積
     const areaBasedHeight = Math.ceil((leafCount * minCellArea) / Math.max(width, 1));
     const baseHeight = Math.max(420, Math.round(window.innerHeight * 0.62));
     const height = Math.max(baseHeight, areaBasedHeight);
@@ -126,29 +126,48 @@
       const w = d.x1 - d.x0, h = d.y1 - d.y0;
       const g = d3.select(this);
       const fill = textColorFor(d.data.changePercent || 0);
+      if (w < 14 || h < 10) return; // 小到連一個字都放不下才整格留白
 
-      // 門檻降到很小的格子也能放代號（單行、字級自動縮小），
-      // 只有小到連一行代號都放不下時才整格留白
-      if (w < 16 || h < 12) return;
+      const symbol = d.data.symbol || "";
+      const pct = d.data.changePercent || 0;
+      const pctText = (pct >= 0 ? "+" : "") + pct.toFixed(2) + "%";
+      const symLen = Math.max(2, symbol.length);
 
-      const symLen = Math.max(2, (d.data.symbol || "").length);
-      const symSize = Math.max(6.5, Math.min(13, (w - 4) / (symLen * 0.62), h / 2.2));
-      g.append("text")
-        .attr("class", "sym")
-        .attr("x", 4).attr("y", Math.min(h - 4, symSize + 4))
-        .attr("font-size", symSize)
-        .attr("fill", fill)
-        .text(d.data.symbol);
-
-      // 有第二行空間才加漲跌幅，字級同樣依格子大小縮放
-      if (h > symSize + 14 && w >= 26) {
-        const pct = d.data.changePercent || 0;
-        const pctSize = Math.max(6.5, Math.min(11, w / 6));
+      // 方案一：格子夠高，代號跟漲跌幅分兩行顯示（原本的排版，字比較大、最好讀）
+      const twoLineSymSize = Math.max(6.5, Math.min(13, (w - 4) / (symLen * 0.62), h / 2.6));
+      const twoLineNeedH = twoLineSymSize * 2 + 10;
+      if (h >= twoLineNeedH && w >= 22) {
+        const pctSize = Math.max(6.5, Math.min(11, w / 6, twoLineSymSize - 1));
+        g.append("text").attr("class", "sym")
+          .attr("x", 4).attr("y", twoLineSymSize + 2)
+          .attr("font-size", twoLineSymSize).attr("fill", fill)
+          .text(symbol);
         g.append("text")
-          .attr("x", 4).attr("y", symSize + pctSize + 6)
-          .attr("font-size", pctSize)
-          .attr("fill", fill)
-          .text((pct >= 0 ? "+" : "") + pct.toFixed(2) + "%");
+          .attr("x", 4).attr("y", twoLineSymSize + pctSize + 6)
+          .attr("font-size", pctSize).attr("fill", fill)
+          .text(pctText);
+        return;
+      }
+
+      // 方案二：格子矮但不算窄（常見於同一列擠了很多格子時），
+      // 改成同一行顯示「代號 漲跌幅」，寧可字小一點也要讓漲跌幅露出來
+      const combined = symbol + " " + pctText;
+      const oneLineSize = Math.max(6, Math.min(11, (w - 4) / (combined.length * 0.58), h - 4));
+      if (oneLineSize >= 6 && w >= 30) {
+        g.append("text")
+          .attr("x", 4).attr("y", Math.min(h - 3, oneLineSize + 2))
+          .attr("font-size", oneLineSize).attr("fill", fill)
+          .text(combined);
+        return;
+      }
+
+      // 方案三：真的太小，只放代號（不縮寫、不加漲跌幅）
+      const symOnlySize = Math.max(5.5, Math.min(11, (w - 3) / (symLen * 0.6), h - 3));
+      if (symOnlySize >= 5.5) {
+        g.append("text")
+          .attr("x", 3).attr("y", Math.min(h - 3, symOnlySize + 1))
+          .attr("font-size", symOnlySize).attr("fill", fill)
+          .text(symbol);
       }
     });
   }

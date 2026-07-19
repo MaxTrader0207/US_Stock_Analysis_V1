@@ -1,177 +1,37 @@
 {
-  "updated": "2026-07-19T18:33:33.503562+00:00",
+  "updated": "2026-07-18T20:00:00Z",
+  "note": "範例資料，執行 scripts/fetch_heatmap.py 後會被覆蓋",
   "sectors": [
-    {
-      "name": "Broad Market",
-      "children": [
-        {
-          "symbol": "SPY",
-          "name": "SPY",
-          "price": 743.29,
-          "changePercent": -0.99,
-          "marketCap": 62.57
-        },
-        {
-          "symbol": "QQQ",
-          "name": "QQQ",
-          "price": 695.33,
-          "changePercent": -1.5,
-          "marketCap": 53.99
-        },
-        {
-          "symbol": "DIA",
-          "name": "DIA",
-          "price": 520.81,
-          "changePercent": -0.74,
-          "marketCap": 4.74
-        },
-        {
-          "symbol": "IWM",
-          "name": "IWM",
-          "price": 294.04,
-          "changePercent": -0.52,
-          "marketCap": 28.72
-        },
-        {
-          "symbol": "VTI",
-          "name": "VTI",
-          "price": 367.01,
-          "changePercent": -0.96,
-          "marketCap": 3.15
-        }
-      ]
-    },
-    {
-      "name": "Sector",
-      "children": [
-        {
-          "symbol": "XLK",
-          "name": "XLK",
-          "price": 175.59,
-          "changePercent": -1.09,
-          "marketCap": 12.03
-        },
-        {
-          "symbol": "XLF",
-          "name": "XLF",
-          "price": 56.26,
-          "changePercent": -0.86,
-          "marketCap": 42.84
-        },
-        {
-          "symbol": "XLE",
-          "name": "XLE",
-          "price": 57.68,
-          "changePercent": 1.16,
-          "marketCap": 31.38
-        },
-        {
-          "symbol": "XLV",
-          "name": "XLV",
-          "price": 161.09,
-          "changePercent": -0.44,
-          "marketCap": 9.17
-        },
-        {
-          "symbol": "XLY",
-          "name": "XLY",
-          "price": 115.44,
-          "changePercent": -1.62,
-          "marketCap": 10.28
-        },
-        {
-          "symbol": "XLI",
-          "name": "XLI",
-          "price": 179.41,
-          "changePercent": -0.41,
-          "marketCap": 8.06
-        }
-      ]
-    },
-    {
-      "name": "Bond",
-      "children": [
-        {
-          "symbol": "TLT",
-          "name": "TLT",
-          "price": 84.52,
-          "changePercent": 0.37,
-          "marketCap": 22.06
-        },
-        {
-          "symbol": "AGG",
-          "name": "AGG",
-          "price": 98.2,
-          "changePercent": 0.07,
-          "marketCap": 6.55
-        },
-        {
-          "symbol": "LQD",
-          "name": "LQD",
-          "price": 107.56,
-          "changePercent": 0.06,
-          "marketCap": 25.76
-        },
-        {
-          "symbol": "HYG",
-          "name": "HYG",
-          "price": 79.65,
-          "changePercent": -0.19,
-          "marketCap": 42.02
-        }
-      ]
-    },
-    {
-      "name": "Commodity",
-      "children": [
-        {
-          "symbol": "GLD",
-          "name": "GLD",
-          "price": 368.41,
-          "changePercent": 0.95,
-          "marketCap": 6.45
-        },
-        {
-          "symbol": "SLV",
-          "name": "SLV",
-          "price": 50.78,
-          "changePercent": 0.77,
-          "marketCap": 15.46
-        },
-        {
-          "symbol": "USO",
-          "name": "USO",
-          "price": 123.96,
-          "changePercent": 3.91,
-          "marketCap": 5.89
-        }
-      ]
-    },
-    {
-      "name": "International",
-      "children": [
-        {
-          "symbol": "EFA",
-          "name": "EFA",
-          "price": 103.33,
-          "changePercent": -0.46,
-          "marketCap": 10.97
-        },
-        {
-          "symbol": "EEM",
-          "name": "EEM",
-          "price": 63.29,
-          "changePercent": -1.4,
-          "marketCap": 35.15
-        },
-        {
-          "symbol": "FXI",
-          "name": "FXI",
-          "price": 34.13,
-          "changePercent": -1.16,
-          "marketCap": 24.49
-        }
-      ]
-    }
+    { "name": "Broad Market", "children": [
+      { "symbol": "SPY", "name": "SPDR S&P 500", "price": 615.0, "changePercent": 0.45, "marketCap": 620 },
+      { "symbol": "QQQ", "name": "Invesco QQQ", "price": 530.0, "changePercent": 0.80, "marketCap": 320 },
+      { "symbol": "DIA", "name": "SPDR Dow Jones", "price": 430.0, "changePercent": 0.20, "marketCap": 35 },
+      { "symbol": "IWM", "name": "iShares Russell 2000", "price": 225.0, "changePercent": -0.30, "marketCap": 65 },
+      { "symbol": "VTI", "name": "Vanguard Total Market", "price": 300.0, "changePercent": 0.42, "marketCap": 480 }
+    ] },
+    { "name": "Sector", "children": [
+      { "symbol": "XLK", "name": "Technology Select", "price": 240.0, "changePercent": 1.10, "marketCap": 78 },
+      { "symbol": "XLF", "name": "Financial Select", "price": 52.0, "changePercent": 0.35, "marketCap": 55 },
+      { "symbol": "XLE", "name": "Energy Select", "price": 92.0, "changePercent": -0.60, "marketCap": 38 },
+      { "symbol": "XLV", "name": "Health Care Select", "price": 145.0, "changePercent": -0.15, "marketCap": 42 },
+      { "symbol": "XLY", "name": "Consumer Discretionary", "price": 225.0, "changePercent": 0.55, "marketCap": 22 },
+      { "symbol": "XLI", "name": "Industrial Select", "price": 145.0, "changePercent": 0.25, "marketCap": 20 }
+    ] },
+    { "name": "Bond", "children": [
+      { "symbol": "TLT", "name": "iShares 20+ Yr Treasury", "price": 88.0, "changePercent": -0.20, "marketCap": 48 },
+      { "symbol": "AGG", "name": "iShares Core Bond", "price": 99.0, "changePercent": 0.05, "marketCap": 105 },
+      { "symbol": "LQD", "name": "iShares IG Corp Bond", "price": 108.0, "changePercent": 0.10, "marketCap": 32 },
+      { "symbol": "HYG", "name": "iShares High Yield", "price": 79.0, "changePercent": 0.15, "marketCap": 15 }
+    ] },
+    { "name": "Commodity", "children": [
+      { "symbol": "GLD", "name": "SPDR Gold Shares", "price": 265.0, "changePercent": 0.75, "marketCap": 92 },
+      { "symbol": "SLV", "name": "iShares Silver", "price": 30.0, "changePercent": 1.20, "marketCap": 15 },
+      { "symbol": "USO", "name": "United States Oil", "price": 70.0, "changePercent": -0.90, "marketCap": 1.5 }
+    ] },
+    { "name": "International", "children": [
+      { "symbol": "EFA", "name": "iShares MSCI EAFE", "price": 88.0, "changePercent": 0.30, "marketCap": 58 },
+      { "symbol": "EEM", "name": "iShares MSCI EM", "price": 46.0, "changePercent": 0.65, "marketCap": 22 },
+      { "symbol": "FXI", "name": "iShares China Large-Cap", "price": 35.0, "changePercent": -1.10, "marketCap": 5 }
+    ] }
   ]
 }

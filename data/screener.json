@@ -1,0 +1,33 @@
+{
+  "updated": "2026-07-18T14:00:00Z",
+  "note": "這是範例資料，請透過 scripts/fetch_screener.py + GitHub Actions 產生即時資料後覆蓋此檔案",
+  "conditionSets": [
+    {
+      "id": "trend-strength",
+      "name": "多頭排列強勢股",
+      "description": "日線收盤價 > 日線30MA，且30MA上揚；日線MACD在0軸之上；週線MACD柱狀體翻紅（多頭動能）。母體：美股大型權值股。",
+      "status": "active",
+      "results": [
+        { "symbol": "NVDA", "name": "NVIDIA", "price": 178.2, "changePercent": 2.61, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
+        { "symbol": "AVGO", "name": "Broadcom", "price": 265.0, "changePercent": 1.85, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
+        { "symbol": "AMZN", "name": "Amazon", "price": 228.6, "changePercent": 1.72, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
+        { "symbol": "MSFT", "name": "Microsoft", "price": 512.8, "changePercent": 0.85, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] },
+        { "symbol": "ORCL", "name": "Oracle", "price": 198.5, "changePercent": 1.05, "badges": ["站上30MA", "30MA上揚", "日MACD>0", "週MACD紅柱"] }
+      ]
+    },
+    {
+      "id": "condition-2",
+      "name": "選股條件二",
+      "description": "規劃中，將於後續版本補上（例如：均線多頭排列＋量能突破）。",
+      "status": "coming-soon",
+      "results": []
+    },
+    {
+      "id": "condition-3",
+      "name": "選股條件三",
+      "description": "規劃中，將於後續版本補上（例如：法人連買＋融資餘額下降）。",
+      "status": "coming-soon",
+      "results": []
+    }
+  ]
+}

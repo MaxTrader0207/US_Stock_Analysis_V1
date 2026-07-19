@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>基本面選股｜Market Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .roadmap{ padding: 16px; display:flex; flex-direction:column; gap:10px; }
+  .criterion{
+    display:flex; gap:12px; align-items:flex-start;
+    padding:14px; background:var(--bg-panel); border:1px solid var(--border); border-radius:12px;
+  }
+  .criterion .idx{
+    font-family:var(--font-mono); font-size:11px; color:var(--accent-amber);
+    border:1px solid rgba(255,176,32,0.35); background:rgba(255,176,32,0.08);
+    border-radius:6px; padding:2px 6px; flex-shrink:0; margin-top:1px;
+  }
+  .criterion .txt strong{ display:block; font-size:13.5px; margin-bottom:3px; }
+  .criterion .txt span{ font-size:12px; color:var(--text-dim); line-height:1.6; }
+  .banner{
+    margin:16px; padding:16px; text-align:center; border-radius:14px;
+    border:1px dashed var(--border); color:var(--text-dim); font-size:12.5px; line-height:1.7;
+  }
+  .banner strong{ display:block; color:var(--accent-amber); font-size:14px; margin-bottom:6px; font-family:var(--font-display); }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <h1><span class="dot" style="background:var(--accent-amber); box-shadow:0 0 8px var(--accent-amber);"></span>基本面選股</h1>
+  <span class="meta">規劃中</span>
+</header>
+
+<main>
+  <div class="banner">
+    <strong>🚧 開發中</strong>
+    這個頁籤將加入巴菲特式的基本面選股邏輯，資料同樣會透過 Yahoo Finance API 定期抓取。以下為預計採用的篩選條件草案，實際數值與權重待補。
+  </div>
+
+  <div class="section-title">預計選股條件（草案）</div>
+  <div class="roadmap">
+    <div class="criterion">
+      <span class="idx">01</span>
+      <div class="txt"><strong>長期穩定 ROE</strong><span>股東權益報酬率連續多年（如近5–10年）維持在 15% 以上，代表資本運用效率佳。</span></div>
+    </div>
+    <div class="criterion">
+      <span class="idx">02</span>
+      <div class="txt"><strong>低負債比 / 財務體質健全</strong><span>負債權益比維持在合理水準（如 &lt; 0.5），避免過度槓桿經營。</span></div>
+    </div>
+    <div class="criterion">
+      <span class="idx">03</span>
+      <div class="txt"><strong>穩定且成長的自由現金流</strong><span>營運現金流持續為正，且自由現金流長期呈成長趨勢。</span></div>
+    </div>
+    <div class="criterion">
+      <span class="idx">04</span>
+      <div class="txt"><strong>具備護城河 / 產業地位</strong><span>市占率領先、品牌力或轉換成本高，具備長期競爭優勢。</span></div>
+    </div>
+    <div class="criterion">
+      <span class="idx">05</span>
+      <div class="txt"><strong>合理的估值</strong><span>本益比 / 自由現金流殖利率相對其歷史區間與同業具吸引力，避免追高。</span></div>
+    </div>
+    <div class="criterion">
+      <span class="idx">06</span>
+      <div class="txt"><strong>管理層與股東利益一致</strong><span>持續且穩定的股利政策或庫藏股，經營層具備誠信紀錄。</span></div>
+    </div>
+  </div>
+</main>
+
+<nav class="tabbar">
+  <a href="index.html">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+    熱力圖
+  </a>
+  <a href="screener.html">
+    <svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+    強勢股
+  </a>
+  <a href="fundamentals.html" class="active">
+    <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/></svg>
+    基本面
+  </a>
+</nav>
+
+</body>
+</html>

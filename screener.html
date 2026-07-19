@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>強勢股選股｜Market Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .condition-desc{
+    margin: 4px 16px 6px;
+    padding: 10px 14px;
+    font-size:12px;
+    line-height:1.7;
+    color: var(--text-dim);
+    border-left: 2px solid var(--accent-green);
+    background: var(--bg-panel);
+    border-radius: 0 10px 10px 0;
+  }
+  .stock-list{ padding: 6px 12px 20px; display:flex; flex-direction:column; gap:8px; }
+  .stock-card{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 14px;
+    background: var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+  }
+  .stock-card .left{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .stock-card .sym-row{ display:flex; align-items:center; gap:8px; }
+  .stock-card .sym{ font-family:var(--font-display); font-weight:700; font-size:15px; }
+  .stock-card .name{ font-size:11.5px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:38vw; }
+  .badges{ display:flex; gap:5px; flex-wrap:wrap; margin-top:2px; }
+  .badge{
+    font-family:var(--font-mono); font-size:9.5px; font-weight:600;
+    padding:2px 6px; border-radius:5px;
+    background: rgba(0,229,160,0.12); color: var(--accent-green);
+    border:1px solid rgba(0,229,160,0.3);
+  }
+  .stock-card .right{ text-align:right; flex-shrink:0; padding-left:10px; }
+  .stock-card .price{ font-family:var(--font-mono); font-size:15px; font-weight:600; }
+  .stock-card .chg{ font-family:var(--font-mono); font-size:12px; margin-top:2px; }
+  .rank{
+    font-family:var(--font-mono); font-size:11px; color:var(--text-dim);
+    width:20px; text-align:center; flex-shrink:0; margin-right:6px;
+  }
+  .stock-card{ position:relative; padding-left:36px; }
+  .rank{ position:absolute; left:12px; top:50%; transform:translateY(-50%); }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <h1><span class="dot"></span>強勢股選股</h1>
+  <span class="meta" id="updated-meta">載入中…</span>
+</header>
+
+<main>
+  <div class="pill-row" id="condition-tabs"></div>
+  <div class="condition-desc" id="condition-desc">—</div>
+  <div class="stock-list" id="stock-list"></div>
+  <div id="empty" class="empty-state" style="display:none;">
+    <strong>沒有可顯示的資料</strong>
+    找不到 data/screener.json，請確認 GitHub Actions 是否已產生資料檔。
+  </div>
+</main>
+
+<nav class="tabbar">
+  <a href="index.html">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+    熱力圖
+  </a>
+  <a href="screener.html" class="active">
+    <svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+    強勢股
+  </a>
+  <a href="fundamentals.html">
+    <svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z"/></svg>
+    基本面
+  </a>
+</nav>
+
+<script src="js/screener.js"></script>
+</body>
+</html>

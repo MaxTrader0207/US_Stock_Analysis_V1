@@ -83,10 +83,15 @@ FUTURES_GROUPS = {
 }
 
 # 加密貨幣（依市值分層分組，yfinance 代碼格式為 XXX-USD）
+# 註：Yahoo Finance 部分幣種代碼格式較特殊，若抓取時出現 warning，
+#     請至 finance.yahoo.com 搜尋該幣種確認正確代碼後修正。
 CRYPTO_GROUPS = {
     "Major": ["BTC-USD", "ETH-USD"],
-    "Large Cap": ["BNB-USD", "SOL-USD", "XRP-USD", "ADA-USD"],
-    "Mid Cap": ["DOGE-USD", "DOT-USD", "AVAX-USD", "LINK-USD", "MATIC-USD"],
+    "Large Cap": ["BNB-USD", "XRP-USD", "SOL-USD", "TRX-USD", "DOGE-USD", "ADA-USD"],
+    "Mid Cap": [
+        "LINK-USD", "TON-USD", "BCH-USD", "LTC-USD", "AVAX-USD",
+        "XLM-USD", "HBAR-USD", "SUI-USD", "NEAR-USD", "ZEC-USD", "SHIB-USD",
+    ],
 }
 
 MAPS = [

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-19T11:23:42.241754+00:00",
+  "updated": "2026-07-19T11:36:58.993326+00:00",
   "sectors": [
     {
       "name": "Major",
@@ -7,16 +7,16 @@
         {
           "symbol": "BTC",
           "name": "BTC-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 64499.36,
+          "changePercent": -0.46,
+          "marketCap": 14748.78
         },
         {
           "symbol": "ETH",
           "name": "ETH-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 1875.92,
+          "changePercent": 0.78,
+          "marketCap": 5799.57
         }
       ]
     },
@@ -26,30 +26,30 @@
         {
           "symbol": "BNB",
           "name": "BNB-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 568.56,
+          "changePercent": -0.3,
+          "marketCap": 822.64
         },
         {
           "symbol": "SOL",
           "name": "SOL-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 76.16,
+          "changePercent": 0.93,
+          "marketCap": 1169.79
         },
         {
           "symbol": "XRP",
           "name": "XRP-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 1.1,
+          "changePercent": 0.47,
+          "marketCap": 642.02
         },
         {
           "symbol": "ADA",
           "name": "ADA-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 0.17,
+          "changePercent": -0.73,
+          "marketCap": 179.9
         }
       ]
     },
@@ -59,37 +59,30 @@
         {
           "symbol": "DOGE",
           "name": "DOGE-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 0.07,
+          "changePercent": 0.18,
+          "marketCap": 286.45
         },
         {
           "symbol": "DOT",
           "name": "DOT-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 0.83,
+          "changePercent": -0.35,
+          "marketCap": 57.62
         },
         {
           "symbol": "AVAX",
           "name": "AVAX-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 6.51,
+          "changePercent": -0.94,
+          "marketCap": 227.04
         },
         {
           "symbol": "LINK",
           "name": "LINK-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
-        },
-        {
-          "symbol": "MATIC",
-          "name": "MATIC-USD",
-          "price": 0.0,
-          "changePercent": 0,
-          "marketCap": 1.0
+          "price": 8.37,
+          "changePercent": 0.33,
+          "marketCap": 171.91
         }
       ]
     }

@@ -36,7 +36,7 @@ import yfinance as yf
 
 from tickers import SCREENER_UNIVERSE
 
-UNIVERSE_NOTE = "母體：道瓊工業平均 + S&P 500精簡清單 + 那斯達克100核心清單 + 費城半導體指數(SOX)，去重合併共102檔。"
+UNIVERSE_NOTE = "母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。"
 
 
 def get_row(df, candidates):

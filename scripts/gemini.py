@@ -24,6 +24,14 @@ GEMINI_MODEL = os.environ.get("GEMINI_MODEL") or "gemini-3.1-flash-lite"
 GEMINI_ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 MAX_COMMENT_CHARS = 20
 
+# 開機時就印一行明確的狀態訊息（不會洩漏完整 Key），
+# 之後排查「短評到底有沒有跑」時，Actions log 一眼就能看到，不用再靠猜的。
+if GEMINI_API_KEY:
+    _masked = GEMINI_API_KEY[:4] + "..." + GEMINI_API_KEY[-4:] if len(GEMINI_API_KEY) > 8 else "***"
+    print(f"[info] GEMINI_API_KEY 已偵測到（{_masked}），model={GEMINI_MODEL}，將呼叫 Gemini 產生短評", file=sys.stderr)
+else:
+    print("[info] 未偵測到 GEMINI_API_KEY 環境變數，本次不會呼叫 Gemini，comment 欄位全部會是 null", file=sys.stderr)
+
 
 def get_short_comment(symbol, name, price, change_pct, ma30, ma60, ma100, bias30, badges):
     """回傳一句 <=20字的繁體中文短評字串；沒有 API key 或呼叫失敗回傳 None。"""
@@ -51,7 +59,11 @@ def get_short_comment(symbol, name, price, change_pct, ma30, ma60, ma100, bias30
             json={"contents": [{"parts": [{"text": prompt}]}]},
             timeout=15,
         )
-        resp.raise_for_status()
+        if not resp.ok:
+            # 印出 Google 回傳的實際錯誤內容（例如 API key 無效、模型名稱不存在、額度用完），
+            # 而不是只印 HTTP 狀態碼，這樣才看得出真正原因
+            print(f"[warn] Gemini comment for {symbol}: HTTP {resp.status_code} - {resp.text[:300]}", file=sys.stderr)
+            return None
         data = resp.json()
         text = data["candidates"][0]["content"]["parts"][0]["text"]
         text = text.strip().strip('「」"\'')

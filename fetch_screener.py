@@ -389,6 +389,10 @@ def main():
                 )
             entry["comment"] = comment_cache[symbol]
 
+    comment_ok = sum(1 for v in comment_cache.values() if v)
+    comment_total = len(comment_cache)
+    print(f"[info] Gemini 短評：{comment_ok}/{comment_total} 檔成功產生", file=sys.stderr)
+
     condition_sets = []
     for cid, meta in CONDITION_META.items():
         results = sorted(results_by_condition[cid], key=lambda r: r["changePercent"], reverse=True)

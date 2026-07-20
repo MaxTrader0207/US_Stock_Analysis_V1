@@ -1,54 +1,260 @@
 {
-  "updated": "2026-07-18T20:00:00Z",
-  "note": "範例資料，執行 scripts/fetch_heatmap.py 後會被覆蓋",
+  "updated": "2026-07-20T11:52:39.519878+00:00",
   "sectors": [
-    { "name": "Technology", "children": [
-      { "symbol": "AAPL", "name": "Apple", "price": 231.4, "changePercent": 1.32, "marketCap": 3550 },
-      { "symbol": "CSCO", "name": "Cisco", "price": 68.0, "changePercent": 0.35, "marketCap": 270 },
-      { "symbol": "IBM", "name": "IBM", "price": 258.0, "changePercent": 0.40, "marketCap": 240 },
-      { "symbol": "MSFT", "name": "Microsoft", "price": 512.8, "changePercent": 0.85, "marketCap": 3800 },
-      { "symbol": "NVDA", "name": "NVIDIA", "price": 178.2, "changePercent": 2.61, "marketCap": 4350 },
-      { "symbol": "CRM", "name": "Salesforce", "price": 260.1, "changePercent": -1.15, "marketCap": 250 }
-    ] },
-    { "name": "Financials", "children": [
-      { "symbol": "AXP", "name": "American Express", "price": 305.0, "changePercent": 0.60, "marketCap": 215 },
-      { "symbol": "GS", "name": "Goldman Sachs", "price": 610.0, "changePercent": -0.35, "marketCap": 195 },
-      { "symbol": "JPM", "name": "JPMorgan", "price": 255.3, "changePercent": 0.91, "marketCap": 730 },
-      { "symbol": "TRV", "name": "Travelers", "price": 260.0, "changePercent": -0.20, "marketCap": 55 },
-      { "symbol": "V", "name": "Visa", "price": 340.6, "changePercent": 0.12, "marketCap": 660 }
-    ] },
-    { "name": "Healthcare", "children": [
-      { "symbol": "AMGN", "name": "Amgen", "price": 300.0, "changePercent": 1.15, "marketCap": 160 },
-      { "symbol": "JNJ", "name": "Johnson & Johnson", "price": 162.4, "changePercent": 0.08, "marketCap": 390 },
-      { "symbol": "MRK", "name": "Merck", "price": 90.0, "changePercent": -0.60, "marketCap": 225 },
-      { "symbol": "UNH", "name": "UnitedHealth", "price": 590.2, "changePercent": -1.02, "marketCap": 540 }
-    ] },
-    { "name": "Consumer", "children": [
-      { "symbol": "AMZN", "name": "Amazon", "price": 228.6, "changePercent": 1.72, "marketCap": 2400 },
-      { "symbol": "HD", "name": "Home Depot", "price": 392.1, "changePercent": 0.32, "marketCap": 390 },
-      { "symbol": "MCD", "name": "McDonald's", "price": 305.0, "changePercent": -0.18, "marketCap": 215 },
-      { "symbol": "NKE", "name": "Nike", "price": 78.4, "changePercent": -2.44, "marketCap": 115 }
-    ] },
-    { "name": "Industrials", "children": [
-      { "symbol": "MMM", "name": "3M", "price": 148.0, "changePercent": 0.55, "marketCap": 80 },
-      { "symbol": "BA", "name": "Boeing", "price": 195.8, "changePercent": -1.40, "marketCap": 150 },
-      { "symbol": "CAT", "name": "Caterpillar", "price": 405.2, "changePercent": 0.65, "marketCap": 200 },
-      { "symbol": "HON", "name": "Honeywell", "price": 220.0, "changePercent": 0.15, "marketCap": 140 }
-    ] },
-    { "name": "Communication", "children": [
-      { "symbol": "GOOGL", "name": "Alphabet", "price": 198.7, "changePercent": 0.55, "marketCap": 2400 },
-      { "symbol": "DIS", "name": "Disney", "price": 112.0, "changePercent": -0.80, "marketCap": 205 }
-    ] },
-    { "name": "Staples", "children": [
-      { "symbol": "KO", "name": "Coca-Cola", "price": 72.0, "changePercent": 0.10, "marketCap": 310 },
-      { "symbol": "PG", "name": "Procter & Gamble", "price": 168.0, "changePercent": 0.25, "marketCap": 395 },
-      { "symbol": "WMT", "name": "Walmart", "price": 95.0, "changePercent": 1.05, "marketCap": 765 }
-    ] },
-    { "name": "Energy", "children": [
-      { "symbol": "CVX", "name": "Chevron", "price": 165.7, "changePercent": -0.30, "marketCap": 300 }
-    ] },
-    { "name": "Materials", "children": [
-      { "symbol": "SHW", "name": "Sherwin-Williams", "price": 380.0, "changePercent": 0.45, "marketCap": 95 }
-    ] }
+    {
+      "name": "Technology",
+      "children": [
+        {
+          "symbol": "AAPL",
+          "name": "AAPL",
+          "price": 333.74,
+          "changePercent": 0.14,
+          "marketCap": 63.37
+        },
+        {
+          "symbol": "CSCO",
+          "name": "CSCO",
+          "price": 111.94,
+          "changePercent": 2.08,
+          "marketCap": 28.46
+        },
+        {
+          "symbol": "IBM",
+          "name": "IBM",
+          "price": 212.67,
+          "changePercent": -2.91,
+          "marketCap": 13.13
+        },
+        {
+          "symbol": "MSFT",
+          "name": "MSFT",
+          "price": 393.82,
+          "changePercent": -1.82,
+          "marketCap": 33.01
+        },
+        {
+          "symbol": "NVDA",
+          "name": "NVDA",
+          "price": 202.81,
+          "changePercent": -2.21,
+          "marketCap": 144.03
+        },
+        {
+          "symbol": "CRM",
+          "name": "CRM",
+          "price": 170.77,
+          "changePercent": -1.11,
+          "marketCap": 10.19
+        }
+      ]
+    },
+    {
+      "name": "Financials",
+      "children": [
+        {
+          "symbol": "AXP",
+          "name": "AXP",
+          "price": 355.35,
+          "changePercent": -1.72,
+          "marketCap": 2.65
+        },
+        {
+          "symbol": "GS",
+          "name": "GS",
+          "price": 1065.22,
+          "changePercent": -2.76,
+          "marketCap": 2.16
+        },
+        {
+          "symbol": "JPM",
+          "name": "JPM",
+          "price": 341.1,
+          "changePercent": -0.6,
+          "marketCap": 9.25
+        },
+        {
+          "symbol": "TRV",
+          "name": "TRV",
+          "price": 368.98,
+          "changePercent": 9.22,
+          "marketCap": 4.31
+        },
+        {
+          "symbol": "V",
+          "name": "V",
+          "price": 358.56,
+          "changePercent": -1.8,
+          "marketCap": 7.4
+        }
+      ]
+    },
+    {
+      "name": "Healthcare",
+      "children": [
+        {
+          "symbol": "AMGN",
+          "name": "AMGN",
+          "price": 366.29,
+          "changePercent": -1.42,
+          "marketCap": 2.86
+        },
+        {
+          "symbol": "JNJ",
+          "name": "JNJ",
+          "price": 253.04,
+          "changePercent": 1.23,
+          "marketCap": 10.17
+        },
+        {
+          "symbol": "MRK",
+          "name": "MRK",
+          "price": 127.5,
+          "changePercent": -0.1,
+          "marketCap": 13.47
+        },
+        {
+          "symbol": "UNH",
+          "name": "UNH",
+          "price": 426.09,
+          "changePercent": 0.64,
+          "marketCap": 10.71
+        }
+      ]
+    },
+    {
+      "name": "Consumer",
+      "children": [
+        {
+          "symbol": "AMZN",
+          "name": "AMZN",
+          "price": 247.23,
+          "changePercent": -1.06,
+          "marketCap": 43.51
+        },
+        {
+          "symbol": "HD",
+          "name": "HD",
+          "price": 338.87,
+          "changePercent": -2.63,
+          "marketCap": 4.43
+        },
+        {
+          "symbol": "MCD",
+          "name": "MCD",
+          "price": 267.71,
+          "changePercent": -2.1,
+          "marketCap": 3.78
+        },
+        {
+          "symbol": "NKE",
+          "name": "NKE",
+          "price": 43.76,
+          "changePercent": -1.82,
+          "marketCap": 15.82
+        }
+      ]
+    },
+    {
+      "name": "Industrials",
+      "children": [
+        {
+          "symbol": "MMM",
+          "name": "MMM",
+          "price": 159.84,
+          "changePercent": -1.19,
+          "marketCap": 2.92
+        },
+        {
+          "symbol": "BA",
+          "name": "BA",
+          "price": 214.03,
+          "changePercent": -0.14,
+          "marketCap": 4.22
+        },
+        {
+          "symbol": "CAT",
+          "name": "CAT",
+          "price": 880.28,
+          "changePercent": 0.35,
+          "marketCap": 3.38
+        },
+        {
+          "symbol": "HON",
+          "name": "HON",
+          "price": 225.02,
+          "changePercent": -0.58,
+          "marketCap": 3.92
+        }
+      ]
+    },
+    {
+      "name": "Communication",
+      "children": [
+        {
+          "symbol": "GOOGL",
+          "name": "GOOGL",
+          "price": 346.77,
+          "changePercent": -2.17,
+          "marketCap": 29.93
+        },
+        {
+          "symbol": "DIS",
+          "name": "DIS",
+          "price": 97.67,
+          "changePercent": -2.05,
+          "marketCap": 10.49
+        }
+      ]
+    },
+    {
+      "name": "Staples",
+      "children": [
+        {
+          "symbol": "KO",
+          "name": "KO",
+          "price": 81.56,
+          "changePercent": -3.96,
+          "marketCap": 32.89
+        },
+        {
+          "symbol": "PG",
+          "name": "PG",
+          "price": 149.98,
+          "changePercent": -1.0,
+          "marketCap": 8.91
+        },
+        {
+          "symbol": "WMT",
+          "name": "WMT",
+          "price": 114.24,
+          "changePercent": -0.62,
+          "marketCap": 28.27
+        }
+      ]
+    },
+    {
+      "name": "Energy",
+      "children": [
+        {
+          "symbol": "CVX",
+          "name": "CVX",
+          "price": 187.38,
+          "changePercent": 1.91,
+          "marketCap": 7.05
+        }
+      ]
+    },
+    {
+      "name": "Materials",
+      "children": [
+        {
+          "symbol": "SHW",
+          "name": "SHW",
+          "price": 331.32,
+          "changePercent": -2.02,
+          "marketCap": 1.67
+        }
+      ]
+    }
   ]
 }

@@ -41,9 +41,9 @@
   2. 布林通道下緣呈上揚
 
 【低檔轉折股】
-  1. 昨日日線最低價，創近20個交易日新低
-  2. 昨日日線收紅K（昨日收盤價 > 昨日開盤價）
-  3. 今日日線收盤價 > 昨日日線收盤價
+  1. 前日日線最低價，創近20個交易日新低
+  2. 前日日線收紅K（前日收盤價 > 前日開盤價）
+  3. 昨日日線收盤價 > 前日日線收盤價
 
 「黃金交叉」判定為近 N 個交易日內曾經處於「不高於」狀態、且最新一天已經轉為「高於」，
 用意是抓「剛翻多不久」的標的，而不是只抓「交叉當天」（否則每天符合的標的會很少）。
@@ -252,21 +252,23 @@ def check_turnaround(close):
 
 
 def check_bottom_reversal(o, h, l, c, lookback=20):
-    """低檔轉折股：昨日最低價創近期新低、昨日收紅K、今日收盤價>昨日收盤價。"""
+    """低檔轉折股：前日最低價創近期新低、前日收紅K、昨日收盤價>前日收盤價。
+    刻意不使用「今日」的資料——今日盤中還沒收盤，這組訊號完全以已經走完的
+    前日、昨日兩根K棒來判斷，避免用到還在跳動、尚未定案的當日數字。"""
     if len(c) < lookback + 2:
         return None
-    window_low = l.iloc[-(lookback + 1):-1]  # 近 lookback 個交易日（含昨日）
+    window_low = l.iloc[-(lookback + 2):-2]  # 近 lookback 個交易日，以「前日」為最後一天
     if len(window_low) < lookback:
         return None
 
-    yesterday_low = l.iloc[-2]
-    is_recent_low = yesterday_low <= window_low.min()
+    day_before_yesterday_low = l.iloc[-3]
+    is_recent_low = day_before_yesterday_low <= window_low.min()
 
-    yesterday_red = c.iloc[-2] > o.iloc[-2]
-    today_up = c.iloc[-1] > c.iloc[-2]
+    day_before_yesterday_red = c.iloc[-3] > o.iloc[-3]
+    yesterday_up = c.iloc[-2] > c.iloc[-3]
 
-    if is_recent_low and yesterday_red and today_up:
-        return [f"昨日創近{lookback}日新低", "昨日收紅K", "今日收盤>昨收"]
+    if is_recent_low and day_before_yesterday_red and yesterday_up:
+        return [f"前日創近{lookback}日新低", "前日收紅K", "昨日收盤>前日收盤"]
     return None
 
 
@@ -307,7 +309,7 @@ CONDITION_META = {
     },
     "bottom-reversal": {
         "name": "低檔轉折股",
-        "description": "昨日最低價創近20個交易日新低；昨日收紅K；今日收盤價>昨日收盤價，視為低檔止跌轉折訊號。",
+        "description": "前日最低價創近20個交易日新低；前日收紅K；昨日收盤價>前日收盤價，視為低檔止跌轉折訊號（不使用當日尚未收盤的數字）。",
     },
 }
 

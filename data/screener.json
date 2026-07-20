@@ -1,5 +1,6 @@
 {
-  "updated": "2026-07-20T15:05:32.108017+00:00",
+  "updated": "2026-07-18T14:00:00Z",
+  "note": "這是範例資料，請透過 scripts/fetch_screener.py + GitHub Actions 產生即時資料後覆蓋此檔案",
   "conditionSets": [
     {
       "id": "strength-a",
@@ -8,10 +9,10 @@
       "status": "active",
       "results": [
         {
-          "symbol": "DASH",
-          "name": "DoorDash, Inc.",
-          "price": 187.95,
-          "changePercent": 2.07,
+          "symbol": "NVDA",
+          "name": "NVIDIA",
+          "price": 178.2,
+          "changePercent": 2.61,
           "badges": [
             "站上30MA",
             "30MA上揚",
@@ -20,10 +21,10 @@
           ]
         },
         {
-          "symbol": "DDOG",
-          "name": "Datadog Inc.",
-          "price": 263.55,
-          "changePercent": 1.88,
+          "symbol": "AVGO",
+          "name": "Broadcom",
+          "price": 265.0,
+          "changePercent": 1.85,
           "badges": [
             "站上30MA",
             "30MA上揚",
@@ -32,10 +33,10 @@
           ]
         },
         {
-          "symbol": "RTX",
-          "name": "RTX Corp",
-          "price": 197.15,
-          "changePercent": 1.88,
+          "symbol": "AMZN",
+          "name": "Amazon",
+          "price": 228.6,
+          "changePercent": 1.72,
           "badges": [
             "站上30MA",
             "30MA上揚",
@@ -44,10 +45,10 @@
           ]
         },
         {
-          "symbol": "TTWO",
-          "name": "Take-Two Interactive",
-          "price": 241.02,
-          "changePercent": 1.83,
+          "symbol": "MSFT",
+          "name": "Microsoft",
+          "price": 512.8,
+          "changePercent": 0.85,
           "badges": [
             "站上30MA",
             "30MA上揚",
@@ -56,610 +57,10 @@
           ]
         },
         {
-          "symbol": "MELI",
-          "name": "MercadoLibre, Inc.",
-          "price": 1843.35,
-          "changePercent": 1.62,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "SHOP",
-          "name": "Shopify, Inc.",
-          "price": 125.39,
-          "changePercent": 1.48,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "ABT",
-          "name": "Abbott Laboratories",
-          "price": 101.63,
-          "changePercent": 0.94,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "V",
-          "name": "Visa",
-          "price": 361.8,
-          "changePercent": 0.9,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "ANET",
-          "name": "Arista Networks",
-          "price": 170.1,
-          "changePercent": 0.88,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "CCEP",
-          "name": "Coca-Cola Europacific Partners",
-          "price": 105.99,
-          "changePercent": 0.77,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "TMUS",
-          "name": "T-Mobile US",
-          "price": 193.92,
-          "changePercent": 0.77,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "MMM",
-          "name": "3M",
-          "price": 160.87,
-          "changePercent": 0.64,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "FTNT",
-          "name": "Fortinet, Inc.",
-          "price": 162.51,
-          "changePercent": 0.56,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "AXON",
-          "name": "Axon Enterprise",
-          "price": 512.92,
-          "changePercent": 0.52,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "WELL",
-          "name": "Welltower",
-          "price": 244.51,
-          "changePercent": 0.52,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "KO",
-          "name": "Coca-Cola",
-          "price": 81.96,
-          "changePercent": 0.49,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "PYPL",
-          "name": "PayPal Holdings",
-          "price": 56.76,
-          "changePercent": 0.35,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "MA",
-          "name": "Mastercard",
-          "price": 545.51,
-          "changePercent": 0.35,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "DXCM",
-          "name": "DexCom",
-          "price": 76.89,
-          "changePercent": 0.32,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "META",
-          "name": "Meta Platforms",
-          "price": 647.08,
-          "changePercent": 0.17,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "EA",
-          "name": "Electronic Arts",
-          "price": 209.05,
-          "changePercent": 0.07,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "TRV",
-          "name": "Travelers",
-          "price": 368.98,
-          "changePercent": 0.0,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "GS",
-          "name": "Goldman Sachs",
-          "price": 1064.79,
-          "changePercent": -0.04,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "VRTX",
-          "name": "Vertex Pharmaceuticals",
-          "price": 485.3,
-          "changePercent": -0.07,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "AMGN",
-          "name": "Amgen",
-          "price": 366.0,
-          "changePercent": -0.08,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "PANW",
-          "name": "Palo Alto Networks",
-          "price": 358.32,
-          "changePercent": -0.1,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "ABBV",
-          "name": "AbbVie",
-          "price": 254.16,
-          "changePercent": -0.13,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "PM",
-          "name": "Philip Morris",
-          "price": 192.72,
-          "changePercent": -0.13,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "KHC",
-          "name": "Kraft Heinz Co.",
-          "price": 25.84,
-          "changePercent": -0.14,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "CRWD",
-          "name": "Crowdstrike Holdings",
-          "price": 202.7,
-          "changePercent": -0.19,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "ABNB",
-          "name": "Airbnb, Inc.",
-          "price": 145.67,
-          "changePercent": -0.21,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "IDXX",
-          "name": "IDEXX Laboratories",
-          "price": 566.25,
-          "changePercent": -0.21,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "JPM",
-          "name": "JPMorgan Chase",
-          "price": 340.32,
-          "changePercent": -0.23,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "PG",
-          "name": "Procter & Gamble",
-          "price": 149.6,
-          "changePercent": -0.26,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "PAYX",
-          "name": "Paychex, Inc.",
-          "price": 114.08,
-          "changePercent": -0.27,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "SBUX",
-          "name": "Starbucks Corp.",
-          "price": 105.17,
-          "changePercent": -0.31,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "LLY",
-          "name": "Eli Lilly",
-          "price": 1175.24,
-          "changePercent": -0.33,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "SCHW",
-          "name": "Charles Schwab",
-          "price": 101.1,
-          "changePercent": -0.46,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "ADP",
-          "name": "Automatic Data Processing",
-          "price": 253.93,
-          "changePercent": -0.52,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "AXP",
-          "name": "American Express",
-          "price": 353.43,
-          "changePercent": -0.54,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "BAC",
-          "name": "Bank of America",
-          "price": 60.9,
-          "changePercent": -0.6,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "WFC",
-          "name": "Wells Fargo",
-          "price": 86.97,
-          "changePercent": -0.61,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "ROP",
-          "name": "Roper Technologies",
-          "price": 360.84,
-          "changePercent": -0.63,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "UNP",
-          "name": "Union Pacific",
-          "price": 299.74,
-          "changePercent": -0.67,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "TRI",
-          "name": "Thomson Reuters",
-          "price": 95.48,
-          "changePercent": -0.75,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "MNST",
-          "name": "Monster Beverage",
-          "price": 96.74,
-          "changePercent": -0.78,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "CSX",
-          "name": "CSX Corporation",
-          "price": 50.35,
-          "changePercent": -0.8,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "PCAR",
-          "name": "PACCAR Inc.",
-          "price": 125.02,
-          "changePercent": -0.94,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "JNJ",
-          "name": "Johnson & Johnson",
-          "price": 250.23,
-          "changePercent": -1.11,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "MRK",
-          "name": "Merck & Co",
-          "price": 126.01,
-          "changePercent": -1.17,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "TMO",
-          "name": "Thermo Fisher Scientific",
-          "price": 525.99,
-          "changePercent": -1.22,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "BKNG",
-          "name": "Booking Holdings",
-          "price": 178.88,
-          "changePercent": -1.54,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "CTAS",
-          "name": "Cintas Corp.",
-          "price": 200.85,
-          "changePercent": -1.76,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "UNH",
-          "name": "UnitedHealth Group",
-          "price": 418.24,
-          "changePercent": -1.84,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ]
-        },
-        {
-          "symbol": "AAPL",
-          "name": "Apple",
-          "price": 326.77,
-          "changePercent": -2.09,
+          "symbol": "ORCL",
+          "name": "Oracle",
+          "price": 198.5,
+          "changePercent": 1.05,
           "badges": [
             "站上30MA",
             "30MA上揚",
@@ -674,7 +75,32 @@
       "name": "多頭股A",
       "description": "日線10MA近期黃金交叉30MA，且30MA上揚；RSI指標（參數6）>60；今日成交量>昨日成交量。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "status": "active",
-      "results": []
+      "results": [
+        {
+          "symbol": "CSCO",
+          "name": "Cisco",
+          "price": 68.0,
+          "changePercent": 3.15,
+          "badges": [
+            "10MA黃金交叉30MA",
+            "30MA上揚",
+            "RSI6>60",
+            "量增"
+          ]
+        },
+        {
+          "symbol": "IBM",
+          "name": "IBM",
+          "price": 258.0,
+          "changePercent": 2.4,
+          "badges": [
+            "10MA黃金交叉30MA",
+            "30MA上揚",
+            "RSI6>60",
+            "量增"
+          ]
+        }
+      ]
     },
     {
       "id": "bullish-b",
@@ -683,10 +109,21 @@
       "status": "active",
       "results": [
         {
-          "symbol": "MA",
-          "name": "Mastercard",
-          "price": 545.51,
-          "changePercent": 0.35,
+          "symbol": "GE",
+          "name": "GE Aerospace",
+          "price": 220.5,
+          "changePercent": 1.1,
+          "badges": [
+            "30MA黃金交叉100MA",
+            "100MA上揚",
+            "RSI6>30"
+          ]
+        },
+        {
+          "symbol": "CAT",
+          "name": "Caterpillar",
+          "price": 405.2,
+          "changePercent": 0.65,
           "badges": [
             "30MA黃金交叉100MA",
             "100MA上揚",
@@ -702,87 +139,10 @@
       "status": "active",
       "results": [
         {
-          "symbol": "ABT",
-          "name": "Abbott Laboratories",
-          "price": 101.63,
-          "changePercent": 0.94,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ]
-        },
-        {
-          "symbol": "XEL",
-          "name": "Xcel Energy",
-          "price": 79.44,
-          "changePercent": 0.85,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ]
-        },
-        {
-          "symbol": "CVX",
-          "name": "Chevron",
-          "price": 188.85,
-          "changePercent": 0.78,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ]
-        },
-        {
-          "symbol": "FANG",
-          "name": "Diamondback Energy",
-          "price": 196.98,
-          "changePercent": 0.73,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ]
-        },
-        {
-          "symbol": "ROST",
-          "name": "Ross Stores",
-          "price": 234.71,
-          "changePercent": 0.54,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ]
-        },
-        {
-          "symbol": "PM",
-          "name": "Philip Morris",
-          "price": 192.72,
-          "changePercent": -0.13,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ]
-        },
-        {
-          "symbol": "GEV",
-          "name": "GE Vernova",
-          "price": 1056.46,
-          "changePercent": -0.13,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ]
-        },
-        {
-          "symbol": "CSCO",
-          "name": "Cisco Systems",
-          "price": 111.78,
-          "changePercent": -0.14,
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "price": 162.4,
+          "changePercent": 0.95,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
@@ -792,8 +152,19 @@
         {
           "symbol": "PG",
           "name": "Procter & Gamble",
-          "price": 149.6,
-          "changePercent": -0.26,
+          "price": 168.0,
+          "changePercent": 0.6,
+          "badges": [
+            "收盤黃金交叉60MA",
+            "60MA上揚",
+            "RSI6>30"
+          ]
+        },
+        {
+          "symbol": "KO",
+          "name": "Coca-Cola",
+          "price": 72.0,
+          "changePercent": 0.4,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
@@ -809,21 +180,10 @@
       "status": "active",
       "results": [
         {
-          "symbol": "GOOG",
-          "name": "Alphabet",
-          "price": 356.29,
-          "changePercent": 2.94,
-          "badges": [
-            "20日區間<15%",
-            "跳空開高",
-            "收紅K"
-          ]
-        },
-        {
-          "symbol": "GOOGL",
-          "name": "Alphabet",
-          "price": 356.63,
-          "changePercent": 2.84,
+          "symbol": "TMUS",
+          "name": "T-Mobile",
+          "price": 235.4,
+          "changePercent": 3.8,
           "badges": [
             "20日區間<15%",
             "跳空開高",
@@ -837,278 +197,17 @@
       "name": "轉機股",
       "description": "近3日內，日線收盤價黃金交叉布林通道(20日,2倍標準差)下緣，且下緣呈上揚，視為由弱轉強的轉機訊號。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "status": "active",
-      "results": []
+      "results": [
+        { "symbol": "PFE", "name": "Pfizer", "price": 25.05, "changePercent": 2.15, "badges": ["近3日黃金交叉BB下緣", "BB下緣上揚"] }
+      ]
     },
     {
       "id": "bottom-reversal",
       "name": "低檔轉折股",
-      "description": "昨日最低價創近20個交易日新低；昨日收紅K；今日收盤價>昨日收盤價，視為低檔止跌轉折訊號。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
+      "description": "前日最低價創近20個交易日新低；前日收紅K；昨日收盤價>前日收盤價，視為低檔止跌轉折訊號（不使用當日尚未收盤的數字）。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "status": "active",
       "results": [
-        {
-          "symbol": "LITE",
-          "name": "Lumentum Holdings",
-          "price": 783.16,
-          "changePercent": 6.87,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "CRDO",
-          "name": "Credo Technology",
-          "price": 213.41,
-          "changePercent": 5.29,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "TER",
-          "name": "Teradyne",
-          "price": 338.56,
-          "changePercent": 5.03,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "COHR",
-          "name": "Coherent",
-          "price": 289.81,
-          "changePercent": 4.4,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "WDC",
-          "name": "Western Digital",
-          "price": 496.49,
-          "changePercent": 4.04,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "MTSI",
-          "name": "MACOM Technology",
-          "price": 277.7,
-          "changePercent": 3.87,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "MRVL",
-          "name": "Marvell Technology",
-          "price": 195.88,
-          "changePercent": 3.82,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "CRWV",
-          "name": "CoreWeave, Inc.",
-          "price": 75.6,
-          "changePercent": 3.26,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "MPWR",
-          "name": "Monolithic Power Systems",
-          "price": 1352.31,
-          "changePercent": 3.07,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "NBIS",
-          "name": "Nebius Group N.V.",
-          "price": 183.0,
-          "changePercent": 2.98,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "AMD",
-          "name": "Advanced Micro Devices",
-          "price": 508.7,
-          "changePercent": 2.61,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "RMBS",
-          "name": "Rambus",
-          "price": 104.08,
-          "changePercent": 2.61,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "INTC",
-          "name": "Intel",
-          "price": 97.39,
-          "changePercent": 2.47,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "MU",
-          "name": "Micron Technology",
-          "price": 869.9,
-          "changePercent": 2.47,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "STX",
-          "name": "Seagate Technology",
-          "price": 805.8,
-          "changePercent": 2.3,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "ARM",
-          "name": "Arm Holdings",
-          "price": 271.2,
-          "changePercent": 1.5,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "APP",
-          "name": "AppLovin Corp.",
-          "price": 429.4,
-          "changePercent": 1.14,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "NXPI",
-          "name": "NXP Semiconductors",
-          "price": 268.91,
-          "changePercent": 0.89,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "TSM",
-          "name": "Taiwan Semiconductor",
-          "price": 401.51,
-          "changePercent": 0.79,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "ADI",
-          "name": "Analog Devices",
-          "price": 377.44,
-          "changePercent": 0.55,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "MCHP",
-          "name": "Microchip Technology",
-          "price": 81.31,
-          "changePercent": 0.43,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "FER",
-          "name": "Ferrovial N.V.",
-          "price": 63.79,
-          "changePercent": 0.31,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "ON",
-          "name": "ON Semiconductor",
-          "price": 87.56,
-          "changePercent": 0.22,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        },
-        {
-          "symbol": "QCOM",
-          "name": "Qualcomm",
-          "price": 171.9,
-          "changePercent": 0.07,
-          "badges": [
-            "昨日創近20日新低",
-            "昨日收紅K",
-            "今日收盤>昨收"
-          ]
-        }
+        { "symbol": "NKE", "name": "Nike", "price": 78.4, "changePercent": 1.85, "badges": ["前日創近20日新低", "前日收紅K", "昨日收盤>前日收盤"] }
       ]
     }
   ]

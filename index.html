@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <style>
-  #heatmap-wrap{ padding:10px 10px 0; }
+  #heatmap-wrap{ padding:8px 8px 0; }
   #treemap{ width:100%; display:block; border-radius:14px; overflow:hidden; border:1px solid var(--border); background:var(--bg-panel); }
   .cell{ cursor:pointer; }
   .cell rect{ stroke:#0a0e14; stroke-width:1.5px; transition: filter .12s ease; }
@@ -18,16 +18,16 @@
   .cell .sym{ font-weight:700; }
   .sector-label{ pointer-events:none; font-family:var(--font-display); font-weight:700; fill:var(--text-dim); }
 
-  .legend{ display:flex; align-items:center; justify-content:center; gap:10px; padding:12px 16px 4px; font-family:var(--font-mono); font-size:11px; color:var(--text-dim); }
-  .legend .bar{ width:120px; height:8px; border-radius:4px; background:linear-gradient(90deg, var(--accent-red), #3a4150, var(--accent-green)); }
+  .legend{ display:flex; align-items:center; justify-content:center; gap:8px; padding:10px 14px 4px; font-family:var(--font-mono); font-size:10px; color:var(--text-dim); }
+  .legend .bar{ width:100px; height:7px; border-radius:4px; background:linear-gradient(90deg, var(--accent-red), #3a4150, var(--accent-green)); }
 
   .detail-sheet{
-    position:fixed; left:12px; right:12px; bottom: calc(70px + var(--safe-bottom));
+    position:fixed; left:10px; right:10px; bottom: calc(62px + var(--safe-bottom));
     z-index:25;
     background: var(--bg-panel-2);
     border:1px solid var(--border);
     border-radius:14px;
-    padding:14px 16px;
+    padding:11px 14px;
     transform: translateY(140%);
     opacity:0;
     transition: transform .22s cubic-bezier(.2,.8,.2,1), opacity .22s ease;
@@ -35,10 +35,10 @@
   }
   .detail-sheet.show{ transform: translateY(0); opacity:1; }
   .detail-sheet .row1{ display:flex; justify-content:space-between; align-items:baseline; }
-  .detail-sheet .sym{ font-family:var(--font-display); font-size:18px; font-weight:700; }
-  .detail-sheet .name{ font-size:12px; color:var(--text-dim); margin-top:2px; }
-  .detail-sheet .price{ font-family:var(--font-mono); font-size:20px; font-weight:600; text-align:right; }
-  .detail-sheet .chg{ font-family:var(--font-mono); font-size:13px; text-align:right; margin-top:2px; }
+  .detail-sheet .sym{ font-family:var(--font-display); font-size:16px; font-weight:700; }
+  .detail-sheet .name{ font-size:11px; color:var(--text-dim); margin-top:2px; }
+  .detail-sheet .price{ font-family:var(--font-mono); font-size:18px; font-weight:600; text-align:right; }
+  .detail-sheet .chg{ font-family:var(--font-mono); font-size:12px; text-align:right; margin-top:2px; }
 </style>
 </head>
 <body>

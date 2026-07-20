@@ -55,6 +55,18 @@ RSI 採用 Wilder's 平滑法（三竹股市、XQ全球贏家等台灣主流看�
 效能設計：每檔股票的歷史資料只抓一次（1年日線），7組條件共用同一份資料再各自判斷，
 不會每組條件都重新打一次 API——選股母體變大之後這點特別重要，避免 API 呼叫量倍增。
 
+每筆選股結果除了代號、公司名、價格、漲跌幅、badges 之外，還會附上：
+  - ma10 / ma30：10日、30日均線
+  - bias30：目前收盤價與30日均線的乖離率（%）
+  - comment：呼叫 Gemini API 產生的一句不超過20字繁體中文短評
+
+Gemini 短評需求：
+  - 環境變數 GEMINI_API_KEY（GitHub Actions 請設成 repo secret）
+  - 沒有設定的話，comment 欄位一律是 null，選股邏輯本身完全不受影響
+  - 同一檔股票如果同時符合好幾組條件，只會呼叫一次 Gemini，結果套用到所有出現的卡片，
+    避免同一檔股票重複打 API 浪費額度
+  - 細節見 scripts/gemini.py
+
 前端 screener.html / screener.js 是資料驅動的，之後如果要再新增第8組選股條件，
 只要在 evaluate_all_conditions() 裡比照既有寫法新增一段判斷、在 main() 的
 condition_meta 裡加一筆設定即可，不需要修改前端。
@@ -67,6 +79,7 @@ import pandas as pd
 import yfinance as yf
 
 from tickers import SCREENER_UNIVERSE
+from gemini import get_short_comment
 
 CROSS_LOOKBACK = 5  # 判定「近期黃金交叉」回看的交易日數
 
@@ -112,12 +125,40 @@ def pct_change(close):
     return (close.iloc[-1] - prev_close) / prev_close * 100 if prev_close else 0
 
 
-def base_result(symbol, name, close):
+def safe_round(v, digits=2):
+    return round(float(v), digits) if v is not None and not pd.isna(v) else None
+
+
+def base_result(symbol, name, hist):
+    close, high, low = hist["Close"], hist["High"], hist["Low"]
+    price = float(close.iloc[-1])
+
+    ma10 = safe_round(close.rolling(10).mean().iloc[-1])
+    ma30 = safe_round(close.rolling(30).mean().iloc[-1])
+    ma60 = safe_round(close.rolling(60).mean().iloc[-1])
+    ma100 = safe_round(close.rolling(100).mean().iloc[-1])
+    bias30 = round((price - ma30) / ma30 * 100, 2) if ma30 else None
+
+    # 52週高低：用最近1年的日High/Low（不是收盤價），資料不足52週時就用實際能抓到的天數
+    window = min(len(high), 252)
+    high52w = safe_round(high.iloc[-window:].max()) if window > 0 else None
+    low52w = safe_round(low.iloc[-window:].min()) if window > 0 else None
+
+    rsi6 = safe_round(rsi(close, 6).iloc[-1])
+
     return {
         "symbol": symbol,
         "name": name,
-        "price": round(float(close.iloc[-1]), 2),
+        "price": round(price, 2),
         "changePercent": round(float(pct_change(close)), 2),
+        "ma10": ma10,
+        "ma30": ma30,
+        "ma60": ma60,
+        "ma100": ma100,
+        "bias30": bias30,
+        "high52w": high52w,
+        "low52w": low52w,
+        "rsi6": rsi6,
     }
 
 
@@ -334,11 +375,35 @@ def main():
                     print(f"[warn] {symbol} [{cid}]: {e}", file=sys.stderr)
                     continue
                 if badges:
-                    entry = base_result(symbol, name, close)
+                    entry = base_result(symbol, name, hist)
                     entry["badges"] = badges
                     results_by_condition[cid].append(entry)
         except Exception as e:
             print(f"[warn] {symbol}: {e}", file=sys.stderr)
+
+    # ---- Gemini 短評：同一檔股票可能出現在好幾組條件裡，只呼叫一次 Gemini，
+    #      結果套用到該股票在所有條件組裡的卡片，避免重複呼叫浪費額度 ----
+    comment_cache = {}
+    for cid, results in results_by_condition.items():
+        for entry in results:
+            symbol = entry["symbol"]
+            if symbol not in comment_cache:
+                comment_cache[symbol] = get_short_comment(
+                    symbol=symbol,
+                    name=entry["name"],
+                    price=entry["price"],
+                    change_pct=entry["changePercent"],
+                    ma10=entry["ma10"],
+                    ma30=entry["ma30"],
+                    ma60=entry["ma60"],
+                    ma100=entry["ma100"],
+                    bias30=entry["bias30"],
+                    high52w=entry["high52w"],
+                    low52w=entry["low52w"],
+                    rsi6=entry["rsi6"],
+                    badges=entry["badges"],
+                )
+            entry["comment"] = comment_cache[symbol]
 
     condition_sets = []
     for cid, meta in CONDITION_META.items():

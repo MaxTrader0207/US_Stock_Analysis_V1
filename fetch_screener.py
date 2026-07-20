@@ -56,7 +56,7 @@ RSI 採用 Wilder's 平滑法（三竹股市、XQ全球贏家等台灣主流看�
 不會每組條件都重新打一次 API——選股母體變大之後這點特別重要，避免 API 呼叫量倍增。
 
 每筆選股結果除了代號、公司名、價格、漲跌幅、badges 之外，還會附上：
-  - ma10 / ma30：10日、30日均線
+  - ma30 / ma60 / ma100：30日、60日、100日均線
   - bias30：目前收盤價與30日均線的乖離率（%）
   - comment：呼叫 Gemini API 產生的一句不超過20字繁體中文短評
 
@@ -130,35 +130,23 @@ def safe_round(v, digits=2):
 
 
 def base_result(symbol, name, hist):
-    close, high, low = hist["Close"], hist["High"], hist["Low"]
+    close = hist["Close"]
     price = float(close.iloc[-1])
 
-    ma10 = safe_round(close.rolling(10).mean().iloc[-1])
     ma30 = safe_round(close.rolling(30).mean().iloc[-1])
     ma60 = safe_round(close.rolling(60).mean().iloc[-1])
     ma100 = safe_round(close.rolling(100).mean().iloc[-1])
     bias30 = round((price - ma30) / ma30 * 100, 2) if ma30 else None
-
-    # 52週高低：用最近1年的日High/Low（不是收盤價），資料不足52週時就用實際能抓到的天數
-    window = min(len(high), 252)
-    high52w = safe_round(high.iloc[-window:].max()) if window > 0 else None
-    low52w = safe_round(low.iloc[-window:].min()) if window > 0 else None
-
-    rsi6 = safe_round(rsi(close, 6).iloc[-1])
 
     return {
         "symbol": symbol,
         "name": name,
         "price": round(price, 2),
         "changePercent": round(float(pct_change(close)), 2),
-        "ma10": ma10,
         "ma30": ma30,
         "ma60": ma60,
         "ma100": ma100,
         "bias30": bias30,
-        "high52w": high52w,
-        "low52w": low52w,
-        "rsi6": rsi6,
     }
 
 
@@ -393,14 +381,10 @@ def main():
                     name=entry["name"],
                     price=entry["price"],
                     change_pct=entry["changePercent"],
-                    ma10=entry["ma10"],
                     ma30=entry["ma30"],
                     ma60=entry["ma60"],
                     ma100=entry["ma100"],
                     bias30=entry["bias30"],
-                    high52w=entry["high52w"],
-                    low52w=entry["low52w"],
-                    rsi6=entry["rsi6"],
                     badges=entry["badges"],
                 )
             entry["comment"] = comment_cache[symbol]

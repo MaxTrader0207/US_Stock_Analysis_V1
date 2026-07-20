@@ -48,9 +48,8 @@
       card.className = "stock-card";
       const badges = (s.badges || []).map(b => `<span class="badge">${b}</span>`).join("");
       const fmt = v => v != null ? v.toFixed(2) : "—";
-      const metricsLine1 = `10MA ${fmt(s.ma10)} · 30MA ${fmt(s.ma30)} · 乖離 ${s.bias30 != null ? (s.bias30 >= 0 ? "+" : "") + s.bias30.toFixed(2) + "%" : "—"}`;
+      const metricsLine1 = `30MA ${fmt(s.ma30)} · 乖離 ${s.bias30 != null ? (s.bias30 >= 0 ? "+" : "") + s.bias30.toFixed(2) + "%" : "—"}`;
       const metricsLine2 = `60MA ${fmt(s.ma60)} · 100MA ${fmt(s.ma100)}`;
-      const metricsLine3 = `52週高 ${fmt(s.high52w)} · 52週低 ${fmt(s.low52w)} · RSI6 ${fmt(s.rsi6)}`;
       const commentHtml = s.comment ? `<div class="ai-comment"><span class="ai-tag">Gemini</span>${s.comment}</div>` : "";
       card.innerHTML = `
         <span class="rank">${i + 1}</span>
@@ -59,7 +58,6 @@
           <div class="badges">${badges}</div>
           <div class="metrics">${metricsLine1}</div>
           <div class="metrics">${metricsLine2}</div>
-          <div class="metrics">${metricsLine3}</div>
           ${commentHtml}
         </div>
         <div class="right">

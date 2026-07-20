@@ -25,8 +25,7 @@ GEMINI_ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{GEM
 MAX_COMMENT_CHARS = 20
 
 
-def get_short_comment(symbol, name, price, change_pct, ma10, ma30, ma60, ma100,
-                       bias30, high52w, low52w, rsi6, badges):
+def get_short_comment(symbol, name, price, change_pct, ma30, ma60, ma100, bias30, badges):
     """回傳一句 <=20字的繁體中文短評字串；沒有 API key 或呼叫失敗回傳 None。"""
     if not GEMINI_API_KEY:
         return None
@@ -40,11 +39,8 @@ def get_short_comment(symbol, name, price, change_pct, ma10, ma30, ma60, ma100,
         "只能輸出短評本身，不要加任何前言、標點以外的說明、也不要加引號。\n\n"
         f"股票代號：{symbol}（{name}）\n"
         f"目前收盤價：{price}，今日漲跌幅：{change_pct}%\n"
-        f"10日均線：{fmt(ma10)}，30日均線：{fmt(ma30)}，"
-        f"60日均線：{fmt(ma60)}，100日均線：{fmt(ma100)}\n"
+        f"30日均線：{fmt(ma30)}，60日均線：{fmt(ma60)}，100日均線：{fmt(ma100)}\n"
         f"收盤價與30日均線乖離率：{fmt(bias30, '%')}\n"
-        f"52週最高：{fmt(high52w)}，52週最低：{fmt(low52w)}\n"
-        f"RSI(6)：{fmt(rsi6)}\n"
         f"本次符合的選股訊號：{'、'.join(badges) if badges else '無'}"
     )
 

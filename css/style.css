@@ -218,9 +218,11 @@ main{
   position:absolute; left:10px; top:50%; transform:translateY(-50%);
 }
 .metrics{
-  font-family:var(--font-mono); font-size:9.5px; color:var(--text-dim);
+  font-family:var(--font-mono); font-size:9.5px;
   margin-top:3px;
 }
+.metrics-1{ color: var(--accent-amber); }
+.metrics-2{ color: var(--accent-blue); }
 .ai-comment{
   display:flex; align-items:baseline; gap:5px;
   font-size:10.5px; color:var(--accent-blue);

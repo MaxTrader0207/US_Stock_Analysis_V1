@@ -56,8 +56,8 @@
         <div class="left">
           <div class="sym-row"><span class="sym">${s.symbol}</span><span class="name">${s.name || ""}</span></div>
           <div class="badges">${badges}</div>
-          <div class="metrics">${metricsLine1}</div>
-          <div class="metrics">${metricsLine2}</div>
+          <div class="metrics metrics-1">${metricsLine1}</div>
+          <div class="metrics metrics-2">${metricsLine2}</div>
           ${commentHtml}
         </div>
         <div class="right">

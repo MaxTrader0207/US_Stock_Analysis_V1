@@ -7,7 +7,7 @@
 | 頁籤 | 檔案 | 說明 |
 |---|---|---|
 | 1. 熱力圖 | `index.html` + `js/heatmap.js` | 仿 finviz.com/map 的 D3 squarified treemap，方塊大小＝市值（或成交量），顏色＝漲跌幅。頂部頁籤可切換 6 種市場 |
-| 2. 強勢股選股 | `screener.html` + `js/screener.js` | 多組選股條件（頁籤切換），目前已實作 5 組：強勢股A、多頭股A、多頭股B、拉回轉強、突破區間 |
+| 2. 強勢股選股 | `screener.html` + `js/screener.js` | 多組選股條件（頁籤切換），目前已實作 7 組：強勢股A、多頭股A、多頭股B、拉回轉強、突破區間、轉機股、低檔轉折股 |
 | 3. 基本面選股 | `fundamentals.html` + `js/fundamentals.js` | 5 位傳奇投資大師的量化選股條件（頁籤切換），已全數實作：巴菲特、馬克約克奇、麥克墨菲、彼得林區、班哲明格拉罕 |
 
 ### 熱力圖的 6 種市場（對應 finviz.com/map 的 t 參數）
@@ -73,7 +73,7 @@ python -m http.server 8000
 ## 待辦 / 擴充方向
 
 - [ ] `scripts/tickers.py`（強勢股選股／基本面選股共用的股票清單）目前是手動維護清單，S&P 500 只有依權重排序前71檔非完整500檔；道瓊、那斯達克100、費城半導體指數(SOX) 都已是完整名單。若要涵蓋完整 S&P 500，需要額外的成分股清單資料源
-- [ ] 之後要再新增第 6 組選股條件：在 `fetch_screener.py` 的 `main()` 內比照 `build_breakout_range()` 新增函式即可，前端不需改動
+- [ ] 之後要再新增第 8 組選股條件：在 `fetch_screener.py` 的 `main()` 內比照 `check_turnaround()` / `check_bottom_reversal()` 新增函式，登記進 `CONDITION_CHECKS` 跟 `CONDITION_META` 兩個字典即可，前端不需改動
 - [ ] 基本面選股 5 位大師已全數實作，`scripts/fetch_fundamentals.py` 檔頭有詳細的資料來源限制說明，特別留意：彼得林區「質押比例」美股無資料可用（只檢核持股比例）、班哲明格拉罕「產業營收排名」只在159檔母體內相對排名（非全市場）；之後要再新增第6位大師，在 `main()` 內比照既有 `check_xxx()` 寫法新增一個函式、在 `master_sets` 清單加一筆設定即可，前端不需改動
 - [ ] `fetch_fundamentals.py` 的基本面計算依賴 yfinance 免費財報資料，年度財報通常只有近4年（非精確5年）、「5年均值本益比」為簡化算法（假設EPS不變），細節見腳本開頭註解；如果需要更精確的歷史數據，可能要考慮串接付費財報 API
 - [ ] 道瓊（30檔，完整）、那斯達克100（47檔核心權值股，非完整100檔）已依你提供的清單核對；S&P 500 / ETF / 期貨 / 加密貨幣目前仍是精簡代表清單（`scripts/fetch_heatmap.py` 裡的 `*_GROUPS`），如需涵蓋完整成分股，需另外取得成分股＋分類對照表

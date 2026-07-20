@@ -7,7 +7,7 @@
 選股母體：scripts/tickers.py 裡的 SCREENER_UNIVERSE
 （道瓊工業平均 + S&P 500精簡清單 + 那斯達克100核心清單 + 費城半導體指數，去重合併）
 
-五組選股條件：
+七組選股條件：
 
 【強勢股A】
   1. 日線收盤價 > 日線 30MA
@@ -36,6 +36,15 @@
   2. 今日開盤跳空開高（開盤價 > 昨日最高價）
   3. 今日收紅K（收盤價 > 開盤價）
 
+【轉機股】
+  1. 近3日內，日線收盤價黃金交叉布林通道(Bollinger Band)下緣（20日、2倍標準差）
+  2. 布林通道下緣呈上揚
+
+【低檔轉折股】
+  1. 昨日日線最低價，創近20個交易日新低
+  2. 昨日日線收紅K（昨日收盤價 > 昨日開盤價）
+  3. 今日日線收盤價 > 昨日日線收盤價
+
 「黃金交叉」判定為近 N 個交易日內曾經處於「不高於」狀態、且最新一天已經轉為「高於」，
 用意是抓「剛翻多不久」的標的，而不是只抓「交叉當天」（否則每天符合的標的會很少）。
 N 可透過 CROSS_LOOKBACK 調整。
@@ -43,10 +52,10 @@ N 可透過 CROSS_LOOKBACK 調整。
 RSI 採用 Wilder's 平滑法（三竹股市、XQ全球贏家等台灣主流看盤軟體的標準算法），
 細節見 rsi() 函式內註解。
 
-效能設計：每檔股票的歷史資料只抓一次（1年日線），5組條件共用同一份資料再各自判斷，
+效能設計：每檔股票的歷史資料只抓一次（1年日線），7組條件共用同一份資料再各自判斷，
 不會每組條件都重新打一次 API——選股母體變大之後這點特別重要，避免 API 呼叫量倍增。
 
-前端 screener.html / screener.js 是資料驅動的，之後如果要再新增第6組選股條件，
+前端 screener.html / screener.js 是資料驅動的，之後如果要再新增第8組選股條件，
 只要在 evaluate_all_conditions() 裡比照既有寫法新增一段判斷、在 main() 的
 condition_meta 裡加一筆設定即可，不需要修改前端。
 """
@@ -224,12 +233,51 @@ def check_breakout_range(o, h, l, c):
     return None
 
 
+def check_turnaround(close):
+    """轉機股：近3日內，日線收盤價黃金交叉布林通道下緣，且下緣上揚。"""
+    if len(close) < 30:
+        return None
+    ma20 = close.rolling(20).mean()
+    std20 = close.rolling(20).std()
+    lower_band = ma20 - 2 * std20
+    if pd.isna(lower_band.iloc[-1]) or pd.isna(lower_band.iloc[-6]):
+        return None
+
+    golden_cross = crossed_above(close, lower_band, lookback=3)
+    band_rising = lower_band.iloc[-1] > lower_band.iloc[-6]
+
+    if golden_cross and band_rising:
+        return ["近3日黃金交叉BB下緣", "BB下緣上揚"]
+    return None
+
+
+def check_bottom_reversal(o, h, l, c, lookback=20):
+    """低檔轉折股：昨日最低價創近期新低、昨日收紅K、今日收盤價>昨日收盤價。"""
+    if len(c) < lookback + 2:
+        return None
+    window_low = l.iloc[-(lookback + 1):-1]  # 近 lookback 個交易日（含昨日）
+    if len(window_low) < lookback:
+        return None
+
+    yesterday_low = l.iloc[-2]
+    is_recent_low = yesterday_low <= window_low.min()
+
+    yesterday_red = c.iloc[-2] > o.iloc[-2]
+    today_up = c.iloc[-1] > c.iloc[-2]
+
+    if is_recent_low and yesterday_red and today_up:
+        return [f"昨日創近{lookback}日新低", "昨日收紅K", "今日收盤>昨收"]
+    return None
+
+
 CONDITION_CHECKS = {
     "strength-a": lambda hist: check_strength_a(hist["Close"]),
     "bullish-a": lambda hist: check_bullish_a(hist["Close"], hist["Volume"]),
     "bullish-b": lambda hist: check_bullish_b(hist["Close"]),
     "pullback-strength": lambda hist: check_pullback_strength(hist["Close"]),
     "breakout-range": lambda hist: check_breakout_range(hist["Open"], hist["High"], hist["Low"], hist["Close"]),
+    "turnaround": lambda hist: check_turnaround(hist["Close"]),
+    "bottom-reversal": lambda hist: check_bottom_reversal(hist["Open"], hist["High"], hist["Low"], hist["Close"]),
 }
 
 CONDITION_META = {
@@ -252,6 +300,14 @@ CONDITION_META = {
     "breakout-range": {
         "name": "突破區間",
         "description": "近20個交易日（不含今日）最高價 < 最低價 × 1.15，屬窄幅盤整；今日開盤跳空開高（開盤 > 昨日最高）且收紅K（收盤 > 開盤），視為區間突破確認。",
+    },
+    "turnaround": {
+        "name": "轉機股",
+        "description": "近3日內，日線收盤價黃金交叉布林通道(20日,2倍標準差)下緣，且下緣呈上揚，視為由弱轉強的轉機訊號。",
+    },
+    "bottom-reversal": {
+        "name": "低檔轉折股",
+        "description": "昨日最低價創近20個交易日新低；昨日收紅K；今日收盤價>昨日收盤價，視為低檔止跌轉折訊號。",
     },
 }
 

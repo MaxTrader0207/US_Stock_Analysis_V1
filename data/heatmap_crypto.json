@@ -1,146 +1,31 @@
 {
-  "updated": "2026-07-20T12:42:39.952001+00:00",
+  "updated": "2026-07-18T20:00:00Z",
+  "note": "範例資料，執行 scripts/fetch_heatmap.py 後會被覆蓋",
   "sectors": [
-    {
-      "name": "Major",
-      "children": [
-        {
-          "symbol": "BTC",
-          "name": "BTC-USD",
-          "price": 64644.64,
-          "changePercent": -0.07,
-          "marketCap": 23030.99
-        },
-        {
-          "symbol": "ETH",
-          "name": "ETH-USD",
-          "price": 1875.39,
-          "changePercent": 0.21,
-          "marketCap": 9860.81
-        }
-      ]
-    },
-    {
-      "name": "Large Cap",
-      "children": [
-        {
-          "symbol": "BNB",
-          "name": "BNB-USD",
-          "price": 568.97,
-          "changePercent": -0.25,
-          "marketCap": 954.16
-        },
-        {
-          "symbol": "XRP",
-          "name": "XRP-USD",
-          "price": 1.1,
-          "changePercent": 0.25,
-          "marketCap": 914.19
-        },
-        {
-          "symbol": "SOL",
-          "name": "SOL-USD",
-          "price": 76.75,
-          "changePercent": 0.52,
-          "marketCap": 1690.32
-        },
-        {
-          "symbol": "TRX",
-          "name": "TRX-USD",
-          "price": 0.33,
-          "changePercent": -0.43,
-          "marketCap": 376.72
-        },
-        {
-          "symbol": "DOGE",
-          "name": "DOGE-USD",
-          "price": 0.07,
-          "changePercent": 0.37,
-          "marketCap": 453.44
-        },
-        {
-          "symbol": "ADA",
-          "name": "ADA-USD",
-          "price": 0.16,
-          "changePercent": -1.19,
-          "marketCap": 236.27
-        }
-      ]
-    },
-    {
-      "name": "Mid Cap",
-      "children": [
-        {
-          "symbol": "LINK",
-          "name": "LINK-USD",
-          "price": 8.45,
-          "changePercent": 0.94,
-          "marketCap": 199.69
-        },
-        {
-          "symbol": "TON",
-          "name": "TON-USD",
-          "price": 0.01,
-          "changePercent": 0.01,
-          "marketCap": 0.0
-        },
-        {
-          "symbol": "BCH",
-          "name": "BCH-USD",
-          "price": 215.02,
-          "changePercent": 0.07,
-          "marketCap": 100.31
-        },
-        {
-          "symbol": "LTC",
-          "name": "LTC-USD",
-          "price": 47.09,
-          "changePercent": 0.1,
-          "marketCap": 280.96
-        },
-        {
-          "symbol": "AVAX",
-          "name": "AVAX-USD",
-          "price": 6.56,
-          "changePercent": 1.61,
-          "marketCap": 291.2
-        },
-        {
-          "symbol": "XLM",
-          "name": "XLM-USD",
-          "price": 0.19,
-          "changePercent": -0.17,
-          "marketCap": 137.02
-        },
-        {
-          "symbol": "HBAR",
-          "name": "HBAR-USD",
-          "price": 0.07,
-          "changePercent": -0.07,
-          "marketCap": 31.12
-        },
-        {
-          "symbol": "NEAR",
-          "name": "NEAR-USD",
-          "price": 1.96,
-          "changePercent": 2.27,
-          "marketCap": 174.31
-        },
-        {
-          "symbol": "ZEC",
-          "name": "ZEC-USD",
-          "price": 536.0,
-          "changePercent": -2.06,
-          "marketCap": 416.78
-        },
-        {
-          "symbol": "SHIB",
-          "name": "SHIB-USD",
-          "price": 0.0,
-          "changePercent": 5.0,
-          "marketCap": 54.73
-        }
-      ]
-    }
+    { "name": "Major", "children": [
+      { "symbol": "BTC", "name": "Bitcoin", "price": 64338.20, "changePercent": -0.44, "marketCap": 1280 },
+      { "symbol": "ETH", "name": "Ethereum", "price": 1866.28, "changePercent": 0.08, "marketCap": 225 }
+    ] },
+    { "name": "Large Cap", "children": [
+      { "symbol": "BNB", "name": "BNB", "price": 567.47, "changePercent": -0.27, "marketCap": 85 },
+      { "symbol": "XRP", "name": "XRP", "price": 1.09, "changePercent": 0.08, "marketCap": 63 },
+      { "symbol": "SOL", "name": "Solana", "price": 75.88, "changePercent": 0.08, "marketCap": 40 },
+      { "symbol": "TRX", "name": "TRON", "price": 0.33, "changePercent": 0.49, "marketCap": 29 },
+      { "symbol": "DOGE", "name": "Dogecoin", "price": 0.07, "changePercent": 0.01, "marketCap": 10 },
+      { "symbol": "ADA", "name": "Cardano", "price": 0.16, "changePercent": -1.14, "marketCap": 6 }
+    ] },
+    { "name": "Mid Cap", "children": [
+      { "symbol": "LINK", "name": "Chainlink", "price": 8.33, "changePercent": 0.05, "marketCap": 5.6 },
+      { "symbol": "TON", "name": "Toncoin", "price": 1.60, "changePercent": -0.25, "marketCap": 4.1 },
+      { "symbol": "BCH", "name": "Bitcoin Cash", "price": 216.35, "changePercent": -0.78, "marketCap": 4.3 },
+      { "symbol": "LTC", "name": "Litecoin", "price": 46.83, "changePercent": 0.04, "marketCap": 3.5 },
+      { "symbol": "AVAX", "name": "Avalanche", "price": 6.45, "changePercent": -1.98, "marketCap": 2.7 },
+      { "symbol": "XLM", "name": "Stellar", "price": 0.19, "changePercent": 0.65, "marketCap": 5.9 },
+      { "symbol": "HBAR", "name": "Hedera", "price": 0.07, "changePercent": -0.17, "marketCap": 2.9 },
+      { "symbol": "SUI", "name": "Sui", "price": 0.75, "changePercent": 1.02, "marketCap": 2.4 },
+      { "symbol": "NEAR", "name": "NEAR Protocol", "price": 1.91, "changePercent": 0.10, "marketCap": 2.2 },
+      { "symbol": "ZEC", "name": "Zcash", "price": 555.94, "changePercent": -0.11, "marketCap": 1.6 },
+      { "symbol": "SHIB", "name": "Shiba Inu", "price": 0.00, "changePercent": 0.24, "marketCap": 7.5 }
+    ] }
   ]
 }

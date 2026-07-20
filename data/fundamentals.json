@@ -1,51 +1,1494 @@
 {
-  "updated": "2026-07-18T14:00:00Z",
-  "note": "這是範例資料，請透過 scripts/fetch_fundamentals.py + GitHub Actions 產生即時資料後覆蓋此檔案",
+  "updated": "2026-07-20T17:10:09.286760+00:00",
   "masterSets": [
     {
       "id": "buffett",
       "name": "巴菲特",
-      "description": "近5年平均ROE>15%；最新年度毛利率>40%；負債權益比<50%；連續5年自由現金流>0；本益比<15或低於其5年均值。（yfinance財報年限所限，實際檢核年數可能少於5年）母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "status": "active",
+      "description": "近5年平均ROE>15%；最新年度毛利率>40%；負債權益比<50%；連續5年自由現金流>0；本益比<15或低於其5年均值。（yfinance財報年限所限，實際檢核年數可能少於5年）母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "results": [
-        { "symbol": "AAPL", "name": "Apple", "price": 231.4, "changePercent": 1.32, "badges": ["近4年均ROE 32.5%", "毛利率 46.2%", "負債權益比 38%", "FCF連4年為正", "本益比低於5年均值"] },
-        { "symbol": "MA", "name": "Mastercard", "price": 545.2, "changePercent": -0.28, "badges": ["近4年均ROE 68.1%", "毛利率 55.0%", "負債權益比 41%", "FCF連4年為正", "本益比低於5年均值"] }
+        {
+          "symbol": "PDD",
+          "name": "PDD Holdings",
+          "price": 86.52,
+          "changePercent": 2.83,
+          "badges": [
+            "近4年均ROE 29.6%",
+            "毛利率 56.3%",
+            "負債權益比 1%",
+            "FCF連4年為正",
+            "本益比<15"
+          ]
+        },
+        {
+          "symbol": "ABT",
+          "name": "Abbott Laboratories",
+          "price": 102.0,
+          "changePercent": 1.31,
+          "badges": [
+            "近4年均ROE 18.6%",
+            "毛利率 56.4%",
+            "負債權益比 27%",
+            "FCF連4年為正",
+            "本益比低於5年均值"
+          ]
+        },
+        {
+          "symbol": "REGN",
+          "name": "Regeneron Pharmaceuticals",
+          "price": 681.43,
+          "changePercent": 0.7,
+          "badges": [
+            "近4年均ROE 16.0%",
+            "毛利率 85.4%",
+            "負債權益比 9%",
+            "FCF連4年為正",
+            "本益比低於5年均值"
+          ]
+        },
+        {
+          "symbol": "PYPL",
+          "name": "PayPal Holdings",
+          "price": 56.9,
+          "changePercent": 0.61,
+          "badges": [
+            "近4年均ROE 19.6%",
+            "毛利率 46.6%",
+            "負債權益比 49%",
+            "FCF連4年為正",
+            "本益比<15"
+          ]
+        },
+        {
+          "symbol": "INTU",
+          "name": "Intuit Inc.",
+          "price": 292.47,
+          "changePercent": 0.47,
+          "badges": [
+            "近4年均ROE 15.5%",
+            "毛利率 79.6%",
+            "負債權益比 34%",
+            "FCF連4年為正",
+            "本益比低於5年均值"
+          ]
+        },
+        {
+          "symbol": "TRI",
+          "name": "Thomson Reuters",
+          "price": 96.09,
+          "changePercent": -0.11,
+          "badges": [
+            "近4年均ROE 16.7%",
+            "毛利率 75.8%",
+            "負債權益比 20%",
+            "FCF連4年為正",
+            "本益比低於5年均值"
+          ]
+        },
+        {
+          "symbol": "CPRT",
+          "name": "Copart, Inc.",
+          "price": 27.53,
+          "changePercent": -0.29,
+          "badges": [
+            "近4年均ROE 19.8%",
+            "毛利率 45.2%",
+            "負債權益比 1%",
+            "FCF連4年為正",
+            "本益比低於5年均值"
+          ]
+        }
       ]
     },
     {
       "id": "yockey",
       "name": "馬克約克奇",
-      "description": "近12季毛利率平均>20%；近3年平均稅前純益成長率>3%。（yfinance免費季報通常抓不滿12季，實際採用季數見各標的badge標註）母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "status": "active",
+      "description": "近12季毛利率平均>20%；近3年平均稅前純益成長率>3%。（yfinance免費季報通常抓不滿12季，實際採用季數見各標的badge標註）母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "results": [
-        { "symbol": "MSFT", "name": "Microsoft", "price": 512.8, "changePercent": 0.85, "badges": ["近4季毛利率均 68.9%", "近3年稅前純益成長率均 15.2%"] },
-        { "symbol": "ORCL", "name": "Oracle", "price": 198.5, "changePercent": 1.05, "badges": ["近4季毛利率均 71.2%", "近3年稅前純益成長率均 12.4%"] }
+        {
+          "symbol": "CRDO",
+          "name": "Credo Technology",
+          "price": 216.6,
+          "changePercent": 6.87,
+          "badges": [
+            "近5季毛利率均 67.8%",
+            "近3年稅前純益成長率均 360.2%"
+          ]
+        },
+        {
+          "symbol": "MU",
+          "name": "Micron Technology",
+          "price": 889.55,
+          "changePercent": 4.78,
+          "badges": [
+            "近5季毛利率均 59.5%",
+            "近3年稅前純益成長率均 213.8%"
+          ]
+        },
+        {
+          "symbol": "WDC",
+          "name": "Western Digital",
+          "price": 498.41,
+          "changePercent": 4.44,
+          "badges": [
+            "近5季毛利率均 44.0%",
+            "近3年稅前純益成長率均 42.3%"
+          ]
+        },
+        {
+          "symbol": "NBIS",
+          "name": "Nebius Group N.V.",
+          "price": 183.92,
+          "changePercent": 3.49,
+          "badges": [
+            "近5季毛利率均 68.2%",
+            "近3年稅前純益成長率均 6.3%"
+          ]
+        },
+        {
+          "symbol": "DDOG",
+          "name": "Datadog Inc.",
+          "price": 266.01,
+          "changePercent": 2.83,
+          "badges": [
+            "近5季毛利率均 79.8%",
+            "近3年稅前純益成長率均 153.0%"
+          ]
+        },
+        {
+          "symbol": "PDD",
+          "name": "PDD Holdings",
+          "price": 86.52,
+          "changePercent": 2.83,
+          "badges": [
+            "近5季毛利率均 56.2%",
+            "近3年稅前純益成長率均 57.3%"
+          ]
+        },
+        {
+          "symbol": "AVGO",
+          "name": "Broadcom",
+          "price": 381.29,
+          "changePercent": 2.82,
+          "badges": [
+            "近5季毛利率均 68.1%",
+            "近3年稅前純益成長率均 38.8%"
+          ]
+        },
+        {
+          "symbol": "AMD",
+          "name": "Advanced Micro Devices",
+          "price": 509.14,
+          "changePercent": 2.7,
+          "badges": [
+            "近5季毛利率均 49.8%",
+            "近3年稅前純益成長率均 118.0%"
+          ]
+        },
+        {
+          "symbol": "MPWR",
+          "name": "Monolithic Power Systems",
+          "price": 1346.18,
+          "changePercent": 2.6,
+          "badges": [
+            "近5季毛利率均 55.2%",
+            "近3年稅前純益成長率均 14.5%"
+          ]
+        },
+        {
+          "symbol": "SHOP",
+          "name": "Shopify, Inc.",
+          "price": 126.65,
+          "changePercent": 2.5,
+          "badges": [
+            "近5季毛利率均 48.4%",
+            "近3年稅前純益成長率均 392.4%"
+          ]
+        },
+        {
+          "symbol": "TEAM",
+          "name": "Atlassian",
+          "price": 95.62,
+          "changePercent": 2.5,
+          "badges": [
+            "近5季毛利率均 83.8%",
+            "近3年稅前純益成長率均 30.2%"
+          ]
+        },
+        {
+          "symbol": "ALAB",
+          "name": "Astera Labs",
+          "price": 310.83,
+          "changePercent": 2.38,
+          "badges": [
+            "近5季毛利率均 75.8%",
+            "近3年稅前純益成長率均 56.8%"
+          ]
+        },
+        {
+          "symbol": "DASH",
+          "name": "DoorDash, Inc.",
+          "price": 188.3,
+          "changePercent": 2.26,
+          "badges": [
+            "近5季毛利率均 50.8%",
+            "近3年稅前純益成長率均 231.0%"
+          ]
+        },
+        {
+          "symbol": "STX",
+          "name": "Seagate Technology",
+          "price": 804.59,
+          "changePercent": 2.15,
+          "badges": [
+            "近5季毛利率均 40.0%",
+            "近3年稅前純益成長率均 100.1%"
+          ]
+        },
+        {
+          "symbol": "ALNY",
+          "name": "Alnylam Pharmaceuticals",
+          "price": 272.92,
+          "changePercent": 2.04,
+          "badges": [
+            "近5季毛利率均 82.2%",
+            "近3年稅前純益成長率均 86.7%"
+          ]
+        },
+        {
+          "symbol": "GOOG",
+          "name": "Alphabet",
+          "price": 353.16,
+          "changePercent": 2.03,
+          "badges": [
+            "近5季毛利率均 60.2%",
+            "近3年稅前純益成長率均 30.8%"
+          ]
+        },
+        {
+          "symbol": "RMBS",
+          "name": "Rambus",
+          "price": 103.42,
+          "changePercent": 1.95,
+          "badges": [
+            "近5季毛利率均 79.6%",
+            "近3年稅前純益成長率均 846.6%"
+          ]
+        },
+        {
+          "symbol": "ISRG",
+          "name": "Intuitive Surgical",
+          "price": 352.02,
+          "changePercent": 1.91,
+          "badges": [
+            "近5季毛利率均 66.0%",
+            "近3年稅前純益成長率均 27.4%"
+          ]
+        },
+        {
+          "symbol": "GOOGL",
+          "name": "Alphabet",
+          "price": 353.33,
+          "changePercent": 1.89,
+          "badges": [
+            "近5季毛利率均 60.2%",
+            "近3年稅前純益成長率均 30.8%"
+          ]
+        },
+        {
+          "symbol": "MSFT",
+          "name": "Microsoft",
+          "price": 400.6,
+          "changePercent": 1.72,
+          "badges": [
+            "近5季毛利率均 68.4%",
+            "近3年稅前純益成長率均 14.0%"
+          ]
+        },
+        {
+          "symbol": "ARM",
+          "name": "Arm Holdings",
+          "price": 271.65,
+          "changePercent": 1.67,
+          "badges": [
+            "近5季毛利率均 97.6%",
+            "近3年稅前純益成長率均 77.3%"
+          ]
+        },
+        {
+          "symbol": "MELI",
+          "name": "MercadoLibre, Inc.",
+          "price": 1843.3,
+          "changePercent": 1.62,
+          "badges": [
+            "近5季毛利率均 44.5%",
+            "近3年稅前純益成長率均 57.5%"
+          ]
+        },
+        {
+          "symbol": "AMZN",
+          "name": "Amazon",
+          "price": 250.94,
+          "changePercent": 1.5,
+          "badges": [
+            "近5季毛利率均 50.7%",
+            "近3年稅前純益成長率均 285.7%"
+          ]
+        },
+        {
+          "symbol": "CRM",
+          "name": "Salesforce",
+          "price": 173.2,
+          "changePercent": 1.42,
+          "badges": [
+            "近5季毛利率均 77.5%",
+            "近3年稅前純益成長率均 242.8%"
+          ]
+        },
+        {
+          "symbol": "ANET",
+          "name": "Arista Networks",
+          "price": 171.0,
+          "changePercent": 1.42,
+          "badges": [
+            "近5季毛利率均 63.6%",
+            "近3年稅前純益成長率均 39.4%"
+          ]
+        },
+        {
+          "symbol": "TSM",
+          "name": "Taiwan Semiconductor",
+          "price": 403.92,
+          "changePercent": 1.39,
+          "badges": [
+            "近5季毛利率均 62.9%",
+            "近3年稅前純益成長率均 24.8%"
+          ]
+        },
+        {
+          "symbol": "RTX",
+          "name": "RTX Corp",
+          "price": 196.19,
+          "changePercent": 1.38,
+          "badges": [
+            "近5季毛利率均 20.2%",
+            "近3年稅前純益成長率均 21.7%"
+          ]
+        },
+        {
+          "symbol": "PLTR",
+          "name": "Palantir Technologies",
+          "price": 134.19,
+          "changePercent": 1.37,
+          "badges": [
+            "近5季毛利率均 83.0%",
+            "近3年稅前純益成長率均 170.3%"
+          ]
+        },
+        {
+          "symbol": "IBM",
+          "name": "IBM",
+          "price": 215.35,
+          "changePercent": 1.26,
+          "badges": [
+            "近5季毛利率均 57.6%",
+            "近3年稅前純益成長率均 232.2%"
+          ]
+        },
+        {
+          "symbol": "WDAY",
+          "name": "Workday, Inc.",
+          "price": 146.52,
+          "changePercent": 1.21,
+          "badges": [
+            "近5季毛利率均 75.8%",
+            "近3年稅前純益成長率均 124.8%"
+          ]
+        },
+        {
+          "symbol": "AXON",
+          "name": "Axon Enterprise",
+          "price": 516.25,
+          "changePercent": 1.17,
+          "badges": [
+            "近5季毛利率均 59.6%",
+            "近3年稅前純益成長率均 9.3%"
+          ]
+        },
+        {
+          "symbol": "ROST",
+          "name": "Ross Stores",
+          "price": 235.82,
+          "changePercent": 1.01,
+          "badges": [
+            "近5季毛利率均 28.1%",
+            "近3年稅前純益成長率均 13.0%"
+          ]
+        },
+        {
+          "symbol": "TMUS",
+          "name": "T-Mobile US",
+          "price": 194.34,
+          "changePercent": 0.99,
+          "badges": [
+            "近5季毛利率均 62.8%",
+            "近3年稅前純益成長率均 93.5%"
+          ]
+        },
+        {
+          "symbol": "MCHP",
+          "name": "Microchip Technology",
+          "price": 81.69,
+          "changePercent": 0.9,
+          "badges": [
+            "近5季毛利率均 56.4%",
+            "近3年稅前純益成長率均 162.0%"
+          ]
+        },
+        {
+          "symbol": "CEG",
+          "name": "Constellation Energy",
+          "price": 254.56,
+          "changePercent": 0.86,
+          "badges": [
+            "近5季毛利率均 20.1%",
+            "近3年稅前純益成長率均 204.6%"
+          ]
+        },
+        {
+          "symbol": "FTNT",
+          "name": "Fortinet, Inc.",
+          "price": 162.8,
+          "changePercent": 0.74,
+          "badges": [
+            "近5季毛利率均 80.5%",
+            "近3年稅前純益成長率均 34.9%"
+          ]
+        },
+        {
+          "symbol": "REGN",
+          "name": "Regeneron Pharmaceuticals",
+          "price": 681.43,
+          "changePercent": 0.7,
+          "badges": [
+            "近5季毛利率均 84.5%",
+            "近3年稅前純益成長率均 3.2%"
+          ]
+        },
+        {
+          "symbol": "QRVO",
+          "name": "Qorvo",
+          "price": 86.08,
+          "changePercent": 0.68,
+          "badges": [
+            "近5季毛利率均 45.1%",
+            "近3年稅前純益成長率均 151.0%"
+          ]
+        },
+        {
+          "symbol": "V",
+          "name": "Visa",
+          "price": 360.95,
+          "changePercent": 0.67,
+          "badges": [
+            "近5季毛利率均 81.1%",
+            "近3年稅前純益成長率均 10.3%"
+          ]
+        },
+        {
+          "symbol": "META",
+          "name": "Meta Platforms",
+          "price": 650.3,
+          "changePercent": 0.66,
+          "badges": [
+            "近5季毛利率均 82.0%",
+            "近3年稅前純益成長率均 45.1%"
+          ]
+        },
+        {
+          "symbol": "ADI",
+          "name": "Analog Devices",
+          "price": 377.64,
+          "changePercent": 0.61,
+          "badges": [
+            "近5季毛利率均 63.7%",
+            "近3年稅前純益成長率均 6.1%"
+          ]
+        },
+        {
+          "symbol": "PYPL",
+          "name": "PayPal Holdings",
+          "price": 56.9,
+          "changePercent": 0.61,
+          "badges": [
+            "近5季毛利率均 46.4%",
+            "近3年稅前純益成長率均 25.8%"
+          ]
+        },
+        {
+          "symbol": "TJX",
+          "name": "TJX Companies",
+          "price": 155.4,
+          "changePercent": 0.61,
+          "badges": [
+            "近5季毛利率均 31.0%",
+            "近3年稅前純益成長率均 16.6%"
+          ]
+        },
+        {
+          "symbol": "CDNS",
+          "name": "Cadence Design Systems",
+          "price": 332.07,
+          "changePercent": 0.59,
+          "badges": [
+            "近5季毛利率均 86.2%",
+            "近3年稅前純益成長率均 13.5%"
+          ]
+        },
+        {
+          "symbol": "PAYX",
+          "name": "Paychex, Inc.",
+          "price": 115.03,
+          "changePercent": 0.56,
+          "badges": [
+            "近5季毛利率均 73.9%",
+            "近3年稅前純益成長率均 6.2%"
+          ]
+        },
+        {
+          "symbol": "MA",
+          "name": "Mastercard",
+          "price": 546.49,
+          "changePercent": 0.53,
+          "badges": [
+            "近5季毛利率均 77.4%",
+            "近3年稅前純益成長率均 16.6%"
+          ]
+        },
+        {
+          "symbol": "INTU",
+          "name": "Intuit Inc.",
+          "price": 292.47,
+          "changePercent": 0.47,
+          "badges": [
+            "近5季毛利率均 80.0%",
+            "近3年稅前純益成長率均 24.2%"
+          ]
+        },
+        {
+          "symbol": "NVDA",
+          "name": "NVIDIA",
+          "price": 203.65,
+          "changePercent": 0.41,
+          "badges": [
+            "近5季毛利率均 71.3%",
+            "近3年稅前純益成長率均 308.6%"
+          ]
+        },
+        {
+          "symbol": "ROP",
+          "name": "Roper Technologies",
+          "price": 364.64,
+          "changePercent": 0.41,
+          "badges": [
+            "近5季毛利率均 69.3%",
+            "近3年稅前純益成長率均 15.7%"
+          ]
+        },
+        {
+          "symbol": "AMAT",
+          "name": "Applied Materials",
+          "price": 531.75,
+          "changePercent": 0.39,
+          "badges": [
+            "近5季毛利率均 49.0%",
+            "近3年稅前純益成長率均 7.0%"
+          ]
+        },
+        {
+          "symbol": "CMCSA",
+          "name": "Comcast Corp.",
+          "price": 23.88,
+          "changePercent": 0.38,
+          "badges": [
+            "近5季毛利率均 70.5%",
+            "近3年稅前純益成長率均 49.9%"
+          ]
+        },
+        {
+          "symbol": "APP",
+          "name": "AppLovin Corp.",
+          "price": 426.13,
+          "changePercent": 0.37,
+          "badges": [
+            "近5季毛利率均 88.0%",
+            "近3年稅前純益成長率均 237.0%"
+          ]
+        },
+        {
+          "symbol": "APH",
+          "name": "Amphenol",
+          "price": 151.68,
+          "changePercent": 0.32,
+          "badges": [
+            "近5季毛利率均 36.7%",
+            "近3年稅前純益成長率均 36.0%"
+          ]
+        },
+        {
+          "symbol": "NVMI",
+          "name": "Nova Ltd",
+          "price": 438.36,
+          "changePercent": 0.21,
+          "badges": [
+            "近5季毛利率均 57.4%",
+            "近3年稅前純益成長率均 25.9%"
+          ]
+        },
+        {
+          "symbol": "AMGN",
+          "name": "Amgen",
+          "price": 366.86,
+          "changePercent": 0.16,
+          "badges": [
+            "近5季毛利率均 67.3%",
+            "近3年稅前純益成長率均 20.1%"
+          ]
+        },
+        {
+          "symbol": "QCOM",
+          "name": "Qualcomm",
+          "price": 172.0,
+          "changePercent": 0.13,
+          "badges": [
+            "近5季毛利率均 54.9%",
+            "近3年稅前純益成長率均 3.7%"
+          ]
+        },
+        {
+          "symbol": "GEHC",
+          "name": "GE HealthCare",
+          "price": 63.12,
+          "changePercent": 0.07,
+          "badges": [
+            "近5季毛利率均 39.7%",
+            "近3年稅前純益成長率均 3.5%"
+          ]
+        },
+        {
+          "symbol": "KO",
+          "name": "Coca-Cola",
+          "price": 81.6,
+          "changePercent": 0.04,
+          "badges": [
+            "近5季毛利率均 61.9%",
+            "近3年稅前純益成長率均 11.4%"
+          ]
+        },
+        {
+          "symbol": "IDXX",
+          "name": "IDEXX Laboratories",
+          "price": 567.53,
+          "changePercent": 0.01,
+          "badges": [
+            "近5季毛利率均 62.1%",
+            "近3年稅前純益成長率均 15.8%"
+          ]
+        },
+        {
+          "symbol": "VRTX",
+          "name": "Vertex Pharmaceuticals",
+          "price": 485.67,
+          "changePercent": 0.0,
+          "badges": [
+            "近5季毛利率均 86.4%",
+            "近3年稅前純益成長率均 559.2%"
+          ]
+        },
+        {
+          "symbol": "LIN",
+          "name": "Linde",
+          "price": 512.75,
+          "changePercent": -0.09,
+          "badges": [
+            "近5季毛利率均 48.8%",
+            "近3年稅前純益成長率均 18.4%"
+          ]
+        },
+        {
+          "symbol": "BKR",
+          "name": "Baker Hughes",
+          "price": 55.88,
+          "changePercent": -0.12,
+          "badges": [
+            "近5季毛利率均 23.4%",
+            "近3年稅前純益成長率均 3993.1%"
+          ]
+        },
+        {
+          "symbol": "PANW",
+          "name": "Palo Alto Networks",
+          "price": 358.26,
+          "changePercent": -0.12,
+          "badges": [
+            "近5季毛利率均 72.3%",
+            "近3年稅前純益成長率均 169.8%"
+          ]
+        },
+        {
+          "symbol": "ADP",
+          "name": "Automatic Data Processing",
+          "price": 254.82,
+          "changePercent": -0.17,
+          "badges": [
+            "近5季毛利率均 46.5%",
+            "近3年稅前純益成長率均 11.8%"
+          ]
+        },
+        {
+          "symbol": "GILD",
+          "name": "Gilead Sciences",
+          "price": 133.93,
+          "changePercent": -0.26,
+          "badges": [
+            "近5季毛利率均 78.9%",
+            "近3年稅前純益成長率均 415.9%"
+          ]
+        },
+        {
+          "symbol": "MCD",
+          "name": "McDonald's",
+          "price": 266.93,
+          "changePercent": -0.29,
+          "badges": [
+            "近5季毛利率均 57.1%",
+            "近3年稅前純益成長率均 12.7%"
+          ]
+        },
+        {
+          "symbol": "CPRT",
+          "name": "Copart, Inc.",
+          "price": 27.53,
+          "changePercent": -0.29,
+          "badges": [
+            "近5季毛利率均 45.5%",
+            "近3年稅前純益成長率均 12.3%"
+          ]
+        },
+        {
+          "symbol": "GFS",
+          "name": "GlobalFoundries",
+          "price": 57.31,
+          "changePercent": -0.29,
+          "badges": [
+            "近5季毛利率均 25.4%",
+            "近3年稅前純益成長率均 163.7%"
+          ]
+        },
+        {
+          "symbol": "ADSK",
+          "name": "Autodesk",
+          "price": 217.58,
+          "changePercent": -0.35,
+          "badges": [
+            "近5季毛利率均 90.9%",
+            "近3年稅前純益成長率均 19.2%"
+          ]
+        },
+        {
+          "symbol": "XEL",
+          "name": "Xcel Energy",
+          "price": 78.49,
+          "changePercent": -0.36,
+          "badges": [
+            "近5季毛利率均 46.7%",
+            "近3年稅前純益成長率均 3.8%"
+          ]
+        },
+        {
+          "symbol": "DXCM",
+          "name": "DexCom",
+          "price": 76.34,
+          "changePercent": -0.4,
+          "badges": [
+            "近5季毛利率均 60.5%",
+            "近3年稅前純益成長率均 45.0%"
+          ]
+        },
+        {
+          "symbol": "PM",
+          "name": "Philip Morris",
+          "price": 192.1,
+          "changePercent": -0.46,
+          "badges": [
+            "近5季毛利率均 67.3%",
+            "近3年稅前純益成長率均 6.8%"
+          ]
+        },
+        {
+          "symbol": "ABNB",
+          "name": "Airbnb, Inc.",
+          "price": 145.16,
+          "changePercent": -0.56,
+          "badges": [
+            "近5季毛利率均 81.5%",
+            "近3年稅前純益成長率均 19.4%"
+          ]
+        },
+        {
+          "symbol": "PG",
+          "name": "Procter & Gamble",
+          "price": 149.05,
+          "changePercent": -0.62,
+          "badges": [
+            "近5季毛利率均 50.4%",
+            "近3年稅前純益成長率均 3.9%"
+          ]
+        },
+        {
+          "symbol": "ASML",
+          "name": "ASML Holding",
+          "price": 1735.15,
+          "changePercent": -0.71,
+          "badges": [
+            "近5季毛利率均 52.9%",
+            "近3年稅前純益成長率均 22.1%"
+          ]
+        },
+        {
+          "symbol": "EXC",
+          "name": "Exelon Corp.",
+          "price": 45.9,
+          "changePercent": -0.79,
+          "badges": [
+            "近5季毛利率均 42.7%",
+            "近3年稅前純益成長率均 11.5%"
+          ]
+        },
+        {
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "price": 250.81,
+          "changePercent": -0.88,
+          "badges": [
+            "近5季毛利率均 67.5%",
+            "近3年稅前純益成長率均 27.9%"
+          ]
+        },
+        {
+          "symbol": "AEP",
+          "name": "American Electric Power",
+          "price": 130.97,
+          "changePercent": -0.89,
+          "badges": [
+            "近5季毛利率均 60.4%",
+            "近3年稅前純益成長率均 17.0%"
+          ]
+        },
+        {
+          "symbol": "DIS",
+          "name": "Disney",
+          "price": 96.73,
+          "changePercent": -0.96,
+          "badges": [
+            "近5季毛利率均 37.2%",
+            "近3年稅前純益成長率均 35.8%"
+          ]
+        },
+        {
+          "symbol": "NEE",
+          "name": "NextEra Energy",
+          "price": 87.86,
+          "changePercent": -1.06,
+          "badges": [
+            "近5季毛利率均 61.5%",
+            "近3年稅前純益成長率均 16.0%"
+          ]
+        },
+        {
+          "symbol": "ENTG",
+          "name": "Entegris",
+          "price": 137.17,
+          "changePercent": -1.13,
+          "badges": [
+            "近5季毛利率均 44.9%",
+            "近3年稅前純益成長率均 11.8%"
+          ]
+        },
+        {
+          "symbol": "SHW",
+          "name": "Sherwin-Williams",
+          "price": 327.48,
+          "changePercent": -1.16,
+          "badges": [
+            "近5季毛利率均 48.9%",
+            "近3年稅前純益成長率均 9.5%"
+          ]
+        },
+        {
+          "symbol": "KDP",
+          "name": "Keurig Dr Pepper",
+          "price": 30.53,
+          "changePercent": -1.21,
+          "badges": [
+            "近5季毛利率均 53.9%",
+            "近3年稅前純益成長率均 23.4%"
+          ]
+        },
+        {
+          "symbol": "CTAS",
+          "name": "Cintas Corp.",
+          "price": 201.96,
+          "changePercent": -1.22,
+          "badges": [
+            "近5季毛利率均 50.4%",
+            "近3年稅前純益成長率均 14.8%"
+          ]
+        },
+        {
+          "symbol": "WMT",
+          "name": "Walmart",
+          "price": 112.79,
+          "changePercent": -1.26,
+          "badges": [
+            "近5季毛利率均 25.0%",
+            "近3年稅前純益成長率均 20.3%"
+          ]
+        },
+        {
+          "symbol": "ADBE",
+          "name": "Adobe Inc.",
+          "price": 234.26,
+          "changePercent": -1.26,
+          "badges": [
+            "近5季毛利率均 89.4%",
+            "近3年稅前純益成長率均 13.7%"
+          ]
+        },
+        {
+          "symbol": "LLY",
+          "name": "Eli Lilly",
+          "price": 1163.95,
+          "changePercent": -1.29,
+          "badges": [
+            "近5季毛利率均 82.8%",
+            "近3年稅前純益成長率均 64.2%"
+          ]
+        },
+        {
+          "symbol": "KLAC",
+          "name": "KLA Corporation",
+          "price": 209.93,
+          "changePercent": -1.33,
+          "badges": [
+            "近5季毛利率均 61.5%",
+            "近3年稅前純益成長率均 12.8%"
+          ]
+        },
+        {
+          "symbol": "LRCX",
+          "name": "Lam Research",
+          "price": 309.11,
+          "changePercent": -1.34,
+          "badges": [
+            "近5季毛利率均 49.8%",
+            "近3年稅前純益成長率均 6.8%"
+          ]
+        },
+        {
+          "symbol": "SNPS",
+          "name": "Synopsys, Inc.",
+          "price": 378.96,
+          "changePercent": -1.38,
+          "badges": [
+            "近5季毛利率均 75.0%",
+            "近3年稅前純益成長率均 8.8%"
+          ]
+        },
+        {
+          "symbol": "MRK",
+          "name": "Merck & Co",
+          "price": 125.71,
+          "changePercent": -1.4,
+          "badges": [
+            "近5季毛利率均 74.7%",
+            "近3年稅前純益成長率均 290.8%"
+          ]
+        },
+        {
+          "symbol": "CAT",
+          "name": "Caterpillar",
+          "price": 867.51,
+          "changePercent": -1.45,
+          "badges": [
+            "近5季毛利率均 32.2%",
+            "近3年稅前純益成長率均 12.6%"
+          ]
+        },
+        {
+          "symbol": "MNST",
+          "name": "Monster Beverage",
+          "price": 96.03,
+          "changePercent": -1.51,
+          "badges": [
+            "近5季毛利率均 55.7%",
+            "近3年稅前純益成長率均 17.5%"
+          ]
+        },
+        {
+          "symbol": "ORLY",
+          "name": "O'Reilly Automotive",
+          "price": 84.75,
+          "changePercent": -1.51,
+          "badges": [
+            "近5季毛利率均 51.6%",
+            "近3年稅前純益成長率均 5.0%"
+          ]
+        },
+        {
+          "symbol": "MDLZ",
+          "name": "Mondelez International",
+          "price": 59.85,
+          "changePercent": -1.88,
+          "badges": [
+            "近5季毛利率均 28.3%",
+            "近3年稅前純益成長率均 12.3%"
+          ]
+        },
+        {
+          "symbol": "NFLX",
+          "name": "Netflix",
+          "price": 67.6,
+          "changePercent": -1.97,
+          "badges": [
+            "近5季毛利率均 49.3%",
+            "近3年稅前純益成長率均 35.4%"
+          ]
+        },
+        {
+          "symbol": "FAST",
+          "name": "Fastenal Co.",
+          "price": 44.54,
+          "changePercent": -2.08,
+          "badges": [
+            "近5季毛利率均 44.8%",
+            "近3年稅前純益成長率均 4.8%"
+          ]
+        },
+        {
+          "symbol": "GE",
+          "name": "GE Aerospace",
+          "price": 340.76,
+          "changePercent": -2.31,
+          "badges": [
+            "近5季毛利率均 31.2%",
+            "近3年稅前純益成長率均 196.7%"
+          ]
+        },
+        {
+          "symbol": "AAPL",
+          "name": "Apple",
+          "price": 323.95,
+          "changePercent": -2.93,
+          "badges": [
+            "近5季毛利率均 47.6%",
+            "近3年稅前純益成長率均 3.9%"
+          ]
+        },
+        {
+          "symbol": "ORCL",
+          "name": "Oracle",
+          "price": 122.36,
+          "changePercent": -3.2,
+          "badges": [
+            "近5季毛利率均 66.8%",
+            "近3年稅前純益成長率均 29.1%"
+          ]
+        }
       ]
     },
     {
       "id": "murphy",
       "name": "麥克墨菲",
-      "description": "近12季營業利益率平均>10%；近5年平均ROE>8%；近3年平均營收成長率>10%；近4季研發費用占營業額比率>5%。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "status": "active",
+      "description": "近12季營業利益率平均>10%；近5年平均ROE>8%；近3年平均營收成長率>10%；近4季研發費用占營業額比率>5%。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "results": [
-        { "symbol": "NVDA", "name": "NVIDIA", "price": 178.2, "changePercent": 2.61, "badges": ["近4季營業利益率均 62.3%", "近4年均ROE 91.5%", "近3年營收成長率均 78.2%", "近4季研發費用占比均 9.8%"] }
+        {
+          "symbol": "MTSI",
+          "name": "MACOM Technology",
+          "price": 277.76,
+          "changePercent": 3.89,
+          "badges": [
+            "近5季營業利益率均 15.7%",
+            "近4年均ROE 16.2%",
+            "近3年營收成長率均 13.7%",
+            "近4季研發費用占比均 24.4%"
+          ]
+        },
+        {
+          "symbol": "AVGO",
+          "name": "Broadcom",
+          "price": 381.29,
+          "changePercent": 2.82,
+          "badges": [
+            "近5季營業利益率均 42.8%",
+            "近4年均ROE 36.6%",
+            "近3年營收成長率均 25.2%",
+            "近4季研發費用占比均 16.1%"
+          ]
+        },
+        {
+          "symbol": "MPWR",
+          "name": "Monolithic Power Systems",
+          "price": 1346.18,
+          "changePercent": 2.6,
+          "badges": [
+            "近5季營業利益率均 26.9%",
+            "近4年均ROE 29.7%",
+            "近3年營收成長率均 16.4%",
+            "近4季研發費用占比均 13.3%"
+          ]
+        },
+        {
+          "symbol": "ALAB",
+          "name": "Astera Labs",
+          "price": 310.83,
+          "changePercent": 2.38,
+          "badges": [
+            "近5季營業利益率均 19.3%",
+            "近4年均ROE 25.7%",
+            "近3年營收成長率均 134.1%",
+            "近4季研發費用占比均 36.1%"
+          ]
+        },
+        {
+          "symbol": "ALNY",
+          "name": "Alnylam Pharmaceuticals",
+          "price": 272.92,
+          "changePercent": 2.04,
+          "badges": [
+            "近5季營業利益率均 13.1%",
+            "近4年均ROE 134.9%",
+            "近3年營收成長率均 54.8%",
+            "近4季研發費用占比均 33.9%"
+          ]
+        },
+        {
+          "symbol": "GOOG",
+          "name": "Alphabet",
+          "price": 353.16,
+          "changePercent": 2.03,
+          "badges": [
+            "近5季營業利益率均 32.9%",
+            "近4年均ROE 28.0%",
+            "近3年營收成長率均 12.5%",
+            "近4季研發費用占比均 15.2%"
+          ]
+        },
+        {
+          "symbol": "RMBS",
+          "name": "Rambus",
+          "price": 103.42,
+          "changePercent": 1.95,
+          "badges": [
+            "近5季營業利益率均 36.3%",
+            "近4年均ROE 15.8%",
+            "近3年營收成長率均 16.4%",
+            "近4季研發費用占比均 27.1%"
+          ]
+        },
+        {
+          "symbol": "ISRG",
+          "name": "Intuitive Surgical",
+          "price": 352.02,
+          "changePercent": 1.91,
+          "badges": [
+            "近5季營業利益率均 29.5%",
+            "近4年均ROE 13.9%",
+            "近3年營收成長率均 17.4%",
+            "近3季研發費用占比均 12.8%"
+          ]
+        },
+        {
+          "symbol": "GOOGL",
+          "name": "Alphabet",
+          "price": 353.33,
+          "changePercent": 1.89,
+          "badges": [
+            "近5季營業利益率均 32.9%",
+            "近4年均ROE 28.0%",
+            "近3年營收成長率均 12.5%",
+            "近4季研發費用占比均 15.2%"
+          ]
+        },
+        {
+          "symbol": "MSFT",
+          "name": "Microsoft",
+          "price": 400.6,
+          "changePercent": 1.72,
+          "badges": [
+            "近5季營業利益率均 46.6%",
+            "近4年均ROE 35.3%",
+            "近3年營收成長率均 12.5%",
+            "近4季研發費用占比均 10.8%"
+          ]
+        },
+        {
+          "symbol": "ARM",
+          "name": "Arm Holdings",
+          "price": 271.65,
+          "changePercent": 1.67,
+          "badges": [
+            "近5季營業利益率均 20.6%",
+            "近4年均ROE 10.3%",
+            "近3年營收成長率均 22.5%",
+            "近4季研發費用占比均 57.2%"
+          ]
+        },
+        {
+          "symbol": "MELI",
+          "name": "MercadoLibre, Inc.",
+          "price": 1843.3,
+          "changePercent": 1.62,
+          "badges": [
+            "近5季營業利益率均 10.4%",
+            "近4年均ROE 33.0%",
+            "近3年營收成長率均 38.9%",
+            "近4季研發費用占比均 7.6%"
+          ]
+        },
+        {
+          "symbol": "ANET",
+          "name": "Arista Networks",
+          "price": 171.0,
+          "changePercent": 1.42,
+          "badges": [
+            "近5季營業利益率均 42.8%",
+            "近4年均ROE 28.4%",
+            "近3年營收成長率均 27.3%",
+            "近4季研發費用占比均 13.6%"
+          ]
+        },
+        {
+          "symbol": "TSM",
+          "name": "Taiwan Semiconductor",
+          "price": 403.92,
+          "changePercent": 1.39,
+          "badges": [
+            "近5季營業利益率均 54.5%",
+            "近4年均ROE 29.5%",
+            "近3年營收成長率均 20.3%",
+            "近4季研發費用占比均 6.1%"
+          ]
+        },
+        {
+          "symbol": "META",
+          "name": "Meta Platforms",
+          "price": 650.3,
+          "changePercent": 0.66,
+          "badges": [
+            "近5季營業利益率均 41.3%",
+            "近4年均ROE 26.5%",
+            "近3年營收成長率均 19.9%",
+            "近4季研發費用占比均 29.2%"
+          ]
+        },
+        {
+          "symbol": "CDNS",
+          "name": "Cadence Design Systems",
+          "price": 332.07,
+          "changePercent": 0.59,
+          "badges": [
+            "近5季營業利益率均 30.7%",
+            "近4年均ROE 26.1%",
+            "近3年營收成長率均 14.1%",
+            "近4季研發費用占比均 33.3%"
+          ]
+        },
+        {
+          "symbol": "INTU",
+          "name": "Intuit Inc.",
+          "price": 292.47,
+          "changePercent": 0.47,
+          "badges": [
+            "近5季營業利益率均 27.2%",
+            "近4年均ROE 15.5%",
+            "近3年營收成長率均 14.0%",
+            "近4季研發費用占比均 17.6%"
+          ]
+        },
+        {
+          "symbol": "NVDA",
+          "name": "NVIDIA",
+          "price": 203.65,
+          "changePercent": 0.41,
+          "badges": [
+            "近5季營業利益率均 60.7%",
+            "近4年均ROE 64.3%",
+            "近3年營收成長率均 101.8%",
+            "近4季研發費用占比均 8.3%"
+          ]
+        },
+        {
+          "symbol": "AMGN",
+          "name": "Amgen",
+          "price": 366.86,
+          "changePercent": 0.16,
+          "badges": [
+            "近5季營業利益率均 25.7%",
+            "近4年均ROE 111.4%",
+            "近3年營收成長率均 11.9%",
+            "近4季研發費用占比均 20.1%"
+          ]
+        },
+        {
+          "symbol": "VRTX",
+          "name": "Vertex Pharmaceuticals",
+          "price": 485.67,
+          "changePercent": 0.0,
+          "badges": [
+            "近5季營業利益率均 38.0%",
+            "近4年均ROE 15.6%",
+            "近3年營收成長率均 10.4%",
+            "近4季研發費用占比均 32.9%"
+          ]
+        },
+        {
+          "symbol": "ADSK",
+          "name": "Autodesk",
+          "price": 217.58,
+          "changePercent": -0.35,
+          "badges": [
+            "近5季營業利益率均 25.7%",
+            "近4年均ROE 50.0%",
+            "近3年營收成長率均 13.0%",
+            "近4季研發費用占比均 22.3%"
+          ]
+        },
+        {
+          "symbol": "DXCM",
+          "name": "DexCom",
+          "price": 76.34,
+          "changePercent": -0.4,
+          "badges": [
+            "近5季營業利益率均 19.7%",
+            "近4年均ROE 25.0%",
+            "近3年營收成長率均 17.1%",
+            "近4季研發費用占比均 12.4%"
+          ]
+        },
+        {
+          "symbol": "ABNB",
+          "name": "Airbnb, Inc.",
+          "price": 145.16,
+          "changePercent": -0.56,
+          "badges": [
+            "近5季營業利益率均 14.8%",
+            "近4年均ROE 38.7%",
+            "近3年營收成長率均 13.4%",
+            "近4季研發費用占比均 19.8%"
+          ]
+        },
+        {
+          "symbol": "ASML",
+          "name": "ASML Holding",
+          "price": 1735.15,
+          "changePercent": -0.71,
+          "badges": [
+            "近5季營業利益率均 35.2%",
+            "近4年均ROE 53.0%",
+            "近3年營收成長率均 16.1%",
+            "近4季研發費用占比均 13.7%"
+          ]
+        },
+        {
+          "symbol": "ADBE",
+          "name": "Adobe Inc.",
+          "price": 234.26,
+          "changePercent": -1.26,
+          "badges": [
+            "近5季營業利益率均 36.1%",
+            "近4年均ROE 41.9%",
+            "近3年營收成長率均 10.5%",
+            "近4季研發費用占比均 17.8%"
+          ]
+        },
+        {
+          "symbol": "LLY",
+          "name": "Eli Lilly",
+          "price": 1163.95,
+          "changePercent": -1.29,
+          "badges": [
+            "近5季營業利益率均 46.1%",
+            "近4年均ROE 64.8%",
+            "近3年營收成長率均 32.1%",
+            "近4季研發費用占比均 19.6%"
+          ]
+        },
+        {
+          "symbol": "KLAC",
+          "name": "KLA Corporation",
+          "price": 209.93,
+          "changePercent": -1.33,
+          "badges": [
+            "近5季營業利益率均 41.8%",
+            "近4年均ROE 130.4%",
+            "近3年營收成長率均 10.4%",
+            "近4季研發費用占比均 11.3%"
+          ]
+        },
+        {
+          "symbol": "SNPS",
+          "name": "Synopsys, Inc.",
+          "price": 378.96,
+          "changePercent": -1.38,
+          "badges": [
+            "近5季營業利益率均 12.4%",
+            "近4年均ROE 16.9%",
+            "近3年營收成長率均 15.2%",
+            "近4季研發費用占比均 32.4%"
+          ]
+        },
+        {
+          "symbol": "NFLX",
+          "name": "Netflix",
+          "price": 67.6,
+          "changePercent": -1.97,
+          "badges": [
+            "近5季營業利益率均 30.2%",
+            "近4年均ROE 31.1%",
+            "近3年營收成長率均 12.7%",
+            "近3季研發費用占比均 7.5%"
+          ]
+        },
+        {
+          "symbol": "ORCL",
+          "name": "Oracle",
+          "price": 122.36,
+          "changePercent": -3.2,
+          "badges": [
+            "近5季營業利益率均 33.0%",
+            "近4年均ROE 253.4%",
+            "近3年營收成長率均 10.6%",
+            "近4季研發費用占比均 15.4%"
+          ]
+        }
       ]
     },
     {
       "id": "lynch",
       "name": "彼得林區",
-      "description": "近5年平均負債比<30%；本益比<15倍；內部人持股比例>30%（美股無質押比例公開資料，此項僅檢核持股比例）；近3年平均營收成長率>10%；近3年平均稅前純益成長率>3%。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "status": "active",
+      "description": "近5年平均負債比<30%；本益比<15倍；內部人持股比例>30%（美股無質押比例公開資料，此項僅檢核持股比例）；近3年平均營收成長率>10%；近3年平均稅前純益成長率>3%。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "results": []
     },
     {
       "id": "graham",
       "name": "班哲明格拉罕",
-      "description": "近5年EPS皆>1元；近3年流動比率皆>100%；本益比<15倍；近5年平均現金股利>3元；近3年平均稅前純益成長率>3%；近12月營收於母體同產業排名前40%（僅在本專案159檔母體內相對排名，非全市場排名）。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
       "status": "active",
-      "results": [
-        { "symbol": "JNJ", "name": "Johnson & Johnson", "price": 162.4, "changePercent": 0.08, "badges": ["近5年EPS皆>1", "近3年流動比率皆>100%", "本益比 13.8", "近5年均現金股利 4.52", "近3年稅前純益成長率均 5.1%", "產業營收前12%"] }
-      ]
+      "description": "近5年EPS皆>1元；近3年流動比率皆>100%；本益比<15倍；近5年平均現金股利>3元；近3年平均稅前純益成長率>3%；近12月營收於母體同產業排名前40%（僅在本專案159檔母體內相對排名，非全市場排名）。母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。",
+      "results": []
     }
   ]
 }

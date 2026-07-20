@@ -1,36 +1,161 @@
 {
-  "updated": "2026-07-18T20:00:00Z",
-  "note": "範例資料，執行 scripts/fetch_heatmap.py 後會被覆蓋",
+  "updated": "2026-07-20T16:08:42.163693+00:00",
   "sectors": [
-    { "name": "Indices", "children": [
-      { "symbol": "ES", "name": "S&P 500 Futures", "price": 6180.0, "changePercent": 0.40, "marketCap": 50 },
-      { "symbol": "NQ", "name": "Nasdaq 100 Futures", "price": 22400.0, "changePercent": 0.65, "marketCap": 40 },
-      { "symbol": "YM", "name": "Dow Futures", "price": 44200.0, "changePercent": 0.15, "marketCap": 20 },
-      { "symbol": "RTY", "name": "Russell 2000 Futures", "price": 2250.0, "changePercent": -0.35, "marketCap": 12 }
-    ] },
-    { "name": "Energy", "children": [
-      { "symbol": "CL", "name": "Crude Oil", "price": 68.5, "changePercent": -1.20, "marketCap": 30 },
-      { "symbol": "NG", "name": "Natural Gas", "price": 3.4, "changePercent": 2.50, "marketCap": 15 },
-      { "symbol": "RB", "name": "RBOB Gasoline", "price": 2.1, "changePercent": -0.80, "marketCap": 8 }
-    ] },
-    { "name": "Metals", "children": [
-      { "symbol": "GC", "name": "Gold", "price": 2650.0, "changePercent": 0.70, "marketCap": 35 },
-      { "symbol": "SI", "name": "Silver", "price": 31.0, "changePercent": 1.35, "marketCap": 12 },
-      { "symbol": "HG", "name": "Copper", "price": 4.6, "changePercent": -0.45, "marketCap": 10 }
-    ] },
-    { "name": "Agriculture", "children": [
-      { "symbol": "ZC", "name": "Corn", "price": 420.0, "changePercent": 0.30, "marketCap": 8 },
-      { "symbol": "ZS", "name": "Soybean", "price": 1050.0, "changePercent": -0.55, "marketCap": 9 },
-      { "symbol": "ZW", "name": "Wheat", "price": 560.0, "changePercent": 0.90, "marketCap": 6 }
-    ] },
-    { "name": "Currencies", "children": [
-      { "symbol": "6E", "name": "Euro FX", "price": 1.09, "changePercent": 0.10, "marketCap": 18 },
-      { "symbol": "6J", "name": "Japanese Yen", "price": 0.0068, "changePercent": -0.25, "marketCap": 14 },
-      { "symbol": "6B", "name": "British Pound", "price": 1.28, "changePercent": 0.05, "marketCap": 10 }
-    ] },
-    { "name": "Bonds", "children": [
-      { "symbol": "ZB", "name": "30Y T-Bond", "price": 118.0, "changePercent": -0.15, "marketCap": 16 },
-      { "symbol": "ZN", "name": "10Y T-Note", "price": 111.0, "changePercent": -0.08, "marketCap": 20 }
-    ] }
+    {
+      "name": "Indices",
+      "children": [
+        {
+          "symbol": "ES",
+          "name": "ES=F",
+          "price": 7526.75,
+          "changePercent": 0.39,
+          "marketCap": 0.72
+        },
+        {
+          "symbol": "NQ",
+          "name": "NQ=F",
+          "price": 29061.5,
+          "changePercent": 1.0,
+          "marketCap": 0.31
+        },
+        {
+          "symbol": "YM",
+          "name": "YM=F",
+          "price": 52257.0,
+          "changePercent": -0.23,
+          "marketCap": 0.05
+        },
+        {
+          "symbol": "RTY",
+          "name": "RTY=F",
+          "price": 2971.4,
+          "changePercent": -0.07,
+          "marketCap": 0.08
+        }
+      ]
+    },
+    {
+      "name": "Energy",
+      "children": [
+        {
+          "symbol": "CL",
+          "name": "CL=F",
+          "price": 81.51,
+          "changePercent": -1.19,
+          "marketCap": 0.23
+        },
+        {
+          "symbol": "NG",
+          "name": "NG=F",
+          "price": 2.84,
+          "changePercent": -2.3,
+          "marketCap": 0.09
+        },
+        {
+          "symbol": "RB",
+          "name": "RB=F",
+          "price": 3.18,
+          "changePercent": -6.13,
+          "marketCap": 0.03
+        }
+      ]
+    },
+    {
+      "name": "Metals",
+      "children": [
+        {
+          "symbol": "GC",
+          "name": "GC=F",
+          "price": 4018.3,
+          "changePercent": 0.14,
+          "marketCap": 0.08
+        },
+        {
+          "symbol": "SI",
+          "name": "SI=F",
+          "price": 57.24,
+          "changePercent": 2.15,
+          "marketCap": 0.02
+        },
+        {
+          "symbol": "HG",
+          "name": "HG=F",
+          "price": 6.34,
+          "changePercent": 1.99,
+          "marketCap": 0.03
+        }
+      ]
+    },
+    {
+      "name": "Agriculture",
+      "children": [
+        {
+          "symbol": "ZC",
+          "name": "ZC=F",
+          "price": 475.0,
+          "changePercent": 6.8,
+          "marketCap": 0.15
+        },
+        {
+          "symbol": "ZS",
+          "name": "ZS=F",
+          "price": 1229.75,
+          "changePercent": 2.1,
+          "marketCap": 0.13
+        },
+        {
+          "symbol": "ZW",
+          "name": "ZW=F",
+          "price": 678.0,
+          "changePercent": -0.7,
+          "marketCap": 0.06
+        }
+      ]
+    },
+    {
+      "name": "Currencies",
+      "children": [
+        {
+          "symbol": "6E",
+          "name": "6E=F",
+          "price": 1.14,
+          "changePercent": -0.1,
+          "marketCap": 0.09
+        },
+        {
+          "symbol": "6J",
+          "name": "6J=F",
+          "price": 0.01,
+          "changePercent": 0.15,
+          "marketCap": 0.08
+        },
+        {
+          "symbol": "6B",
+          "name": "6B=F",
+          "price": 1.34,
+          "changePercent": -0.27,
+          "marketCap": 0.05
+        }
+      ]
+    },
+    {
+      "name": "Bonds",
+      "children": [
+        {
+          "symbol": "ZB",
+          "name": "ZB=F",
+          "price": 110.78,
+          "changePercent": -0.56,
+          "marketCap": 0.16
+        },
+        {
+          "symbol": "ZN",
+          "name": "ZN=F",
+          "price": 108.89,
+          "changePercent": -0.34,
+          "marketCap": 0.82
+        }
+      ]
+    }
   ]
 }

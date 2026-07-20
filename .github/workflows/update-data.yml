@@ -14,6 +14,9 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -26,8 +29,16 @@ jobs:
       - name: Fetch heatmap data
         run: python scripts/fetch_heatmap.py
 
+      # 強勢股選股 / 基本面選股只在「台股收盤後」那組排程或手動觸發時才跑，
+      # 避免跟熱力圖共用同一個 workflow 時，被熱力圖的每小時排程誤觸發、
+      # 一天多跑十幾次（fetch_screener.py 現在會呼叫 Gemini API，多跑會多花錢/多耗額度）。
       - name: Fetch screener data
+        if: github.event.schedule == '15 6 * * 1-5' || github.event_name == 'workflow_dispatch'
         run: python scripts/fetch_screener.py
+
+      - name: Fetch fundamentals data
+        if: github.event.schedule == '15 6 * * 1-5' || github.event_name == 'workflow_dispatch'
+        run: python scripts/fetch_fundamentals.py
 
       - name: Commit updated data
         run: |

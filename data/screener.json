@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-21T15:34:06.537929+00:00",
+  "updated": "2026-07-21T16:36:54.553630+00:00",
   "conditionSets": [
     {
       "id": "strength-a",
@@ -10,250 +10,131 @@
         {
           "symbol": "MMM",
           "name": "3M",
-          "price": 173.59,
-          "changePercent": 9.1,
-          "ma30": 160.15,
+          "price": 173.29,
+          "changePercent": 8.91,
+          "ma30": 160.14,
           "ma60": 153.93,
           "ma100": 152.14,
-          "bias30": 8.39,
+          "bias30": 8.21,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭趨勢確立，技術面強勢站上均線且動能轉"
+          "comment": "強勢突破均線多頭排列，技術面維持強勁偏多"
         },
         {
           "symbol": "AMD",
           "name": "Advanced Micro Devices",
-          "price": 535.05,
-          "changePercent": 6.25,
-          "ma30": 522.81,
-          "ma60": 479.12,
-          "ma100": 376.37,
-          "bias30": 2.34,
+          "price": 536.82,
+          "changePercent": 6.6,
+          "ma30": 522.87,
+          "ma60": 479.15,
+          "ma100": 376.39,
+          "bias30": 2.67,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭架構明確，技術指標強勢，動能向上。"
+          "comment": "強勢站穩均線，多頭排列格局穩健。"
         },
         {
           "symbol": "ASML",
           "name": "ASML Holding",
-          "price": 1819.7,
-          "changePercent": 4.64,
-          "ma30": 1815.33,
-          "ma60": 1680.73,
-          "ma100": 1562.83,
-          "bias30": 0.24,
+          "price": 1818.82,
+          "changePercent": 4.59,
+          "ma30": 1815.3,
+          "ma60": 1680.71,
+          "ma100": 1562.82,
+          "bias30": 0.19,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭格局確立，站穩均線後有望挑戰前高。"
+          "comment": null
         },
         {
           "symbol": "ANET",
           "name": "Arista Networks",
-          "price": 175.95,
-          "changePercent": 3.9,
-          "ma30": 168.15,
-          "ma60": 162.5,
-          "ma100": 153.39,
-          "bias30": 4.64,
+          "price": 174.52,
+          "changePercent": 3.05,
+          "ma30": 168.1,
+          "ma60": 162.48,
+          "ma100": 153.38,
+          "bias30": 3.82,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭排列強勢，技術指標翻揚，後市偏多看待"
+          "comment": "多頭排列強勢格局，均線向上發散，短線持續"
         },
         {
           "symbol": "UNH",
           "name": "UnitedHealth Group",
-          "price": 433.41,
-          "changePercent": 2.81,
-          "ma30": 416.88,
-          "ma60": 397.4,
-          "ma100": 355.07,
-          "bias30": 3.97,
+          "price": 434.32,
+          "changePercent": 3.03,
+          "ma30": 416.91,
+          "ma60": 397.41,
+          "ma100": 355.08,
+          "bias30": 4.18,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列，技術指標強勢，短線格局偏多"
+          "comment": "多頭排列格局強勢，均線向上發散。"
         },
         {
           "symbol": "GS",
           "name": "Goldman Sachs",
-          "price": 1078.26,
-          "changePercent": 2.2,
-          "ma30": 1061.5,
-          "ma60": 1013.71,
-          "ma100": 950.08,
-          "bias30": 1.58,
+          "price": 1083.4,
+          "changePercent": 2.69,
+          "ma30": 1061.67,
+          "ma60": 1013.8,
+          "ma100": 950.13,
+          "bias30": 2.05,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列，技術指標強勢，動能續航。"
-        },
-        {
-          "symbol": "LLY",
-          "name": "Eli Lilly",
-          "price": 1164.19,
-          "changePercent": 1.51,
-          "ma30": 1163.04,
-          "ma60": 1084.83,
-          "ma100": 1028.93,
-          "bias30": 0.1,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭格局穩固，站穩短期均線有利續強。"
+          "comment": "多頭排列格局強勢，均線向上發散，短線續強"
         },
         {
           "symbol": "PCAR",
           "name": "PACCAR Inc.",
-          "price": 126.16,
-          "changePercent": 1.47,
-          "ma30": 121.28,
-          "ma60": 117.73,
-          "ma100": 118.6,
-          "bias30": 4.02,
+          "price": 126.71,
+          "changePercent": 1.91,
+          "ma30": 121.3,
+          "ma60": 117.74,
+          "ma100": 118.61,
+          "bias30": 4.46,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列且指標強勢，短中期走勢偏多。"
+          "comment": "均線多頭排列，技術指標強勢，動能持續向上"
         },
         {
           "symbol": "JPM",
           "name": "JPMorgan Chase",
-          "price": 342.87,
-          "changePercent": 1.18,
-          "ma30": 330.28,
-          "ma60": 316.81,
-          "ma100": 308.18,
-          "bias30": 3.81,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列，技術指標強勢，短線格局偏多"
-        },
-        {
-          "symbol": "JNJ",
-          "name": "Johnson & Johnson",
-          "price": 251.2,
-          "changePercent": 0.96,
-          "ma30": 247.61,
-          "ma60": 237.01,
-          "ma100": 237.47,
-          "bias30": 1.45,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列，技術指標強勢，趨勢偏多向上"
-        },
-        {
-          "symbol": "WFC",
-          "name": "Wells Fargo",
-          "price": 87.14,
-          "changePercent": 0.94,
-          "ma30": 84.92,
-          "ma60": 81.27,
-          "ma100": 80.71,
-          "bias30": 2.62,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列且指標強勢，短線格局偏多。"
-        },
-        {
-          "symbol": "ABBV",
-          "name": "AbbVie",
-          "price": 255.74,
-          "changePercent": 0.93,
-          "ma30": 239.83,
-          "ma60": 224.3,
-          "ma100": 219.4,
-          "bias30": 6.63,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭格局穩健，指標全面翻多，續強可期。"
-        },
-        {
-          "symbol": "MRK",
-          "name": "Merck & Co",
-          "price": 125.55,
-          "changePercent": 0.92,
-          "ma30": 122.65,
-          "ma60": 118.13,
-          "ma100": 117.64,
-          "bias30": 2.36,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列，技術指標強勢，中長期趨勢看"
-        },
-        {
-          "symbol": "BAC",
-          "name": "Bank of America",
-          "price": 60.97,
-          "changePercent": 0.92,
-          "ma30": 58.1,
-          "ma60": 54.87,
-          "ma100": 52.78,
-          "bias30": 4.95,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭排列強勢，技術指標翻揚，後市偏多看待"
-        },
-        {
-          "symbol": "WELL",
-          "name": "Welltower",
-          "price": 246.87,
-          "changePercent": 0.83,
-          "ma30": 225.11,
-          "ma60": 218.53,
-          "ma100": 212.76,
-          "bias30": 9.67,
+          "price": 345.27,
+          "changePercent": 1.89,
+          "ma30": 330.36,
+          "ma60": 316.85,
+          "ma100": 308.2,
+          "bias30": 4.51,
           "badges": [
             "站上30MA",
             "30MA上揚",
@@ -263,140 +144,293 @@
           "comment": "均線多頭排列，技術指標強勢，動能向上。"
         },
         {
-          "symbol": "RTX",
-          "name": "RTX Corp",
-          "price": 195.91,
-          "changePercent": 0.76,
-          "ma30": 190.07,
-          "ma60": 182.76,
-          "ma100": 188.97,
-          "bias30": 3.08,
+          "symbol": "WFC",
+          "name": "Wells Fargo",
+          "price": 87.94,
+          "changePercent": 1.87,
+          "ma30": 84.94,
+          "ma60": 81.29,
+          "ma100": 80.71,
+          "bias30": 3.54,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭排列格局強勢，均線向上發散，動能續航"
+          "comment": "多頭排列強勢，技術指標多方訊號明確。"
+        },
+        {
+          "symbol": "BAC",
+          "name": "Bank of America",
+          "price": 61.43,
+          "changePercent": 1.67,
+          "ma30": 58.12,
+          "ma60": 54.87,
+          "ma100": 52.78,
+          "bias30": 5.7,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭排列強勢，技術指標多方表態。"
+        },
+        {
+          "symbol": "LLY",
+          "name": "Eli Lilly",
+          "price": 1163.38,
+          "changePercent": 1.44,
+          "ma30": 1163.01,
+          "ma60": 1084.82,
+          "ma100": 1028.92,
+          "bias30": 0.03,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭格局確立，均線多頭排列且動能轉強。"
+        },
+        {
+          "symbol": "ABBV",
+          "name": "AbbVie",
+          "price": 256.34,
+          "changePercent": 1.17,
+          "ma30": 239.85,
+          "ma60": 224.31,
+          "ma100": 219.41,
+          "bias30": 6.88,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "均線多頭排列且動能轉強，技術面強勢向上。"
+        },
+        {
+          "symbol": "MRK",
+          "name": "Merck & Co",
+          "price": 125.72,
+          "changePercent": 1.07,
+          "ma30": 122.65,
+          "ma60": 118.14,
+          "ma100": 117.64,
+          "bias30": 2.51,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭排列格局穩健，均線支撐強勁，後市看漲"
+        },
+        {
+          "symbol": "RTX",
+          "name": "RTX Corp",
+          "price": 196.49,
+          "changePercent": 1.06,
+          "ma30": 190.09,
+          "ma60": 182.77,
+          "ma100": 188.97,
+          "bias30": 3.37,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭格局確立，均線向上發散，動能強勁。"
+        },
+        {
+          "symbol": "WELL",
+          "name": "Welltower",
+          "price": 247.18,
+          "changePercent": 0.96,
+          "ma30": 225.12,
+          "ma60": 218.54,
+          "ma100": 212.77,
+          "bias30": 9.8,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "均線多頭排列，技術指標強勢，動能向上。"
+        },
+        {
+          "symbol": "JNJ",
+          "name": "Johnson & Johnson",
+          "price": 250.98,
+          "changePercent": 0.87,
+          "ma30": 247.61,
+          "ma60": 237.0,
+          "ma100": 237.46,
+          "bias30": 1.36,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "短均上揚且多頭排列，技術面強勢格局確立。"
         },
         {
           "symbol": "AAPL",
           "name": "Apple",
-          "price": 328.32,
-          "changePercent": 0.53,
-          "ma30": 304.24,
+          "price": 328.38,
+          "changePercent": 0.55,
+          "ma30": 304.25,
           "ma60": 299.61,
           "ma100": 283.2,
-          "bias30": 7.91,
+          "bias30": 7.93,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列，技術指標強勢，波段漲勢延續"
+          "comment": "均線多頭排列，技術指標強勢，動能向上。"
+        },
+        {
+          "symbol": "SBUX",
+          "name": "Starbucks Corp.",
+          "price": 105.17,
+          "changePercent": 0.34,
+          "ma30": 103.03,
+          "ma60": 102.62,
+          "ma100": 99.79,
+          "bias30": 2.07,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭格局確立，均線向上發散，短線趨勢強勢"
+        },
+        {
+          "symbol": "TRV",
+          "name": "Travelers",
+          "price": 369.12,
+          "changePercent": 0.17,
+          "ma30": 327.21,
+          "ma60": 313.13,
+          "ma100": 307.31,
+          "bias30": 12.81,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭排列格局強勢，乖離過大留意短線回檔。"
         },
         {
           "symbol": "META",
           "name": "Meta Platforms",
-          "price": 647.34,
-          "changePercent": 0.23,
-          "ma30": 601.11,
+          "price": 646.98,
+          "changePercent": 0.17,
+          "ma30": 601.1,
           "ma60": 610.5,
           "ma100": 616.15,
-          "bias30": 7.69,
+          "bias30": 7.63,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭架構強勢，各期均線向上發散，動能續強"
+          "comment": "多頭排列格局強勢，均線向上發散，短線持續"
         },
         {
-          "symbol": "VRTX",
-          "name": "Vertex Pharmaceuticals",
-          "price": 481.36,
-          "changePercent": 0.18,
-          "ma30": 477.75,
-          "ma60": 456.21,
-          "ma100": 455.59,
-          "bias30": 0.76,
+          "symbol": "SCHW",
+          "name": "Charles Schwab",
+          "price": 102.67,
+          "changePercent": 0.12,
+          "ma30": 95.81,
+          "ma60": 92.69,
+          "ma100": 93.19,
+          "bias30": 7.15,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列且指標強勢，短線格局偏多。"
+          "comment": null
         },
         {
           "symbol": "AMGN",
           "name": "Amgen",
-          "price": 364.67,
-          "changePercent": 0.14,
-          "ma30": 356.59,
+          "price": 364.43,
+          "changePercent": 0.07,
+          "ma30": 356.58,
           "ma60": 345.13,
           "ma100": 349.26,
-          "bias30": 2.26,
+          "bias30": 2.2,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭格局確立，均線支撐強勁，後市偏多看待"
+          "comment": "多頭排列格局穩健，均線支撐強勁，後市偏多"
+        },
+        {
+          "symbol": "AXP",
+          "name": "American Express",
+          "price": 352.12,
+          "changePercent": 0.06,
+          "ma30": 341.19,
+          "ma60": 327.12,
+          "ma100": 319.54,
+          "bias30": 3.2,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "均線多頭排列，技術指標強勢，動能向上。"
+        },
+        {
+          "symbol": "VRTX",
+          "name": "Vertex Pharmaceuticals",
+          "price": 480.6,
+          "changePercent": 0.02,
+          "ma30": 477.72,
+          "ma60": 456.19,
+          "ma100": 455.58,
+          "bias30": 0.6,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭排列確立，指標轉強，短線震盪走高。"
         },
         {
           "symbol": "KO",
           "name": "Coca-Cola",
-          "price": 82.17,
-          "changePercent": 0.05,
+          "price": 82.09,
+          "changePercent": -0.04,
           "ma30": 81.91,
           "ma60": 80.38,
           "ma100": 78.67,
-          "bias30": 0.31,
+          "bias30": 0.22,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列，技術指標強勢，趨勢穩健偏多"
-        },
-        {
-          "symbol": "CCEP",
-          "name": "Coca-Cola Europacific Partners",
-          "price": 106.17,
-          "changePercent": 0.02,
-          "ma30": 101.92,
-          "ma60": 97.34,
-          "ma100": 97.08,
-          "bias30": 4.17,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭格局確立，均線向上發散，短線強勢偏多"
-        },
-        {
-          "symbol": "KHC",
-          "name": "Kraft Heinz Co.",
-          "price": 25.85,
-          "changePercent": -0.04,
-          "ma30": 24.34,
-          "ma60": 23.55,
-          "ma100": 23.05,
-          "bias30": 6.2,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列，技術指標強勢，中長期趨勢看"
+          "comment": "多頭格局確立，均線向上支撐強勁。"
         },
         {
           "symbol": "EA",
@@ -413,492 +447,390 @@
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭格局穩健，短中長均線呈多頭排列，技術"
-        },
-        {
-          "symbol": "SCHW",
-          "name": "Charles Schwab",
-          "price": 102.43,
-          "changePercent": -0.11,
-          "ma30": 95.8,
-          "ma60": 92.69,
-          "ma100": 93.19,
-          "bias30": 6.92,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭排列強勢，技術指標正向，維持偏多格局"
-        },
-        {
-          "symbol": "SBUX",
-          "name": "Starbucks Corp.",
-          "price": 104.58,
-          "changePercent": -0.21,
-          "ma30": 103.01,
-          "ma60": 102.61,
-          "ma100": 99.79,
-          "bias30": 1.53,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭格局穩健，指標全面翻多，持股續抱。"
-        },
-        {
-          "symbol": "ABT",
-          "name": "Abbott Laboratories",
-          "price": 101.14,
-          "changePercent": -0.51,
-          "ma30": 92.12,
-          "ma60": 89.58,
-          "ma100": 95.2,
-          "bias30": 9.79,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭排列趨勢明確，乖離稍大宜拉回佈局。"
-        },
-        {
-          "symbol": "AXP",
-          "name": "American Express",
-          "price": 350.04,
-          "changePercent": -0.54,
-          "ma30": 341.12,
-          "ma60": 327.09,
-          "ma100": 319.52,
-          "bias30": 2.61,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭排列強勢，均線向上發散，趨勢看漲。"
-        },
-        {
-          "symbol": "SHOP",
-          "name": "Shopify, Inc.",
-          "price": 123.74,
-          "changePercent": -0.59,
-          "ma30": 116.54,
-          "ma60": 113.97,
-          "ma100": 117.49,
-          "bias30": 6.18,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭排列強勢，技術指標翻揚，後市偏多看待"
-        },
-        {
-          "symbol": "UNP",
-          "name": "Union Pacific",
-          "price": 294.48,
-          "changePercent": -0.6,
-          "ma30": 276.44,
-          "ma60": 271.25,
-          "ma100": 261.85,
-          "bias30": 6.52,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列且MACD轉強，動能穩健。"
-        },
-        {
-          "symbol": "ABNB",
-          "name": "Airbnb, Inc.",
-          "price": 143.96,
-          "changePercent": -0.68,
-          "ma30": 142.55,
-          "ma60": 139.46,
-          "ma100": 136.57,
-          "bias30": 0.99,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列，技術面強勢站穩支撐。"
-        },
-        {
-          "symbol": "V",
-          "name": "Visa",
-          "price": 357.95,
-          "changePercent": -0.73,
-          "ma30": 341.37,
-          "ma60": 332.26,
-          "ma100": 322.73,
-          "bias30": 4.86,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭排列格局強勢，技術指標翻揚，偏多操作"
-        },
-        {
-          "symbol": "BKNG",
-          "name": "Booking Holdings",
-          "price": 177.81,
-          "changePercent": -0.91,
-          "ma30": 175.39,
-          "ma60": 170.07,
-          "ma100": 171.84,
-          "bias30": 1.38,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": null
-        },
-        {
-          "symbol": "TRV",
-          "name": "Travelers",
-          "price": 365.09,
-          "changePercent": -0.93,
-          "ma30": 327.07,
-          "ma60": 313.06,
-          "ma100": 307.27,
-          "bias30": 11.62,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列強勢，技術指標偏多續強。"
+          "comment": "均線多頭排列，技術面強勢站穩支撐，趨勢向"
         },
         {
           "symbol": "CSX",
           "name": "CSX Corporation",
-          "price": 49.65,
-          "changePercent": -0.93,
-          "ma30": 48.09,
+          "price": 49.92,
+          "changePercent": -0.37,
+          "ma30": 48.1,
           "ma60": 46.78,
           "ma100": 44.53,
-          "bias30": 3.23,
+          "bias30": 3.79,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列且指標強勢，格局偏多。"
+          "comment": "多頭趨勢確立，短線偏多操作。"
         },
         {
-          "symbol": "MA",
-          "name": "Mastercard",
-          "price": 542.18,
-          "changePercent": -0.96,
-          "ma30": 512.45,
-          "ma60": 504.13,
-          "ma100": 504.56,
-          "bias30": 5.8,
+          "symbol": "KHC",
+          "name": "Kraft Heinz Co.",
+          "price": 25.75,
+          "changePercent": -0.41,
+          "ma30": 24.34,
+          "ma60": 23.54,
+          "ma100": 23.05,
+          "bias30": 5.81,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭格局穩健，短線乖離略大宜留意調節。"
+          "comment": "多頭排列格局穩健，指標翻紅有利短線續強。"
+        },
+        {
+          "symbol": "UNP",
+          "name": "Union Pacific",
+          "price": 294.92,
+          "changePercent": -0.45,
+          "ma30": 276.46,
+          "ma60": 271.26,
+          "ma100": 261.86,
+          "bias30": 6.68,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "均線多頭排列，技術指標強勢，趨勢看漲。"
+        },
+        {
+          "symbol": "V",
+          "name": "Visa",
+          "price": 358.9,
+          "changePercent": -0.46,
+          "ma30": 341.4,
+          "ma60": 332.28,
+          "ma100": 322.74,
+          "bias30": 5.13,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭趨勢確立，技術面穩健，持續偏多看待。"
+        },
+        {
+          "symbol": "CCEP",
+          "name": "Coca-Cola Europacific Partners",
+          "price": 105.58,
+          "changePercent": -0.53,
+          "ma30": 101.9,
+          "ma60": 97.33,
+          "ma100": 97.07,
+          "bias30": 3.61,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭格局確立，各均線支撐強勁，短線震盪偏"
+        },
+        {
+          "symbol": "ABT",
+          "name": "Abbott Laboratories",
+          "price": 101.09,
+          "changePercent": -0.56,
+          "ma30": 92.12,
+          "ma60": 89.58,
+          "ma100": 95.2,
+          "bias30": 9.74,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "均線多頭排列，技術指標強勢，續抱或伺機佈"
         },
         {
           "symbol": "DXCM",
           "name": "DexCom",
-          "price": 74.91,
-          "changePercent": -1.03,
-          "ma30": 73.06,
-          "ma60": 69.24,
+          "price": 75.22,
+          "changePercent": -0.62,
+          "ma30": 73.07,
+          "ma60": 69.25,
           "ma100": 67.94,
-          "bias30": 2.53,
+          "bias30": 2.94,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列，技術指標偏多，動能穩健。"
+          "comment": "短均線多頭排列，技術指標強勢，趨勢偏多。"
         },
         {
           "symbol": "CTAS",
           "name": "Cintas Corp.",
-          "price": 199.7,
-          "changePercent": -1.04,
-          "ma30": 179.97,
-          "ma60": 175.57,
-          "ma100": 178.53,
-          "bias30": 10.96,
+          "price": 200.23,
+          "changePercent": -0.78,
+          "ma30": 179.99,
+          "ma60": 175.58,
+          "ma100": 178.54,
+          "bias30": 11.25,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列，技術指標強勢，多方格局延續"
+          "comment": "均線多頭排列且指標強勢，維持強勢格局。"
         },
         {
-          "symbol": "AXON",
-          "name": "Axon Enterprise",
-          "price": 521.14,
-          "changePercent": -1.2,
-          "ma30": 506.74,
-          "ma60": 460.45,
-          "ma100": 460.88,
-          "bias30": 2.84,
+          "symbol": "ABNB",
+          "name": "Airbnb, Inc.",
+          "price": 143.67,
+          "changePercent": -0.88,
+          "ma30": 142.54,
+          "ma60": 139.45,
+          "ma100": 136.57,
+          "bias30": 0.79,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭架構明確，均線多頭排列且指標強勢。"
-        },
-        {
-          "symbol": "MELI",
-          "name": "MercadoLibre, Inc.",
-          "price": 1808.24,
-          "changePercent": -1.32,
-          "ma30": 1720.89,
-          "ma60": 1708.74,
-          "ma100": 1722.76,
-          "bias30": 5.08,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭格局延續，均線支撐強勁，短線震盪無礙"
-        },
-        {
-          "symbol": "PM",
-          "name": "Philip Morris",
-          "price": 189.75,
-          "changePercent": -1.54,
-          "ma30": 181.58,
-          "ma60": 178.71,
-          "ma100": 173.02,
-          "bias30": 4.5,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭格局未變，短線修正不破支撐可偏多看待"
-        },
-        {
-          "symbol": "TMO",
-          "name": "Thermo Fisher Scientific",
-          "price": 518.1,
-          "changePercent": -1.54,
-          "ma30": 502.13,
-          "ma60": 483.11,
-          "ma100": 488.55,
-          "bias30": 3.18,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列且指標偏多，短線整理後看漲。"
-        },
-        {
-          "symbol": "PAYX",
-          "name": "Paychex, Inc.",
-          "price": 113.4,
-          "changePercent": -1.56,
-          "ma30": 103.77,
-          "ma60": 98.83,
-          "ma100": 95.89,
-          "bias30": 9.28,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭格局確立，乖離率偏高宜留意回檔風險。"
+          "comment": "均線多頭排列，技術指標強勢，短線格局偏多"
         },
         {
           "symbol": "DASH",
           "name": "DoorDash, Inc.",
-          "price": 186.05,
-          "changePercent": -1.57,
-          "ma30": 178.14,
-          "ma60": 170.26,
-          "ma100": 168.7,
-          "bias30": 4.44,
+          "price": 187.26,
+          "changePercent": -0.93,
+          "ma30": 178.18,
+          "ma60": 170.28,
+          "ma100": 168.71,
+          "bias30": 5.09,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭趨勢確立，短線乖離偏高，建議逢回布局"
+          "comment": "多頭排列強勢，均線向上發散，趨勢維持偏多"
         },
         {
-          "symbol": "PYPL",
-          "name": "PayPal Holdings",
-          "price": 55.76,
-          "changePercent": -1.87,
-          "ma30": 45.68,
-          "ma60": 45.7,
-          "ma100": 45.91,
-          "bias30": 22.07,
+          "symbol": "MA",
+          "name": "Mastercard",
+          "price": 542.28,
+          "changePercent": -0.94,
+          "ma30": 512.45,
+          "ma60": 504.13,
+          "ma100": 504.56,
+          "bias30": 5.82,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭排列架構穩固，乖離過大留意修正。"
+          "comment": "多頭排列強勢，技術指標正向，維持震盪偏多"
+        },
+        {
+          "symbol": "MELI",
+          "name": "MercadoLibre, Inc.",
+          "price": 1813.43,
+          "changePercent": -1.04,
+          "ma30": 1721.06,
+          "ma60": 1708.82,
+          "ma100": 1722.81,
+          "bias30": 5.37,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭格局明確，短線回測支撐，守穩均線偏多"
+        },
+        {
+          "symbol": "PM",
+          "name": "Philip Morris",
+          "price": 190.72,
+          "changePercent": -1.04,
+          "ma30": 181.61,
+          "ma60": 178.73,
+          "ma100": 173.03,
+          "bias30": 5.02,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭趨勢確立，均線支撐強勁，短線震盪後看"
+        },
+        {
+          "symbol": "BKNG",
+          "name": "Booking Holdings",
+          "price": 177.4,
+          "changePercent": -1.14,
+          "ma30": 175.38,
+          "ma60": 170.07,
+          "ma100": 171.83,
+          "bias30": 1.15,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭排列格局穩健，均線支撐強勁。"
+        },
+        {
+          "symbol": "TMO",
+          "name": "Thermo Fisher Scientific",
+          "price": 519.26,
+          "changePercent": -1.32,
+          "ma30": 502.17,
+          "ma60": 483.13,
+          "ma100": 488.56,
+          "bias30": 3.4,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭格局明確，短線回檔不破月線仍可偏多操"
         },
         {
           "symbol": "FTNT",
           "name": "Fortinet, Inc.",
-          "price": 157.35,
-          "changePercent": -1.88,
-          "ma30": 153.08,
-          "ma60": 135.02,
-          "ma100": 113.76,
-          "bias30": 2.79,
+          "price": 158.19,
+          "changePercent": -1.35,
+          "ma30": 153.1,
+          "ma60": 135.04,
+          "ma100": 113.77,
+          "bias30": 3.32,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭格局延續，短線拉回不破月線仍偏多看待"
+          "comment": "均線多頭排列，技術指標強勢，中長期趨勢看"
         },
         {
-          "symbol": "ADP",
-          "name": "Automatic Data Processing",
-          "price": 250.04,
-          "changePercent": -2.04,
-          "ma30": 233.74,
-          "ma60": 224.23,
-          "ma100": 216.42,
-          "bias30": 6.97,
+          "symbol": "PYPL",
+          "name": "PayPal Holdings",
+          "price": 55.94,
+          "changePercent": -1.54,
+          "ma30": 45.69,
+          "ma60": 45.71,
+          "ma100": 45.91,
+          "bias30": 22.44,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭排列格局強勢，乖離過大留意短線震盪。"
+          "comment": "均線多頭排列且強勢乖離，技術面走強。"
+        },
+        {
+          "symbol": "SHOP",
+          "name": "Shopify, Inc.",
+          "price": 122.54,
+          "changePercent": -1.56,
+          "ma30": 116.5,
+          "ma60": 113.95,
+          "ma100": 117.48,
+          "bias30": 5.18,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭趨勢確立，短線乖離稍大，留意回檔支撐"
+        },
+        {
+          "symbol": "PAYX",
+          "name": "Paychex, Inc.",
+          "price": 113.04,
+          "changePercent": -1.87,
+          "ma30": 103.76,
+          "ma60": 98.82,
+          "ma100": 95.88,
+          "bias30": 8.94,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "均線多頭排列，技術指標強勢，惟乖離過大宜"
         },
         {
           "symbol": "TMUS",
           "name": "T-Mobile US",
-          "price": 191.57,
-          "changePercent": -2.08,
+          "price": 191.71,
+          "changePercent": -2.01,
           "ma30": 183.6,
           "ma60": 186.28,
           "ma100": 194.07,
-          "bias30": 4.34,
+          "bias30": 4.42,
           "badges": [
             "站上30MA",
             "30MA上揚",
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "多頭架構穩健，守穩季線即有望挑戰前高。"
-        },
-        {
-          "symbol": "ROP",
-          "name": "Roper Technologies",
-          "price": 354.27,
-          "changePercent": -2.36,
-          "ma30": 344.26,
-          "ma60": 339.83,
-          "ma100": 345.41,
-          "bias30": 2.91,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "均線多頭排列，技術指標偏多，短線回檔仍守"
-        },
-        {
-          "symbol": "DDOG",
-          "name": "Datadog Inc.",
-          "price": 256.2,
-          "changePercent": -2.66,
-          "ma30": 245.31,
-          "ma60": 221.21,
-          "ma100": 181.24,
-          "bias30": 4.44,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭趨勢穩固，守穩月線短線偏多看待。"
-        },
-        {
-          "symbol": "TRI",
-          "name": "Thomson Reuters",
-          "price": 92.26,
-          "changePercent": -3.32,
-          "ma30": 86.01,
-          "ma60": 86.8,
-          "ma100": 89.03,
-          "bias30": 7.27,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭架構強勢，短線乖離偏高，逢回佈局為宜"
-        },
-        {
-          "symbol": "CRWD",
-          "name": "Crowdstrike Holdings",
-          "price": 191.79,
-          "changePercent": -3.37,
-          "ma30": 183.52,
-          "ma60": 165.05,
-          "ma100": 140.3,
-          "bias30": 4.51,
-          "badges": [
-            "站上30MA",
-            "30MA上揚",
-            "日MACD>0",
-            "週MACD紅柱"
-          ],
-          "comment": "多頭排列強勢，回測均線支撐守穩。"
+          "comment": "多頭格局未變，短線修正後仍具上攻動能。"
         },
         {
           "symbol": "PANW",
           "name": "Palo Alto Networks",
-          "price": 335.64,
-          "changePercent": -3.74,
-          "ma30": 314.34,
-          "ma60": 272.19,
-          "ma100": 228.58,
+          "price": 341.59,
+          "changePercent": -2.03,
+          "ma30": 314.54,
+          "ma60": 272.28,
+          "ma100": 228.64,
+          "bias30": 8.6,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭架構強勢，各期均線向上發散，維持多方"
+        },
+        {
+          "symbol": "AXON",
+          "name": "Axon Enterprise",
+          "price": 515.85,
+          "changePercent": -2.2,
+          "ma30": 506.56,
+          "ma60": 460.36,
+          "ma100": 460.83,
+          "bias30": 1.83,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭趨勢不變，短線修正不破支撐可偏多看待"
+        },
+        {
+          "symbol": "ADP",
+          "name": "Automatic Data Processing",
+          "price": 249.56,
+          "changePercent": -2.23,
+          "ma30": 233.73,
+          "ma60": 224.22,
+          "ma100": 216.41,
           "bias30": 6.77,
           "badges": [
             "站上30MA",
@@ -906,7 +838,75 @@
             "日MACD>0",
             "週MACD紅柱"
           ],
-          "comment": "均線多頭排列，技術指標強勢，拉回守穩均線"
+          "comment": "多頭格局未變，短線修正不破支撐即為買點。"
+        },
+        {
+          "symbol": "ROP",
+          "name": "Roper Technologies",
+          "price": 353.43,
+          "changePercent": -2.59,
+          "ma30": 344.24,
+          "ma60": 339.82,
+          "ma100": 345.4,
+          "bias30": 2.67,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭格局不變，短線修正無礙中長線支撐。"
+        },
+        {
+          "symbol": "CRWD",
+          "name": "Crowdstrike Holdings",
+          "price": 192.36,
+          "changePercent": -3.09,
+          "ma30": 183.54,
+          "ma60": 165.06,
+          "ma100": 140.3,
+          "bias30": 4.81,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭格局未變，短線震盪測試支撐。"
+        },
+        {
+          "symbol": "DDOG",
+          "name": "Datadog Inc.",
+          "price": 254.99,
+          "changePercent": -3.12,
+          "ma30": 245.27,
+          "ma60": 221.19,
+          "ma100": 181.23,
+          "bias30": 3.97,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭格局明確，短線回檔不破月線仍可偏多操"
+        },
+        {
+          "symbol": "TRI",
+          "name": "Thomson Reuters",
+          "price": 91.58,
+          "changePercent": -4.03,
+          "ma30": 85.99,
+          "ma60": 86.79,
+          "ma100": 89.02,
+          "bias30": 6.5,
+          "badges": [
+            "站上30MA",
+            "30MA上揚",
+            "日MACD>0",
+            "週MACD紅柱"
+          ],
+          "comment": "多頭趨勢未變，短線修正不破均線支撐。"
         }
       ]
     },
@@ -924,36 +924,36 @@
       "status": "active",
       "results": [
         {
+          "symbol": "CTAS",
+          "name": "Cintas Corp.",
+          "price": 200.23,
+          "changePercent": -0.78,
+          "ma30": 179.99,
+          "ma60": 175.58,
+          "ma100": 178.54,
+          "bias30": 11.25,
+          "badges": [
+            "30MA黃金交叉100MA",
+            "100MA上揚",
+            "RSI6>30"
+          ],
+          "comment": "均線多頭排列且指標強勢，維持強勢格局。"
+        },
+        {
           "symbol": "MA",
           "name": "Mastercard",
-          "price": 542.18,
-          "changePercent": -0.96,
+          "price": 542.28,
+          "changePercent": -0.94,
           "ma30": 512.45,
           "ma60": 504.13,
           "ma100": 504.56,
-          "bias30": 5.8,
+          "bias30": 5.82,
           "badges": [
             "30MA黃金交叉100MA",
             "100MA上揚",
             "RSI6>30"
           ],
-          "comment": "多頭格局穩健，短線乖離略大宜留意調節。"
-        },
-        {
-          "symbol": "CTAS",
-          "name": "Cintas Corp.",
-          "price": 199.7,
-          "changePercent": -1.04,
-          "ma30": 179.97,
-          "ma60": 175.57,
-          "ma100": 178.53,
-          "bias30": 10.96,
-          "badges": [
-            "30MA黃金交叉100MA",
-            "100MA上揚",
-            "RSI6>30"
-          ],
-          "comment": "均線多頭排列，技術指標強勢，多方格局延續"
+          "comment": "多頭排列強勢，技術指標正向，維持震盪偏多"
         }
       ]
     },
@@ -964,228 +964,228 @@
       "status": "active",
       "results": [
         {
-          "symbol": "WDC",
-          "name": "Western Digital",
-          "price": 547.62,
-          "changePercent": 12.35,
-          "ma30": 586.31,
-          "ma60": 535.3,
-          "ma100": 443.65,
-          "bias30": -6.6,
+          "symbol": "MU",
+          "name": "Micron Technology",
+          "price": 974.2,
+          "changePercent": 12.56,
+          "ma30": 1007.05,
+          "ma60": 880.63,
+          "ma100": 693.15,
+          "bias30": -3.26,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "重回季線之上，多頭反攻訊號顯現。"
+          "comment": "技術指標翻多，重返季線支撐，轉強訊號明確"
+        },
+        {
+          "symbol": "WDC",
+          "name": "Western Digital",
+          "price": 548.11,
+          "changePercent": 12.45,
+          "ma30": 586.32,
+          "ma60": 535.3,
+          "ma100": 443.66,
+          "bias30": -6.52,
+          "badges": [
+            "收盤黃金交叉60MA",
+            "60MA上揚",
+            "RSI6>30"
+          ],
+          "comment": "技術面強勢轉強，站穩季線後挑戰月線壓力。"
         },
         {
           "symbol": "STX",
           "name": "Seagate Technology",
-          "price": 887.53,
-          "changePercent": 10.6,
-          "ma30": 912.78,
-          "ma60": 849.41,
-          "ma100": 685.07,
-          "bias30": -2.77,
+          "price": 892.38,
+          "changePercent": 11.21,
+          "ma30": 912.95,
+          "ma60": 849.49,
+          "ma100": 685.11,
+          "bias30": -2.25,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "強勢突破季線反壓，多頭格局確立。"
-        },
-        {
-          "symbol": "MU",
-          "name": "Micron Technology",
-          "price": 954.95,
-          "changePercent": 10.34,
-          "ma30": 1006.41,
-          "ma60": 880.31,
-          "ma100": 692.96,
-          "bias30": -5.11,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ],
-          "comment": "強勢站回季線，多頭結構重啟，醞釀反彈。"
+          "comment": "站穩季線重回多頭格局，短線強勢反彈。"
         },
         {
           "symbol": "ALAB",
           "name": "Astera Labs",
-          "price": 329.69,
-          "changePercent": 6.66,
-          "ma30": 382.49,
-          "ma60": 319.8,
-          "ma100": 245.22,
-          "bias30": -13.8,
+          "price": 324.87,
+          "changePercent": 5.11,
+          "ma30": 382.32,
+          "ma60": 319.71,
+          "ma100": 245.17,
+          "bias30": -15.03,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "重返季線支撐，轉強訊號浮現。"
-        },
-        {
-          "symbol": "CRDO",
-          "name": "Credo Technology",
-          "price": 223.96,
-          "changePercent": 5.6,
-          "ma30": 247.94,
-          "ma60": 222.21,
-          "ma100": 181.47,
-          "bias30": -9.67,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ],
-          "comment": "站穩季線重啟多頭，短線乖離修復中。"
+          "comment": "站穩季線重啟漲勢，短線反彈動能強勁。"
         },
         {
           "symbol": "TSM",
           "name": "Taiwan Semiconductor",
-          "price": 421.24,
-          "changePercent": 4.71,
-          "ma30": 432.53,
-          "ma60": 420.98,
-          "ma100": 393.25,
-          "bias30": -2.61,
+          "price": 422.22,
+          "changePercent": 4.95,
+          "ma30": 432.56,
+          "ma60": 421.0,
+          "ma100": 393.26,
+          "bias30": -2.39,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "收盤突破季線轉強，多頭格局確立。"
+          "comment": "均線黃金交叉，多頭格局確立，底部支撐強勁"
         },
         {
           "symbol": "KLAC",
           "name": "KLA Corporation",
-          "price": 217.18,
-          "changePercent": 4.61,
+          "price": 217.29,
+          "changePercent": 4.67,
           "ma30": 237.85,
           "ma60": 212.33,
           "ma100": 189.87,
-          "bias30": -8.69,
+          "bias30": -8.64,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "短線重回六十日線，技術面轉強，建議持續追"
+          "comment": "站穩季線重啟多頭，技術指標轉強有利反彈。"
+        },
+        {
+          "symbol": "C",
+          "name": "Citigroup",
+          "price": 133.25,
+          "changePercent": 3.52,
+          "ma30": 138.94,
+          "ma60": 132.87,
+          "ma100": 125.95,
+          "bias30": -4.1,
+          "badges": [
+            "收盤黃金交叉60MA",
+            "60MA上揚",
+            "RSI6>30"
+          ],
+          "comment": "站穩60日均線，多頭架構轉強。"
         },
         {
           "symbol": "FANG",
           "name": "Diamondback Energy",
-          "price": 199.55,
-          "changePercent": 2.13,
-          "ma30": 186.69,
-          "ma60": 193.15,
-          "ma100": 190.28,
-          "bias30": 6.89,
+          "price": 198.96,
+          "changePercent": 1.83,
+          "ma30": 186.67,
+          "ma60": 193.14,
+          "ma100": 190.27,
+          "bias30": 6.58,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "均線多頭排列，技術面強勢向上。"
+          "comment": "均線多頭排列，技術面強勢站上季線，續航力"
         },
         {
           "symbol": "GEV",
           "name": "GE Vernova",
-          "price": 1086.45,
-          "changePercent": 0.67,
-          "ma30": 1048.4,
-          "ma60": 1044.99,
-          "ma100": 988.39,
-          "bias30": 3.63,
+          "price": 1090.23,
+          "changePercent": 1.02,
+          "ma30": 1048.52,
+          "ma60": 1045.05,
+          "ma100": 988.43,
+          "bias30": 3.98,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "均線呈多頭排列，技術面強勢站穩支撐。"
-        },
-        {
-          "symbol": "CVX",
-          "name": "Chevron",
-          "price": 190.49,
-          "changePercent": 0.41,
-          "ma30": 178.37,
-          "ma60": 182.73,
-          "ma100": 186.67,
-          "bias30": 6.79,
-          "badges": [
-            "收盤黃金交叉60MA",
-            "60MA上揚",
-            "RSI6>30"
-          ],
-          "comment": "多頭架構明確，站穩均線支撐，後市看漲。"
+          "comment": "均線多頭排列，技術面強勢站穩，看漲。"
         },
         {
           "symbol": "ROST",
           "name": "Ross Stores",
-          "price": 235.3,
-          "changePercent": -0.2,
-          "ma30": 225.52,
-          "ma60": 224.66,
-          "ma100": 220.77,
-          "bias30": 4.34,
+          "price": 237.01,
+          "changePercent": 0.52,
+          "ma30": 225.58,
+          "ma60": 224.69,
+          "ma100": 220.78,
+          "bias30": 5.07,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "均線多頭排列，技術面強勢向上，短線支撐穩"
+          "comment": "均線多頭排列，技術面強勢站穩支撐。"
+        },
+        {
+          "symbol": "CVX",
+          "name": "Chevron",
+          "price": 190.21,
+          "changePercent": 0.27,
+          "ma30": 178.36,
+          "ma60": 182.72,
+          "ma100": 186.67,
+          "bias30": 6.65,
+          "badges": [
+            "收盤黃金交叉60MA",
+            "60MA上揚",
+            "RSI6>30"
+          ],
+          "comment": "均線呈現多頭排列，技術面強勢向上。"
         },
         {
           "symbol": "ABT",
           "name": "Abbott Laboratories",
-          "price": 101.14,
-          "changePercent": -0.51,
+          "price": 101.09,
+          "changePercent": -0.56,
           "ma30": 92.12,
           "ma60": 89.58,
           "ma100": 95.2,
-          "bias30": 9.79,
+          "bias30": 9.74,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "多頭排列趨勢明確，乖離稍大宜拉回佈局。"
+          "comment": "均線多頭排列，技術指標強勢，續抱或伺機佈"
         },
         {
           "symbol": "PG",
           "name": "Procter & Gamble",
-          "price": 147.67,
-          "changePercent": -0.98,
-          "ma30": 149.06,
-          "ma60": 146.72,
-          "ma100": 146.94,
-          "bias30": -0.93,
+          "price": 147.83,
+          "changePercent": -0.87,
+          "ma30": 149.07,
+          "ma60": 146.73,
+          "ma100": 146.95,
+          "bias30": -0.83,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "短線回測支撐，守穩六十日線偏多看待。"
+          "comment": "均線糾結後轉強，短線回測支撐守穩。"
         },
         {
           "symbol": "PM",
           "name": "Philip Morris",
-          "price": 189.75,
-          "changePercent": -1.54,
-          "ma30": 181.58,
-          "ma60": 178.71,
-          "ma100": 173.02,
-          "bias30": 4.5,
+          "price": 190.72,
+          "changePercent": -1.04,
+          "ma30": 181.61,
+          "ma60": 178.73,
+          "ma100": 173.03,
+          "bias30": 5.02,
           "badges": [
             "收盤黃金交叉60MA",
             "60MA上揚",
             "RSI6>30"
           ],
-          "comment": "多頭格局未變，短線修正不破支撐可偏多看待"
+          "comment": "多頭趨勢確立，均線支撐強勁，短線震盪後看"
         }
       ]
     },
@@ -1198,18 +1198,18 @@
         {
           "symbol": "MMM",
           "name": "3M",
-          "price": 173.59,
-          "changePercent": 9.1,
-          "ma30": 160.15,
+          "price": 173.29,
+          "changePercent": 8.91,
+          "ma30": 160.14,
           "ma60": 153.93,
           "ma100": 152.14,
-          "bias30": 8.39,
+          "bias30": 8.21,
           "badges": [
             "20日區間<15%",
             "跳空開高",
             "收紅K"
           ],
-          "comment": "多頭趨勢確立，技術面強勢站上均線且動能轉"
+          "comment": "強勢突破均線多頭排列，技術面維持強勁偏多"
         }
       ]
     },
@@ -1229,290 +1229,290 @@
         {
           "symbol": "NBIS",
           "name": "Nebius Group N.V.",
-          "price": 207.01,
-          "changePercent": 13.36,
-          "ma30": 229.95,
-          "ma60": 214.08,
-          "ma100": 176.59,
-          "bias30": -9.98,
+          "price": 211.0,
+          "changePercent": 15.54,
+          "ma30": 230.08,
+          "ma60": 214.15,
+          "ma100": 176.63,
+          "bias30": -8.29,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "均線糾結處轉強，短期底背離，靜待回測月線"
-        },
-        {
-          "symbol": "TER",
-          "name": "Teradyne",
-          "price": 375.94,
-          "changePercent": 12.64,
-          "ma30": 390.28,
-          "ma60": 377.2,
-          "ma100": 356.07,
-          "bias30": -3.67,
-          "badges": [
-            "前日創近20日新低",
-            "前日收紅K",
-            "昨日收盤>前日收盤"
-          ],
-          "comment": "長紅反彈站穩季線，趨勢轉強挑戰月線。"
-        },
-        {
-          "symbol": "WDC",
-          "name": "Western Digital",
-          "price": 547.62,
-          "changePercent": 12.35,
-          "ma30": 586.31,
-          "ma60": 535.3,
-          "ma100": 443.65,
-          "bias30": -6.6,
-          "badges": [
-            "前日創近20日新低",
-            "前日收紅K",
-            "昨日收盤>前日收盤"
-          ],
-          "comment": "重回季線之上，多頭反攻訊號顯現。"
-        },
-        {
-          "symbol": "STX",
-          "name": "Seagate Technology",
-          "price": 887.53,
-          "changePercent": 10.6,
-          "ma30": 912.78,
-          "ma60": 849.41,
-          "ma100": 685.07,
-          "bias30": -2.77,
-          "badges": [
-            "前日創近20日新低",
-            "前日收紅K",
-            "昨日收盤>前日收盤"
-          ],
-          "comment": "強勢突破季線反壓，多頭格局確立。"
+          "comment": "短線跌深反彈，站回月線前仍屬整理格局。"
         },
         {
           "symbol": "MU",
           "name": "Micron Technology",
-          "price": 954.95,
-          "changePercent": 10.34,
-          "ma30": 1006.41,
-          "ma60": 880.31,
-          "ma100": 692.96,
-          "bias30": -5.11,
+          "price": 974.2,
+          "changePercent": 12.56,
+          "ma30": 1007.05,
+          "ma60": 880.63,
+          "ma100": 693.15,
+          "bias30": -3.26,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "強勢站回季線，多頭結構重啟，醞釀反彈。"
+          "comment": "技術指標翻多，重返季線支撐，轉強訊號明確"
+        },
+        {
+          "symbol": "WDC",
+          "name": "Western Digital",
+          "price": 548.11,
+          "changePercent": 12.45,
+          "ma30": 586.32,
+          "ma60": 535.3,
+          "ma100": 443.66,
+          "bias30": -6.52,
+          "badges": [
+            "前日創近20日新低",
+            "前日收紅K",
+            "昨日收盤>前日收盤"
+          ],
+          "comment": "技術面強勢轉強，站穩季線後挑戰月線壓力。"
+        },
+        {
+          "symbol": "TER",
+          "name": "Teradyne",
+          "price": 374.83,
+          "changePercent": 12.31,
+          "ma30": 390.24,
+          "ma60": 377.19,
+          "ma100": 356.06,
+          "bias30": -3.95,
+          "badges": [
+            "前日創近20日新低",
+            "前日收紅K",
+            "昨日收盤>前日收盤"
+          ],
+          "comment": "強勢反彈突破均線壓制，短線動能轉強。"
+        },
+        {
+          "symbol": "STX",
+          "name": "Seagate Technology",
+          "price": 892.38,
+          "changePercent": 11.21,
+          "ma30": 912.95,
+          "ma60": 849.49,
+          "ma100": 685.11,
+          "bias30": -2.25,
+          "badges": [
+            "前日創近20日新低",
+            "前日收紅K",
+            "昨日收盤>前日收盤"
+          ],
+          "comment": "站穩季線重回多頭格局，短線強勢反彈。"
         },
         {
           "symbol": "COHR",
           "name": "Coherent",
-          "price": 312.76,
-          "changePercent": 9.59,
-          "ma30": 353.0,
-          "ma60": 357.53,
-          "ma100": 324.47,
-          "bias30": -11.4,
+          "price": 316.64,
+          "changePercent": 10.95,
+          "ma30": 353.13,
+          "ma60": 357.59,
+          "ma100": 324.51,
+          "bias30": -10.33,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "急跌後搶反彈，短線乖離雖大但需留意均線壓"
+          "comment": "短線強彈挑戰季線，唯均線空頭排列壓力仍重"
         },
         {
           "symbol": "LITE",
           "name": "Lumentum Holdings",
-          "price": 826.24,
-          "changePercent": 7.93,
-          "ma30": 816.91,
-          "ma60": 871.24,
-          "ma100": 824.07,
-          "bias30": 1.14,
-          "badges": [
-            "前日創近20日新低",
-            "前日收紅K",
-            "昨日收盤>前日收盤"
-          ],
-          "comment": "價站回短中期均線，短線築底轉強。"
-        },
-        {
-          "symbol": "ARM",
-          "name": "Arm Holdings",
-          "price": 290.11,
-          "changePercent": 7.6,
-          "ma30": 335.18,
-          "ma60": 300.92,
-          "ma100": 237.65,
-          "bias30": -13.45,
-          "badges": [
-            "前日創近20日新低",
-            "前日收紅K",
-            "昨日收盤>前日收盤"
-          ],
-          "comment": "均線下彎乖離過大，短線觸底反彈，仍需觀察"
-        },
-        {
-          "symbol": "MRVL",
-          "name": "Marvell Technology",
-          "price": 209.54,
-          "changePercent": 7.49,
-          "ma30": 255.93,
-          "ma60": 224.57,
-          "ma100": 176.84,
-          "bias30": -18.13,
-          "badges": [
-            "前日創近20日新低",
-            "前日收紅K",
-            "昨日收盤>前日收盤"
-          ],
-          "comment": "股價強勢反彈，短線超跌修正，持續留意季線"
-        },
-        {
-          "symbol": "INTC",
-          "name": "Intel",
-          "price": 104.3,
-          "changePercent": 7.46,
-          "ma30": 117.47,
-          "ma60": 113.49,
-          "ma100": 88.68,
-          "bias30": -11.21,
-          "badges": [
-            "前日創近20日新低",
-            "前日收紅K",
-            "昨日收盤>前日收盤"
-          ],
-          "comment": "短線止跌反彈，仍受制季線壓力，趨勢偏弱。"
-        },
-        {
-          "symbol": "AMD",
-          "name": "Advanced Micro Devices",
-          "price": 535.05,
-          "changePercent": 6.25,
-          "ma30": 522.81,
-          "ma60": 479.12,
-          "ma100": 376.37,
+          "price": 836.36,
+          "changePercent": 9.25,
+          "ma30": 817.25,
+          "ma60": 871.41,
+          "ma100": 824.17,
           "bias30": 2.34,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "多頭架構明確，技術指標強勢，動能向上。"
+          "comment": "站穩短中期均線，短線強勢反彈。"
         },
         {
-          "symbol": "CRDO",
-          "name": "Credo Technology",
-          "price": 223.96,
-          "changePercent": 5.6,
-          "ma30": 247.94,
-          "ma60": 222.21,
-          "ma100": 181.47,
-          "bias30": -9.67,
+          "symbol": "ARM",
+          "name": "Arm Holdings",
+          "price": 290.93,
+          "changePercent": 7.91,
+          "ma30": 335.2,
+          "ma60": 300.93,
+          "ma100": 237.66,
+          "bias30": -13.21,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "站穩季線重啟多頭，短線乖離修復中。"
+          "comment": "短線跌深反彈，站回百日線支撐，仍處中長期"
+        },
+        {
+          "symbol": "INTC",
+          "name": "Intel",
+          "price": 104.29,
+          "changePercent": 7.45,
+          "ma30": 117.47,
+          "ma60": 113.49,
+          "ma100": 88.68,
+          "bias30": -11.22,
+          "badges": [
+            "前日創近20日新低",
+            "前日收紅K",
+            "昨日收盤>前日收盤"
+          ],
+          "comment": "均線蓋頭反壓，短線反彈仍處弱勢格局。"
+        },
+        {
+          "symbol": "MRVL",
+          "name": "Marvell Technology",
+          "price": 209.46,
+          "changePercent": 7.45,
+          "ma30": 255.93,
+          "ma60": 224.57,
+          "ma100": 176.84,
+          "bias30": -18.16,
+          "badges": [
+            "前日創近20日新低",
+            "前日收紅K",
+            "昨日收盤>前日收盤"
+          ],
+          "comment": "短線急跌後技術性反彈，宜觀察能否站回季線"
+        },
+        {
+          "symbol": "AMD",
+          "name": "Advanced Micro Devices",
+          "price": 536.82,
+          "changePercent": 6.6,
+          "ma30": 522.87,
+          "ma60": 479.15,
+          "ma100": 376.39,
+          "bias30": 2.67,
+          "badges": [
+            "前日創近20日新低",
+            "前日收紅K",
+            "昨日收盤>前日收盤"
+          ],
+          "comment": "強勢站穩均線，多頭排列格局穩健。"
         },
         {
           "symbol": "MTSI",
           "name": "MACOM Technology",
-          "price": 284.03,
-          "changePercent": 5.27,
-          "ma30": 340.57,
-          "ma60": 344.04,
+          "price": 283.36,
+          "changePercent": 5.03,
+          "ma30": 340.55,
+          "ma60": 344.02,
           "ma100": 302.59,
-          "bias30": -16.6,
+          "bias30": -16.79,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "均線空頭排列，短線雖反彈但弱勢格局未變。"
+          "comment": "空頭趨勢未變，短線跌深反彈，建議保守觀望"
         },
         {
           "symbol": "TSM",
           "name": "Taiwan Semiconductor",
-          "price": 421.24,
-          "changePercent": 4.71,
-          "ma30": 432.53,
-          "ma60": 420.98,
-          "ma100": 393.25,
-          "bias30": -2.61,
+          "price": 422.22,
+          "changePercent": 4.95,
+          "ma30": 432.56,
+          "ma60": 421.0,
+          "ma100": 393.26,
+          "bias30": -2.39,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "收盤突破季線轉強，多頭格局確立。"
+          "comment": "均線黃金交叉，多頭格局確立，底部支撐強勁"
+        },
+        {
+          "symbol": "CRDO",
+          "name": "Credo Technology",
+          "price": 221.46,
+          "changePercent": 4.43,
+          "ma30": 247.86,
+          "ma60": 222.17,
+          "ma100": 181.44,
+          "bias30": -10.65,
+          "badges": [
+            "前日創近20日新低",
+            "前日收紅K",
+            "昨日收盤>前日收盤"
+          ],
+          "comment": "短線強勢反彈，正測試季線支撐與壓力。"
         },
         {
           "symbol": "MPWR",
           "name": "Monolithic Power Systems",
-          "price": 1383.32,
-          "changePercent": 4.1,
-          "ma30": 1411.16,
-          "ma60": 1498.47,
-          "ma100": 1373.9,
-          "bias30": -1.97,
+          "price": 1380.46,
+          "changePercent": 3.89,
+          "ma30": 1411.06,
+          "ma60": 1498.42,
+          "ma100": 1373.87,
+          "bias30": -2.17,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "短線築底反彈，仍處季線壓力之下，宜震盪操"
+          "comment": "技術面短線止跌回穩，正嘗試挑戰月線壓力。"
         },
         {
           "symbol": "NXPI",
           "name": "NXP Semiconductors",
-          "price": 275.36,
-          "changePercent": 3.06,
-          "ma30": 288.55,
-          "ma60": 292.87,
-          "ma100": 257.32,
-          "bias30": -4.57,
+          "price": 274.04,
+          "changePercent": 2.57,
+          "ma30": 288.51,
+          "ma60": 292.85,
+          "ma100": 257.3,
+          "bias30": -5.02,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "跌破短中均線，短線強彈力守百日線支撐。"
-        },
-        {
-          "symbol": "APP",
-          "name": "AppLovin Corp.",
-          "price": 429.28,
-          "changePercent": 1.1,
-          "ma30": 488.23,
-          "ma60": 496.22,
-          "ma100": 474.13,
-          "bias30": -12.07,
-          "badges": [
-            "前日創近20日新低",
-            "前日收紅K",
-            "昨日收盤>前日收盤"
-          ],
-          "comment": "短線超跌出現築底訊號，留意反彈契機。"
+          "comment": "短線築底反彈，仍處於中長期均線下方震盪。"
         },
         {
           "symbol": "GEV",
           "name": "GE Vernova",
-          "price": 1086.45,
-          "changePercent": 0.67,
-          "ma30": 1048.4,
-          "ma60": 1044.99,
-          "ma100": 988.39,
-          "bias30": 3.63,
+          "price": 1090.23,
+          "changePercent": 1.02,
+          "ma30": 1048.52,
+          "ma60": 1045.05,
+          "ma100": 988.43,
+          "bias30": 3.98,
           "badges": [
             "前日創近20日新低",
             "前日收紅K",
             "昨日收盤>前日收盤"
           ],
-          "comment": "均線呈多頭排列，技術面強勢站穩支撐。"
+          "comment": "均線多頭排列，技術面強勢站穩，看漲。"
+        },
+        {
+          "symbol": "APP",
+          "name": "AppLovin Corp.",
+          "price": 425.3,
+          "changePercent": 0.17,
+          "ma30": 488.1,
+          "ma60": 496.15,
+          "ma100": 474.09,
+          "bias30": -12.87,
+          "badges": [
+            "前日創近20日新低",
+            "前日收紅K",
+            "昨日收盤>前日收盤"
+          ],
+          "comment": "股價弱勢破底後嘗試築底，建議保守觀望。"
         }
       ]
     }

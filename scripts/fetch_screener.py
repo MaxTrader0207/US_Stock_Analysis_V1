@@ -65,14 +65,17 @@ Gemini 短評需求：
   - 沒有設定的話，comment 欄位一律是 null，選股邏輯本身完全不受影響
   - 同一檔股票如果同時符合好幾組條件，只會呼叫一次 Gemini，結果套用到所有出現的卡片，
     避免同一檔股票重複打 API 浪費額度
-  - 細節見 scripts/gemini.py
+  - 每次呼叫之間固定間隔 GEMINI_CALL_DELAY_SECONDS 秒（預設1.5秒），拉開請求密度避免撞到限流
+  - 單次呼叫遇到限流(429)或伺服器暫時性錯誤(5xx)會自動退避重試，細節見 scripts/gemini.py
 
 前端 screener.html / screener.js 是資料驅動的，之後如果要再新增第8組選股條件，
 只要在 evaluate_all_conditions() 裡比照既有寫法新增一段判斷、在 main() 的
 condition_meta 裡加一筆設定即可，不需要修改前端。
 """
 import json
+import os
 import sys
+import time
 from datetime import datetime, timezone
 
 import pandas as pd
@@ -82,6 +85,10 @@ from tickers import SCREENER_UNIVERSE
 from gemini import get_short_comment
 
 CROSS_LOOKBACK = 5  # 判定「近期黃金交叉」回看的交易日數
+
+# 每次呼叫 Gemini 之間固定間隔的秒數，從源頭拉開請求密度、降低撞到免費額度
+# 每分鐘請求數上限（RPM）的機率。可用環境變數覆寫，預設 1.5 秒。
+GEMINI_CALL_DELAY_SECONDS = float(os.environ.get("GEMINI_CALL_DELAY_SECONDS") or 1.5)
 
 
 def macd(series, fast=12, slow=26, signal=9):
@@ -387,6 +394,8 @@ def main():
                     bias30=entry["bias30"],
                     badges=entry["badges"],
                 )
+                # 只在真的打了一次 API 時才等待，cache 命中（同一檔股票在其他條件組裡重複出現）不用等
+                time.sleep(GEMINI_CALL_DELAY_SECONDS)
             entry["comment"] = comment_cache[symbol]
 
     comment_ok = sum(1 for v in comment_cache.values() if v)

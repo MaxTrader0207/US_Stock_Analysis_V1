@@ -12,10 +12,15 @@
 
 ⚠️ 沒有設定 GEMINI_API_KEY 時，get_short_comment() 一律回傳 None，
 不會讓整個抓取流程失敗——短評只是錦上添花的附加資訊，不是選股邏輯的一部分。
-呼叫失敗（額度用完、網路問題、模型名稱過期等）也是回傳 None 並印警告，同樣不會中斷抓取。
+
+呼叫遇到 429（限流）或 5xx（伺服器暫時性錯誤）會自動退避重試（預設最多3次，
+間隔 5s → 10s → 20s，或優先採用 Google 回傳的 Retry-After 秒數）；
+其餘錯誤（Key 無效、模型名稱過期等重試也沒用的狀況）會直接放棄並印警告，
+同樣不會中斷抓取。可透過環境變數 GEMINI_MAX_RETRIES / GEMINI_BACKOFF_BASE_SECONDS 調整。
 """
 import os
 import sys
+import time
 
 import requests
 
@@ -23,6 +28,11 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY") or None
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL") or "gemini-3.1-flash-lite"
 GEMINI_ENDPOINT = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 MAX_COMMENT_CHARS = 20
+
+# 重試設定：只針對「可能重試就會成功」的錯誤重打，429(限流)/5xx(伺服器暫時性錯誤)/連線逾時都算，
+# 400(格式錯誤)/403(Key無效)這種重試也沒用的錯誤不會重試，直接放棄避免浪費時間。
+GEMINI_MAX_RETRIES = int(os.environ.get("GEMINI_MAX_RETRIES") or 3)
+GEMINI_BACKOFF_BASE_SECONDS = float(os.environ.get("GEMINI_BACKOFF_BASE_SECONDS") or 5)
 
 # 開機時就印一行明確的狀態訊息（不會洩漏完整 Key），
 # 之後排查「短評到底有沒有跑」時，Actions log 一眼就能看到，不用再靠猜的。
@@ -52,23 +62,50 @@ def get_short_comment(symbol, name, price, change_pct, ma30, ma60, ma100, bias30
         f"本次符合的選股訊號：{'、'.join(badges) if badges else '無'}"
     )
 
-    try:
-        resp = requests.post(
-            GEMINI_ENDPOINT,
-            params={"key": GEMINI_API_KEY},
-            json={"contents": [{"parts": [{"text": prompt}]}]},
-            timeout=15,
-        )
-        if not resp.ok:
-            # 印出 Google 回傳的實際錯誤內容（例如 API key 無效、模型名稱不存在、額度用完），
-            # 而不是只印 HTTP 狀態碼，這樣才看得出真正原因
-            print(f"[warn] Gemini comment for {symbol}: HTTP {resp.status_code} - {resp.text[:300]}", file=sys.stderr)
+    for attempt in range(1, GEMINI_MAX_RETRIES + 1):
+        try:
+            resp = requests.post(
+                GEMINI_ENDPOINT,
+                params={"key": GEMINI_API_KEY},
+                json={"contents": [{"parts": [{"text": prompt}]}]},
+                timeout=15,
+            )
+        except requests.exceptions.RequestException as e:
+            # 連線層級的錯誤（逾時、DNS、連線中斷等）一律視為可重試
+            if attempt < GEMINI_MAX_RETRIES:
+                wait = GEMINI_BACKOFF_BASE_SECONDS * (2 ** (attempt - 1))
+                print(f"[warn] Gemini comment for {symbol}: 連線錯誤 {e}，{wait:.0f}秒後重試（第{attempt}/{GEMINI_MAX_RETRIES}次）", file=sys.stderr)
+                time.sleep(wait)
+                continue
+            print(f"[warn] Gemini comment for {symbol}: 連線錯誤 {e}，已重試{GEMINI_MAX_RETRIES}次仍失敗，放棄", file=sys.stderr)
             return None
-        data = resp.json()
-        text = data["candidates"][0]["content"]["parts"][0]["text"]
-        text = text.strip().strip('「」"\'')
-        # 保底裁切：模型偶爾不會嚴格遵守字數限制，這裡強制裁到上限避免卡片被撐爆
-        return text[:MAX_COMMENT_CHARS]
-    except Exception as e:
-        print(f"[warn] Gemini comment for {symbol}: {e}", file=sys.stderr)
+
+        if resp.ok:
+            try:
+                data = resp.json()
+                text = data["candidates"][0]["content"]["parts"][0]["text"]
+                text = text.strip().strip('「」"\'')
+                # 保底裁切：模型偶爾不會嚴格遵守字數限制，這裡強制裁到上限避免卡片被撐爆
+                return text[:MAX_COMMENT_CHARS]
+            except Exception as e:
+                # 回應格式跟預期不符（例如被安全過濾擋掉、回傳結構改變），重試也沒用，直接放棄
+                print(f"[warn] Gemini comment for {symbol}: 回應格式異常 {e} - {resp.text[:300]}", file=sys.stderr)
+                return None
+
+        # HTTP 429（限流）與 5xx（伺服器暫時性錯誤）視為可重試；其餘（400/403等）直接放棄
+        retryable = resp.status_code == 429 or resp.status_code >= 500
+        err_detail = f"HTTP {resp.status_code} - {resp.text[:300]}"
+
+        if retryable and attempt < GEMINI_MAX_RETRIES:
+            # 優先用 Google 回傳的 Retry-After 秒數，沒有的話用指數退避（5s → 10s → 20s...）
+            retry_after = resp.headers.get("Retry-After")
+            wait = float(retry_after) if retry_after else GEMINI_BACKOFF_BASE_SECONDS * (2 ** (attempt - 1))
+            print(f"[warn] Gemini comment for {symbol}: {err_detail}，{wait:.0f}秒後重試（第{attempt}/{GEMINI_MAX_RETRIES}次）", file=sys.stderr)
+            time.sleep(wait)
+            continue
+
+        suffix = f"，已重試{attempt}次仍失敗" if attempt > 1 else ""
+        print(f"[warn] Gemini comment for {symbol}: {err_detail}{suffix}", file=sys.stderr)
         return None
+
+    return None

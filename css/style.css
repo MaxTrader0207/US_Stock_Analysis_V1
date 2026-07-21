@@ -14,6 +14,7 @@
   --accent-red:    #ff4d6a;
   --accent-amber:  #ffb020;
   --accent-blue:   #4da3ff;
+  --accent-purple: #b388ff;
 
   --font-display:  'Space Grotesk', 'Noto Sans TC', sans-serif;
   --font-body:     'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -189,19 +190,22 @@ main{
   background: var(--bg-panel);
   border-radius: 0 10px 10px 0;
 }
-.stock-list{ padding: 6px 10px 16px; display:flex; flex-direction:column; gap:6px; }
+.stock-list{ padding: 6px 10px 16px; display:flex; flex-direction:column; gap:8px; }
 .stock-card{
   position:relative;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:10px 12px 10px 30px;
+  display:flex; flex-direction:column; gap:7px;
+  padding:12px 12px 12px 30px;
   background: var(--bg-panel);
   border:1px solid var(--border);
   border-radius:11px;
 }
-.stock-card .left{ display:flex; flex-direction:column; gap:3px; min-width:0; }
-.stock-card .sym-row{ display:flex; align-items:center; gap:6px; }
-.stock-card .sym{ font-family:var(--font-display); font-weight:700; font-size:14px; }
-.stock-card .name{ font-size:11px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:38vw; }
+.rank{
+  font-family:var(--font-mono); font-size:10px; color:var(--text-dim);
+  width:18px; text-align:center; flex-shrink:0;
+  position:absolute; left:10px; top:12px;
+}
+
+/* .badges/.badge 保留給其他頁面使用（例如基本面選股），screener.js 本身已不再顯示選股條件標籤 */
 .badges{ display:flex; gap:4px; flex-wrap:wrap; margin-top:1px; }
 .badge{
   font-family:var(--font-mono); font-size:9px; font-weight:600;
@@ -209,28 +213,57 @@ main{
   background: rgba(0,229,160,0.12); color: var(--accent-green);
   border:1px solid rgba(0,229,160,0.3);
 }
-.stock-card .right{ text-align:right; flex-shrink:0; padding-left:8px; }
-.stock-card .price{ font-family:var(--font-mono); font-size:14px; font-weight:600; }
-.stock-card .chg{ font-family:var(--font-mono); font-size:11px; margin-top:1px; }
-.rank{
-  font-family:var(--font-mono); font-size:10px; color:var(--text-dim);
-  width:18px; text-align:center; flex-shrink:0;
-  position:absolute; left:10px; top:50%; transform:translateY(-50%);
+
+/* ---------- 卡片頭：代號/名稱 + 現價/漲跌 ---------- */
+.card-header{ display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+.sym-row{ display:flex; align-items:center; gap:6px; }
+.sym{ font-family:var(--font-display); font-weight:700; font-size:14px; }
+.name{ font-size:11px; color:var(--text-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:38vw; }
+.head-right{ text-align:right; flex-shrink:0; padding-left:8px; }
+.price{ font-family:var(--font-mono); font-size:14px; font-weight:600; }
+.chg{ font-family:var(--font-mono); font-size:11px; margin-top:1px; }
+
+/* ---------- 3個色塊區域共用樣式 ---------- */
+.sec{
+  padding:8px 10px;
+  border-radius:9px;
+  border-left:3px solid transparent;
 }
-.metrics{
-  font-family:var(--font-mono); font-size:9.5px;
-  margin-top:3px;
+.sec-title{
+  font-family:var(--font-mono); font-size:9.5px; font-weight:700;
+  letter-spacing:.06em; text-transform:uppercase;
+  margin-bottom:5px;
 }
-.metrics-1{ color: var(--accent-amber); }
-.metrics-2{ color: var(--accent-blue); }
-.ai-comment{
-  display:flex; align-items:baseline; gap:5px;
-  font-size:10.5px; color:var(--accent-blue);
-  margin-top:4px; line-height:1.5;
+.sec-metrics{ font-family:var(--font-mono); font-size:10.5px; color:var(--text); line-height:1.6; }
+.sec-comment{ font-size:11px; line-height:1.65; color:var(--text); opacity:.92; margin-top:5px; }
+
+/* A. 基本面：藍色 */
+.sec-fundamental{ background: rgba(77,163,255,0.08); border-left-color: var(--accent-blue); }
+.sec-fundamental .sec-title{ color: var(--accent-blue); }
+
+/* B. 技術面：琥珀色 */
+.sec-technical{ background: rgba(255,176,32,0.08); border-left-color: var(--accent-amber); }
+.sec-technical .sec-title{ color: var(--accent-amber); }
+.ma-row{
+  font-family:var(--font-mono); font-size:10.5px; color:var(--text);
+  display:flex; align-items:center; gap:6px; margin-top:2px;
 }
-.ai-comment .ai-tag{
-  flex-shrink:0;
-  font-family:var(--font-mono); font-size:8px; font-weight:700;
-  color:#04203a; background:var(--accent-blue);
-  padding:1px 4px; border-radius:4px; letter-spacing:.3px;
-}
+.ma-row:first-of-type{ margin-top:0; }
+.ma-label{ color:var(--text-dim); width:42px; flex-shrink:0; }
+.ma-above{ color: var(--accent-green); font-weight:600; }
+.ma-below{ color: var(--accent-red); font-weight:600; }
+.ma-up{ color: var(--accent-green); }
+.ma-down{ color: var(--accent-red); }
+.ma-bias{ color: var(--text-dim); margin-left:auto; }
+
+/* C. 健檢分數：紫色，分數置中放大 */
+.sec-score{ background: rgba(179,136,255,0.10); border-left-color: var(--accent-purple); text-align:center; }
+.sec-score .sec-title{ color: var(--accent-purple); }
+.sec-score .sec-comment{ text-align:left; }
+.score-row{ display:flex; align-items:baseline; justify-content:center; gap:4px; margin-top:8px; }
+.score-value{ font-family:var(--font-display); font-weight:900; font-size:32px; line-height:1; color:var(--text); }
+.score-max{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); }
+.score-value.score-high{ color: var(--accent-green); }
+.score-value.score-mid{ color: var(--accent-amber); }
+.score-value.score-low{ color: var(--accent-red); }
+

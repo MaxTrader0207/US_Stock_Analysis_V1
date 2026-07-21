@@ -58,15 +58,30 @@ RSI 採用 Wilder's 平滑法（三竹股市、XQ全球贏家等台灣主流看�
 每筆選股結果除了代號、公司名、價格、漲跌幅、badges 之外，還會附上：
   - ma30 / ma60 / ma100：30日、60日、100日均線
   - bias30：目前收盤價與30日均線的乖離率（%）
-  - comment：呼叫 Gemini API 產生的一句不超過20字繁體中文短評
+  - above30 / ma30Rising、above60 / ma60Rising、above100 / ma100Rising：
+    是否站上對應均線、該均線是否上揚（布林值，前端據此畫上下箭頭）
+  - support / resistance / stopLoss：近20個交易日高低點與停損參考價（目前卡片未顯示，保留供其他用途）
+  - eps / roe / pe / dividendYield：EPS(TTM)、ROE(%)、本益比(TTM)、股息殖利率(%)
+  - revenueLatestQ / grossMarginLatestQ：近一季總營收（原始數字）、近一季毛利率(%)
+  - fundamentalComment / fundamentalScore：基本面短評（<=50字，語意完整）與基本面健檢分數(0-50)
+  - technicalComment / technicalScore：技術面短評（<=50字）與技術面健檢分數(0-50)
+  - overallComment：綜合基本面+技術面的短評（<=50字）
+  - totalScore：fundamentalScore + technicalScore，範圍 1-100
 
-Gemini 短評需求：
+  ⚠️ badges 欄位仍保留在資料裡（給 Gemini 短評當作context用），但前端卡片
+  已不再顯示選股條件文字標籤。
+
+Gemini 健檢分析需求：
   - 環境變數 GEMINI_API_KEY（GitHub Actions 請設成 repo secret）
-  - 沒有設定的話，comment 欄位一律是 null，選股邏輯本身完全不受影響
+  - 沒有設定的話，fundamentalComment/technicalComment/overallComment/各分數欄位一律是 null，
+    選股邏輯本身完全不受影響
   - 同一檔股票如果同時符合好幾組條件，只會呼叫一次 Gemini，結果套用到所有出現的卡片，
     避免同一檔股票重複打 API 浪費額度
   - 每次呼叫之間固定間隔 GEMINI_CALL_DELAY_SECONDS 秒（預設1.5秒），拉開請求密度避免撞到限流
   - 單次呼叫遇到限流(429)或伺服器暫時性錯誤(5xx)會自動退避重試，細節見 scripts/gemini.py
+  - 三段短評各上限50字，且要求講到一個完整語意的段落結束，不會硬切在句子中間
+  - 基本面分數(0-50)+技術面分數(0-50)=總分(1-100)，總分由 Python 端加總計算（不信任模型自己加總），
+    確保數字一定一致
 
 前端 screener.html / screener.js 是資料驅動的，之後如果要再新增第8組選股條件，
 只要在 evaluate_all_conditions() 裡比照既有寫法新增一段判斷、在 main() 的
@@ -82,13 +97,85 @@ import pandas as pd
 import yfinance as yf
 
 from tickers import SCREENER_UNIVERSE
-from gemini import get_short_comment
+from gemini import get_stock_health_check
 
 CROSS_LOOKBACK = 5  # 判定「近期黃金交叉」回看的交易日數
+
+# 支撐/壓力/停損計算參數
+SR_LOOKBACK_DAYS = 20      # 支撐、壓力採近N個交易日（不含今日）高低點
+STOP_LOSS_BUFFER_PCT = 0.03  # 停損價 = 支撐價再往下這個比例，避免一碰支撐就停損，等真正跌破才觸發
 
 # 每次呼叫 Gemini 之間固定間隔的秒數，從源頭拉開請求密度、降低撞到免費額度
 # 每分鐘請求數上限（RPM）的機率。可用環境變數覆寫，預設 1.5 秒。
 GEMINI_CALL_DELAY_SECONDS = float(os.environ.get("GEMINI_CALL_DELAY_SECONDS") or 1.5)
+
+# EPS / 近一季營收 / 近一季毛利率：每個「有符合任一選股條件」的股票額外多打
+# 2 次 Yahoo Finance 請求（info + 季報財報），跟 fetch_fundamentals.py 面對的是同一個
+# 限流風險，所以這裡也做了同樣的間隔設計，只是只對「有中選」的子集抓，不是對全部159檔抓。
+FUNDAMENTALS_CALL_DELAY_SECONDS = float(os.environ.get("FUNDAMENTALS_CALL_DELAY_SECONDS") or 1.0)
+
+# 不同版本 yfinance 回傳的財報列名偶爾會不一致，兩種都嘗試
+REVENUE_ROW_NAMES = ["Total Revenue", "TotalRevenue"]
+GROSS_PROFIT_ROW_NAMES = ["Gross Profit", "GrossProfit"]
+
+
+def _find_row(df, names):
+    for n in names:
+        if n in df.index:
+            return df.loc[n]
+    return None
+
+
+def fetch_fundamentals_light(symbol):
+    """抓 EPS(TTM)、ROE、本益比(TTM)、股息殖利率、近一季營收、近一季毛利率。
+    EPS/ROE/PE/殖利率都來自同一個 info 請求（不額外增加網路呼叫），
+    營收/毛利率是另一個獨立請求。兩組請求各自 try/except 包起來，
+    任一步驟失敗只會讓對應欄位變 None，不會讓其他欄位或整體抓取跟著失敗。"""
+    eps = roe = pe = dividend_yield = revenue = gross_margin = None
+    ticker_obj = yf.Ticker(symbol)
+
+    try:
+        info = ticker_obj.get_info()
+        eps = info.get("trailingEps")
+        pe = info.get("trailingPE")
+
+        roe_raw = info.get("returnOnEquity")
+        if roe_raw is not None:
+            roe = round(float(roe_raw) * 100, 2)
+
+        dy_raw = info.get("dividendYield")
+        if dy_raw is not None:
+            dy_raw = float(dy_raw)
+            # 不同版本 yfinance 對 dividendYield 的單位不一致（有的是 0.023 代表2.3%，
+            # 有的直接回傳 2.3），這裡用數值大小判斷：明顯小於1就當作是比例、乘以100
+            dividend_yield = round(dy_raw * 100, 2) if dy_raw < 1 else round(dy_raw, 2)
+    except Exception as e:
+        print(f"[warn] {symbol}: EPS/ROE/PE/殖利率取得失敗 {e}", file=sys.stderr)
+
+    try:
+        qis = ticker_obj.quarterly_income_stmt
+        if qis is not None and not qis.empty:
+            latest_col = qis.columns[0]
+            rev_row = _find_row(qis, REVENUE_ROW_NAMES)
+            gp_row = _find_row(qis, GROSS_PROFIT_ROW_NAMES)
+            revenue_val = rev_row.get(latest_col) if rev_row is not None else None
+            if revenue_val is not None and not pd.isna(revenue_val):
+                revenue = float(revenue_val)
+            if gp_row is not None and revenue:
+                gp_val = gp_row.get(latest_col)
+                if gp_val is not None and not pd.isna(gp_val):
+                    gross_margin = round(float(gp_val) / revenue * 100, 2)
+    except Exception as e:
+        print(f"[warn] {symbol}: 近一季營收/毛利率取得失敗 {e}", file=sys.stderr)
+
+    return {
+        "eps": eps,
+        "roe": roe,
+        "pe": pe,
+        "dividendYield": dividend_yield,
+        "revenue": revenue,
+        "grossMargin": gross_margin,
+    }
 
 
 def macd(series, fast=12, slow=26, signal=9):
@@ -136,14 +223,46 @@ def safe_round(v, digits=2):
     return round(float(v), digits) if v is not None and not pd.isna(v) else None
 
 
+def _ma_status(price, series):
+    """回傳 (是否站上這條均線, 均線是否上揚)；資料不足時回傳 (None, None)。
+    上揚/下彎判斷方式跟 check_strength_a 等選股邏輯一致：比較 CROSS_LOOKBACK 個交易日前。"""
+    if len(series) < CROSS_LOOKBACK + 1:
+        return None, None
+    latest = series.iloc[-1]
+    prev = series.iloc[-1 - CROSS_LOOKBACK]
+    if pd.isna(latest) or pd.isna(prev):
+        return None, None
+    return bool(price > latest), bool(latest > prev)
+
+
 def base_result(symbol, name, hist):
     close = hist["Close"]
     price = float(close.iloc[-1])
 
-    ma30 = safe_round(close.rolling(30).mean().iloc[-1])
-    ma60 = safe_round(close.rolling(60).mean().iloc[-1])
-    ma100 = safe_round(close.rolling(100).mean().iloc[-1])
+    ma30_series = close.rolling(30).mean()
+    ma60_series = close.rolling(60).mean()
+    ma100_series = close.rolling(100).mean()
+
+    ma30 = safe_round(ma30_series.iloc[-1])
+    ma60 = safe_round(ma60_series.iloc[-1])
+    ma100 = safe_round(ma100_series.iloc[-1])
     bias30 = round((price - ma30) / ma30 * 100, 2) if ma30 else None
+
+    above30, ma30_rising = _ma_status(price, ma30_series)
+    above60, ma60_rising = _ma_status(price, ma60_series)
+    above100, ma100_rising = _ma_status(price, ma100_series)
+
+    # 支撐/壓力：近 SR_LOOKBACK_DAYS 個交易日（不含今日）的最低/最高價
+    # 停損：支撐價再往下 STOP_LOSS_BUFFER_PCT，等真正跌破支撐才觸發，而非一碰到支撐就停損
+    support = resistance = stop_loss = None
+    high, low = hist["High"], hist["Low"]
+    if len(high) >= SR_LOOKBACK_DAYS + 1:
+        window_high = high.iloc[-(SR_LOOKBACK_DAYS + 1):-1]
+        window_low = low.iloc[-(SR_LOOKBACK_DAYS + 1):-1]
+        resistance = safe_round(window_high.max())
+        support = safe_round(window_low.min())
+        if support:
+            stop_loss = safe_round(support * (1 - STOP_LOSS_BUFFER_PCT))
 
     return {
         "symbol": symbol,
@@ -154,6 +273,15 @@ def base_result(symbol, name, hist):
         "ma60": ma60,
         "ma100": ma100,
         "bias30": bias30,
+        "above30": above30,
+        "ma30Rising": ma30_rising,
+        "above60": above60,
+        "ma60Rising": ma60_rising,
+        "above100": above100,
+        "ma100Rising": ma100_rising,
+        "support": support,
+        "resistance": resistance,
+        "stopLoss": stop_loss,
     }
 
 
@@ -376,31 +504,70 @@ def main():
         except Exception as e:
             print(f"[warn] {symbol}: {e}", file=sys.stderr)
 
-    # ---- Gemini 短評：同一檔股票可能出現在好幾組條件裡，只呼叫一次 Gemini，
-    #      結果套用到該股票在所有條件組裡的卡片，避免重複呼叫浪費額度 ----
-    comment_cache = {}
+    # ---- EPS / ROE / P/E / 殖利率 / 近一季營收 / 近一季毛利率：同一檔股票可能出現在
+    #      好幾組條件裡，只抓一次，結果套用到該股票在所有條件組裡的卡片 ----
+    fundamentals_cache = {}
     for cid, results in results_by_condition.items():
         for entry in results:
             symbol = entry["symbol"]
-            if symbol not in comment_cache:
-                comment_cache[symbol] = get_short_comment(
+            if symbol not in fundamentals_cache:
+                fundamentals_cache[symbol] = fetch_fundamentals_light(symbol)
+                time.sleep(FUNDAMENTALS_CALL_DELAY_SECONDS)
+            f = fundamentals_cache[symbol]
+            entry["eps"] = f["eps"]
+            entry["roe"] = f["roe"]
+            entry["pe"] = f["pe"]
+            entry["dividendYield"] = f["dividendYield"]
+            entry["revenueLatestQ"] = f["revenue"]
+            entry["grossMarginLatestQ"] = f["grossMargin"]
+
+    # ---- 健檢分析（基本面短評+分數／技術面短評+分數／綜合短評）：同一檔股票可能出現在
+    #      好幾組條件裡，只呼叫一次 Gemini，結果套用到該股票在所有條件組裡的卡片 ----
+    analysis_cache = {}
+    for cid, results in results_by_condition.items():
+        for entry in results:
+            symbol = entry["symbol"]
+            if symbol not in analysis_cache:
+                analysis_cache[symbol] = get_stock_health_check(
                     symbol=symbol,
                     name=entry["name"],
                     price=entry["price"],
                     change_pct=entry["changePercent"],
-                    ma30=entry["ma30"],
-                    ma60=entry["ma60"],
-                    ma100=entry["ma100"],
+                    eps=entry["eps"],
+                    roe=entry["roe"],
+                    pe=entry["pe"],
+                    dividend_yield=entry["dividendYield"],
+                    revenue=entry["revenueLatestQ"],
+                    gross_margin=entry["grossMarginLatestQ"],
+                    ma30=entry["ma30"], ma60=entry["ma60"], ma100=entry["ma100"],
                     bias30=entry["bias30"],
+                    above30=entry["above30"], ma30_rising=entry["ma30Rising"],
+                    above60=entry["above60"], ma60_rising=entry["ma60Rising"],
+                    above100=entry["above100"], ma100_rising=entry["ma100Rising"],
                     badges=entry["badges"],
                 )
                 # 只在真的打了一次 API 時才等待，cache 命中（同一檔股票在其他條件組裡重複出現）不用等
                 time.sleep(GEMINI_CALL_DELAY_SECONDS)
-            entry["comment"] = comment_cache[symbol]
 
-    comment_ok = sum(1 for v in comment_cache.values() if v)
-    comment_total = len(comment_cache)
-    print(f"[info] Gemini 短評：{comment_ok}/{comment_total} 檔成功產生", file=sys.stderr)
+            analysis = analysis_cache[symbol]
+            if analysis:
+                entry["fundamentalComment"] = analysis["fundamentalComment"]
+                entry["fundamentalScore"] = analysis["fundamentalScore"]
+                entry["technicalComment"] = analysis["technicalComment"]
+                entry["technicalScore"] = analysis["technicalScore"]
+                entry["overallComment"] = analysis["overallComment"]
+                entry["totalScore"] = analysis["totalScore"]
+            else:
+                entry["fundamentalComment"] = None
+                entry["fundamentalScore"] = None
+                entry["technicalComment"] = None
+                entry["technicalScore"] = None
+                entry["overallComment"] = None
+                entry["totalScore"] = None
+
+    analysis_ok = sum(1 for v in analysis_cache.values() if v)
+    analysis_total = len(analysis_cache)
+    print(f"[info] Gemini 健檢分析：{analysis_ok}/{analysis_total} 檔成功產生", file=sys.stderr)
 
     condition_sets = []
     for cid, meta in CONDITION_META.items():

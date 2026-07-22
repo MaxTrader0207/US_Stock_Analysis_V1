@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-22T21:23:05.098619+00:00",
+  "updated": "2026-07-22T23:15:39.851403+00:00",
   "sectors": [
     {
       "name": "Indices",
@@ -7,30 +7,30 @@
         {
           "symbol": "ES",
           "name": "ES=F",
-          "price": 7541.0,
-          "changePercent": -0.06,
-          "marketCap": 0.98
+          "price": 7518.25,
+          "changePercent": -0.36,
+          "marketCap": 0.02
         },
         {
           "symbol": "NQ",
           "name": "NQ=F",
-          "price": 29165.0,
-          "changePercent": -0.52,
-          "marketCap": 0.44
+          "price": 29034.25,
+          "changePercent": -0.96,
+          "marketCap": 0.01
         },
         {
           "symbol": "YM",
           "name": "YM=F",
-          "price": 52470.0,
-          "changePercent": 0.05,
-          "marketCap": 0.09
+          "price": 52372.0,
+          "changePercent": -0.14,
+          "marketCap": 0.0
         },
         {
           "symbol": "RTY",
           "name": "RTY=F",
-          "price": 2973.6,
-          "changePercent": -0.78,
-          "marketCap": 0.14
+          "price": 2964.0,
+          "changePercent": -1.1,
+          "marketCap": 0.0
         }
       ]
     },
@@ -40,23 +40,23 @@
         {
           "symbol": "CL",
           "name": "CL=F",
-          "price": 86.48,
-          "changePercent": 1.85,
-          "marketCap": 0.33
+          "price": 87.95,
+          "changePercent": 3.58,
+          "marketCap": 0.01
         },
         {
           "symbol": "NG",
           "name": "NG=F",
           "price": 2.94,
-          "changePercent": 2.62,
-          "marketCap": 0.12
+          "changePercent": 2.58,
+          "marketCap": 0.0
         },
         {
           "symbol": "RB",
           "name": "RB=F",
-          "price": 3.24,
-          "changePercent": -4.76,
-          "marketCap": 0.05
+          "price": 3.26,
+          "changePercent": -4.18,
+          "marketCap": 0.0
         }
       ]
     },
@@ -66,23 +66,23 @@
         {
           "symbol": "GC",
           "name": "GC=F",
-          "price": 4135.0,
-          "changePercent": 1.57,
-          "marketCap": 0.13
+          "price": 4120.7,
+          "changePercent": 1.22,
+          "marketCap": 0.01
         },
         {
           "symbol": "SI",
           "name": "SI=F",
-          "price": 60.03,
-          "changePercent": 2.04,
-          "marketCap": 0.03
+          "price": 59.67,
+          "changePercent": 1.41,
+          "marketCap": 0.0
         },
         {
           "symbol": "HG",
           "name": "HG=F",
-          "price": 6.49,
-          "changePercent": -0.31,
-          "marketCap": 0.04
+          "price": 6.47,
+          "changePercent": -0.57,
+          "marketCap": 0.0
         }
       ]
     },
@@ -119,22 +119,22 @@
           "symbol": "6E",
           "name": "6E=F",
           "price": 1.14,
-          "changePercent": 0.2,
-          "marketCap": 0.1
+          "changePercent": 0.16,
+          "marketCap": 0.0
         },
         {
           "symbol": "6J",
           "name": "6J=F",
           "price": 0.01,
-          "changePercent": 0.26,
-          "marketCap": 0.12
+          "changePercent": 0.25,
+          "marketCap": 0.0
         },
         {
           "symbol": "6B",
           "name": "6B=F",
           "price": 1.34,
-          "changePercent": -0.03,
-          "marketCap": 0.05
+          "changePercent": -0.07,
+          "marketCap": 0.0
         }
       ]
     },
@@ -144,16 +144,16 @@
         {
           "symbol": "ZB",
           "name": "ZB=F",
-          "price": 109.97,
-          "changePercent": -0.37,
-          "marketCap": 0.31
+          "price": 109.94,
+          "changePercent": -0.4,
+          "marketCap": 0.0
         },
         {
           "symbol": "ZN",
           "name": "ZN=F",
-          "price": 108.45,
-          "changePercent": -0.17,
-          "marketCap": 1.24
+          "price": 108.41,
+          "changePercent": -0.22,
+          "marketCap": 0.01
         }
       ]
     }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-24T20:41:11.832938+00:00",
+  "updated": "2026-07-24T22:17:41.833965+00:00",
   "sectors": [
     {
       "name": "Broad Market",
@@ -23,14 +23,14 @@
           "name": "DIA",
           "price": 518.76,
           "changePercent": 0.48,
-          "marketCap": 3.25
+          "marketCap": 3.27
         },
         {
           "symbol": "IWM",
           "name": "IWM",
           "price": 291.17,
           "changePercent": -0.31,
-          "marketCap": 18.94
+          "marketCap": 19.67
         },
         {
           "symbol": "VTI",
@@ -49,7 +49,7 @@
           "name": "XLK",
           "price": 175.88,
           "changePercent": -1.44,
-          "marketCap": 7.57
+          "marketCap": 7.73
         },
         {
           "symbol": "XLF",
@@ -84,7 +84,7 @@
           "name": "XLI",
           "price": 182.66,
           "changePercent": 0.4,
-          "marketCap": 5.47
+          "marketCap": 5.5
         }
       ]
     },
@@ -136,14 +136,14 @@
           "name": "SLV",
           "price": 52.59,
           "changePercent": 1.02,
-          "marketCap": 10.97
+          "marketCap": 11.08
         },
         {
           "symbol": "USO",
           "name": "USO",
           "price": 136.69,
           "changePercent": -2.01,
-          "marketCap": 8.68
+          "marketCap": 8.91
         }
       ]
     },
@@ -162,14 +162,14 @@
           "name": "EEM",
           "price": 63.33,
           "changePercent": -1.97,
-          "marketCap": 20.04
+          "marketCap": 20.49
         },
         {
           "symbol": "FXI",
           "name": "FXI",
           "price": 34.58,
           "changePercent": 0.35,
-          "marketCap": 11.25
+          "marketCap": 11.26
         }
       ]
     }

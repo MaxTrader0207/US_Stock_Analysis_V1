@@ -102,7 +102,12 @@ def _call_gemini_with_retry(prompt, symbol):
             resp = requests.post(
                 GEMINI_ENDPOINT,
                 params={"key": GEMINI_API_KEY},
-                json={"contents": [{"parts": [{"text": prompt}]}]},
+                json={
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    # 強制模型只回傳合法JSON本體，不會夾雜前言/markdown code fence，
+                    # 大幅降低結構化輸出解析失敗的機率（這是先前「健檢分數全部是null」的主因）
+                    "generationConfig": {"responseMimeType": "application/json"},
+                },
                 timeout=20,
             )
         except requests.exceptions.RequestException as e:

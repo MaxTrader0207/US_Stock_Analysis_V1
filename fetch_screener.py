@@ -487,13 +487,17 @@ UNIVERSE_NOTE = "母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 +
 
 def main():
     results_by_condition = {cid: [] for cid in CONDITION_CHECKS}
+    processed_count = 0
+    empty_history_count = 0
 
     for symbol, name in SCREENER_UNIVERSE.items():
         try:
             hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
             if hist.empty:
+                empty_history_count += 1
                 print(f"[warn] {symbol}: no history data", file=sys.stderr)
                 continue
+            processed_count += 1
             close = hist["Close"]
 
             for cid, check_fn in CONDITION_CHECKS.items():
@@ -508,6 +512,19 @@ def main():
                     results_by_condition[cid].append(entry)
         except Exception as e:
             print(f"[warn] {symbol}: {e}", file=sys.stderr)
+
+    # 每組條件各自符合幾檔、加總去重後總共幾檔股票，寫在 Gemini 那行摘要之前。
+    # 之後如果又遇到「Gemini 健檢分析：0/0」，先看這裡：如果這裡也是全部0檔，
+    # 代表問題出在選股條件比對這一步（或當天市場本來就沒有標的符合任何條件），
+    # 不是 Gemini 呼叫失敗；如果這裡有數字但 Gemini 那行是0，才是 Gemini 端的問題。
+    per_condition_counts = ", ".join(f"{cid}={len(results)}" for cid, results in results_by_condition.items())
+    matched_symbols = {entry["symbol"] for results in results_by_condition.values() for entry in results}
+    print(
+        f"[info] 選股條件比對完成：母體 {len(SCREENER_UNIVERSE)} 檔，"
+        f"成功取得歷史資料 {processed_count} 檔（無資料 {empty_history_count} 檔），"
+        f"至少符合一組條件 {len(matched_symbols)} 檔（{per_condition_counts}）",
+        file=sys.stderr,
+    )
 
     # ---- EPS / ROE / P/E / 殖利率 / 近一季營收 / 近一季毛利率：同一檔股票可能出現在
     #      好幾組條件裡，只抓一次，結果套用到該股票在所有條件組裡的卡片 ----

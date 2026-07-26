@@ -146,9 +146,14 @@ def fetch_fundamentals_light(symbol):
         dy_raw = info.get("dividendYield")
         if dy_raw is not None:
             dy_raw = float(dy_raw)
-            # 不同版本 yfinance 對 dividendYield 的單位不一致（有的是 0.023 代表2.3%，
-            # 有的直接回傳 2.3），這裡用數值大小判斷：明顯小於1就當作是比例、乘以100
-            dividend_yield = round(dy_raw * 100, 2) if dy_raw < 1 else round(dy_raw, 2)
+            # 這個 repo 目前用的 yfinance 版本，dividendYield 回傳的就已經是百分比數字本身
+            # （例如 0.36 代表 0.36%），不是比例（不需要再 ×100）。
+            # 之前誤判成比例、多乘了一次 100，導致殖利率顯示成 36% 這種不合理的數字。
+            dividend_yield = round(dy_raw, 2)
+            if dividend_yield > 50:
+                # 正常股票殖利率幾乎不可能超過50%，這種情況通常代表yfinance那個版本
+                # 又把單位改回比例了，印警告方便之後排查，但不自動幫你猜怎麼換算
+                print(f"[warn] {symbol}: 殖利率數值異常({dividend_yield}%)，yfinance回傳格式可能又變了，請人工確認", file=sys.stderr)
     except Exception as e:
         print(f"[warn] {symbol}: EPS/ROE/PE/殖利率取得失敗 {e}", file=sys.stderr)
 

@@ -82,6 +82,9 @@ Gemini 健檢分析需求：
   - 三段短評各上限50字，且要求講到一個完整語意的段落結束，不會硬切在句子中間
   - 基本面分數(0-50)+技術面分數(0-50)=總分(1-100)，總分由 Python 端加總計算（不信任模型自己加總），
     確保數字一定一致
+  - 為了節省 Gemini 額度，只對每組條件「依當日漲跌幅排序後」的前 GEMINI_ANALYSIS_TOP_N 名
+    （預設10，可用環境變數調整）呼叫 Gemini；其餘符合條件的股票卡片一樣會顯示完整量化資料
+    （EPS/ROE/均線等），只是健檢分數與三段短評會是 null（前端會顯示「—」跟不出現短評文字）
 
 前端 screener.html / screener.js 是資料驅動的，之後如果要再新增第8組選股條件，
 只要在 evaluate_all_conditions() 裡比照既有寫法新增一段判斷、在 main() 的
@@ -113,6 +116,14 @@ GEMINI_CALL_DELAY_SECONDS = float(os.environ.get("GEMINI_CALL_DELAY_SECONDS") or
 # 2 次 Yahoo Finance 請求（info + 季報財報），跟 fetch_fundamentals.py 面對的是同一個
 # 限流風險，所以這裡也做了同樣的間隔設計，只是只對「有中選」的子集抓，不是對全部159檔抓。
 FUNDAMENTALS_CALL_DELAY_SECONDS = float(os.environ.get("FUNDAMENTALS_CALL_DELAY_SECONDS") or 1.0)
+
+# Gemini 健檢分析的呼叫次數是主要的額度消耗來源（每次都是「基本面+技術面+綜合」三段短評
+# 加兩個分數，prompt/回應都不小）。與其對每組條件符合的所有股票都打一次，這裡改成只對
+# 每組條件「依當日漲跌幅排序後」的前 N 名做健檢分析，其餘股票卡片一樣會顯示（EPS/ROE/
+# 均線等量化資料照樣完整），只是 C 區塊健檢分數跟 A/B 區塊的短評會是「尚無資料」。
+# 同一檔股票只要在任一組條件裡進了前 N 名，就會做分析（其他條件組出現時直接沿用結果，不重打）。
+# 想全部都分析的話，把這個環境變數設一個很大的數字（例如 999）即可。
+GEMINI_ANALYSIS_TOP_N = int(os.environ.get("GEMINI_ANALYSIS_TOP_N") or 10)
 
 # 不同版本 yfinance 回傳的財報列名偶爾會不一致，兩種都嘗試
 REVENUE_ROW_NAMES = ["Total Revenue", "TotalRevenue"]
@@ -526,6 +537,22 @@ def main():
         file=sys.stderr,
     )
 
+    # 依當日漲跌幅排序（跟前端卡片排序一致），才能正確取出「前N名」。
+    # 這裡排序好之後，後面就不用再排一次，最終輸出也直接用這個順序。
+    for cid in results_by_condition:
+        results_by_condition[cid].sort(key=lambda r: r["changePercent"], reverse=True)
+
+    # 每組條件前 GEMINI_ANALYSIS_TOP_N 名的股票代號聯集，只有這些才會呼叫 Gemini 健檢分析
+    gemini_target_symbols = set()
+    for cid, results in results_by_condition.items():
+        for entry in results[:GEMINI_ANALYSIS_TOP_N]:
+            gemini_target_symbols.add(entry["symbol"])
+    print(
+        f"[info] Gemini 健檢分析目標：每組條件前{GEMINI_ANALYSIS_TOP_N}名，"
+        f"去重後共 {len(gemini_target_symbols)} 檔會呼叫 Gemini（其餘 {len(matched_symbols) - len(gemini_target_symbols)} 檔只顯示量化資料，不做AI分析）",
+        file=sys.stderr,
+    )
+
     # ---- EPS / ROE / P/E / 殖利率 / 近一季營收 / 近一季毛利率：同一檔股票可能出現在
     #      好幾組條件裡，只抓一次，結果套用到該股票在所有條件組裡的卡片 ----
     fundamentals_cache = {}
@@ -544,11 +571,22 @@ def main():
             entry["grossMarginLatestQ"] = f["grossMargin"]
 
     # ---- 健檢分析（基本面短評+分數／技術面短評+分數／綜合短評）：同一檔股票可能出現在
-    #      好幾組條件裡，只呼叫一次 Gemini，結果套用到該股票在所有條件組裡的卡片 ----
+    #      好幾組條件裡，只呼叫一次 Gemini，結果套用到該股票在所有條件組裡的卡片。
+    #      只對 gemini_target_symbols（每組條件前N名）呼叫，其餘直接跳過節省額度 ----
     analysis_cache = {}
     for cid, results in results_by_condition.items():
         for entry in results:
             symbol = entry["symbol"]
+
+            if symbol not in gemini_target_symbols:
+                entry["fundamentalComment"] = None
+                entry["fundamentalScore"] = None
+                entry["technicalComment"] = None
+                entry["technicalScore"] = None
+                entry["overallComment"] = None
+                entry["totalScore"] = None
+                continue
+
             if symbol not in analysis_cache:
                 analysis_cache[symbol] = get_stock_health_check(
                     symbol=symbol,
@@ -593,13 +631,14 @@ def main():
 
     condition_sets = []
     for cid, meta in CONDITION_META.items():
-        results = sorted(results_by_condition[cid], key=lambda r: r["changePercent"], reverse=True)
+        # results_by_condition[cid] 前面已經依漲跌幅排序過了（決定Gemini前N名時用的就是這個順序），
+        # 這裡直接沿用，不用再排一次
         condition_sets.append({
             "id": cid,
             "name": meta["name"],
             "description": meta["description"] + UNIVERSE_NOTE,
             "status": "active",
-            "results": results,
+            "results": results_by_condition[cid],
         })
 
     out = {

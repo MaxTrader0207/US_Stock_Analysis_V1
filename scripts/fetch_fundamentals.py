@@ -4,7 +4,7 @@
 輸出 data/fundamentals.json 供前端「基本面選股」頁籤使用。
 
 用法：python scripts/fetch_fundamentals.py
-需求：pip install yfinance pandas
+需求：pip install yfinance pandas requests
 
 5 位大師：巴菲特、馬克約克奇、麥克墨菲、彼得林區、班哲明格拉罕，條件詳見各
 evaluate_xxx() 函式前的註解。
@@ -12,6 +12,16 @@ evaluate_xxx() 函式前的註解。
 效能設計：每檔股票只抓一次完整的財報／股利／股價資料包（fetch_ticker_bundle），
 5 位大師共用同一包資料各自判斷，不會每位大師都重新打一次 API——
 母體有 159 檔，若不做這個優化，API 呼叫量會直接乘以 5。
+
+卡片內容（比照強勢股選股頁的三色區塊格式，欄位命名也完全一致）：
+  - A.基本面：EPS/ROE/P/E/殖利率，這些欄位其實已經包含在 fetch_ticker_bundle 抓的
+    tk.info 裡（5位大師的篩選條件本來就要用到），不需要額外多打API
+  - B.技術面：30/60/100MA 站上/上揚狀態＋30MA乖離率，需要把 price_hist 從原本的
+    5天改成抓1年，才夠算出這幾條均線（詳見 fetch_ticker_bundle）
+  - C.健檢分數：呼叫 Gemini API 產生基本面/技術面/綜合三段短評＋兩個分數，
+    為了控制額度消耗，只對每位大師「依當日漲跌幅排序」的前 FUNDAMENTALS_GEMINI_TOP_N
+    名呼叫（預設5名，比強勢股頁的10名更保守——因為這裡是5位大師各自算一次，
+    加總後對 Gemini 的呼叫量本來就會是強勢股頁的好幾倍）
 
 ⚠️ 資料來源限制（務必留意，這些是 yfinance 免費資料的先天限制，不是程式bug）：
   - 「近12季」：yfinance 免費版的季報通常只給「最近4~8季」，抓不滿12季。
@@ -26,17 +36,29 @@ evaluate_xxx() 函式前的註解。
     的 industry 分類做相對排名，不是跟該產業「全市場」所有公司比較。如果某產業
     在母體裡剛好只有1~2檔，排名幾乎沒有意義，這點請知悉。
   - 部分股票缺少特定欄位時，程式一律直接跳過該檔，不會用假設值硬湊。
+  - 股息殖利率(dividendYield)：這個 repo 目前用的 yfinance 版本回傳的就已經是
+    百分比數字本身（例如0.36代表0.36%），不需要再乘以100（強勢股頁那邊踩過這個坑，
+    這裡直接用修正後的寫法）。
 """
 import json
+import os
 import sys
+import time
 from datetime import datetime, timezone
 
 import pandas as pd
 import yfinance as yf
 
 from tickers import SCREENER_UNIVERSE
+from gemini import get_stock_health_check
 
 UNIVERSE_NOTE = "母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。"
+
+CROSS_LOOKBACK = 5  # 判定均線上揚/下彎回看的交易日數，跟強勢股頁一致
+
+# Gemini 健檢分析的呼叫節奏與額度控制，設計理念跟 fetch_screener.py 完全一致
+GEMINI_CALL_DELAY_SECONDS = float(os.environ.get("GEMINI_CALL_DELAY_SECONDS") or 1.5)
+FUNDAMENTALS_GEMINI_TOP_N = int(os.environ.get("FUNDAMENTALS_GEMINI_TOP_N") or 5)
 
 
 # ============================================================
@@ -52,6 +74,47 @@ def get_row(df, candidates):
         if name in df.index:
             return df.loc[name]
     return None
+
+
+def safe_round(v, d=2):
+    if v is None:
+        return None
+    try:
+        if pd.isna(v):
+            return None
+    except (TypeError, ValueError):
+        pass
+    return round(float(v), d)
+
+
+def _ma_status(price, series):
+    """回傳 (是否站上這條均線, 均線是否上揚)；資料不足時回傳 (None, None)。
+    跟 fetch_screener.py 的判斷方式完全一致，方便兩個頁面的技術面數字互相對照。"""
+    if series is None or len(series) < CROSS_LOOKBACK + 1:
+        return None, None
+    latest = series.iloc[-1]
+    prev = series.iloc[-1 - CROSS_LOOKBACK]
+    if pd.isna(latest) or pd.isna(prev):
+        return None, None
+    return bool(price > latest), bool(latest > prev)
+
+
+def latest_quarter_revenue_and_margin(qfin):
+    """近一季營收、毛利率。qfin 是 fetch_ticker_bundle 已經抓好的季報，不需要額外打API。"""
+    rev_row = get_row(qfin, ["Total Revenue", "TotalRevenue"])
+    gp_row = get_row(qfin, ["Gross Profit", "GrossProfit"])
+    if rev_row is None or rev_row.empty:
+        return None, None
+    revenue = rev_row.iloc[0]
+    if revenue is None or pd.isna(revenue) or revenue == 0:
+        return None, None
+    revenue = float(revenue)
+    gross_margin = None
+    if gp_row is not None and not gp_row.empty:
+        gp = gp_row.iloc[0]
+        if gp is not None and pd.notna(gp):
+            gross_margin = round(float(gp) / revenue * 100, 2)
+    return revenue, gross_margin
 
 
 def pct_change(close):
@@ -154,7 +217,9 @@ def avg_annual_dividend(dividends, years=5):
 
 def fetch_ticker_bundle(symbol):
     tk = yf.Ticker(symbol)
-    price_hist = tk.history(period="5d", interval="1d", auto_adjust=True)
+    # 原本只抓5天（只夠算漲跌幅），現在改抓1年，用來計算30/60/100MA
+    # （B區塊技術面）。跟財報/股利資料是各自獨立的請求，不影響原本5位大師的判斷邏輯。
+    price_hist = tk.history(period="1y", interval="1d", auto_adjust=True)
     if price_hist.empty:
         return None
     return {
@@ -172,11 +237,41 @@ def fetch_ticker_bundle(symbol):
 
 def base_result(symbol, name, bundle):
     close = bundle["price_hist"]["Close"]
+    price = float(close.iloc[-1])
+
+    ma30_series = close.rolling(30).mean()
+    ma60_series = close.rolling(60).mean()
+    ma100_series = close.rolling(100).mean()
+    ma30 = safe_round(ma30_series.iloc[-1]) if len(ma30_series) else None
+    ma60 = safe_round(ma60_series.iloc[-1]) if len(ma60_series) else None
+    ma100 = safe_round(ma100_series.iloc[-1]) if len(ma100_series) else None
+    bias30 = round((price - ma30) / ma30 * 100, 2) if ma30 else None
+
+    above30, ma30_rising = _ma_status(price, ma30_series)
+    above60, ma60_rising = _ma_status(price, ma60_series)
+    above100, ma100_rising = _ma_status(price, ma100_series)
+
+    info = bundle["info"]
+    eps = info.get("trailingEps")
+    pe = info.get("trailingPE")
+    roe_raw = info.get("returnOnEquity")
+    roe = round(float(roe_raw) * 100, 2) if roe_raw is not None else None
+    dy_raw = info.get("dividendYield")
+    dividend_yield = round(float(dy_raw), 2) if dy_raw is not None else None
+
+    revenue, gross_margin = latest_quarter_revenue_and_margin(bundle["qfin"])
+
     return {
         "symbol": symbol,
         "name": name,
-        "price": round(float(close.iloc[-1]), 2),
+        "price": round(price, 2),
         "changePercent": round(float(pct_change(close)), 2),
+        "ma30": ma30, "ma60": ma60, "ma100": ma100, "bias30": bias30,
+        "above30": above30, "ma30Rising": ma30_rising,
+        "above60": above60, "ma60Rising": ma60_rising,
+        "above100": above100, "ma100Rising": ma100_rising,
+        "eps": eps, "roe": roe, "pe": pe, "dividendYield": dividend_yield,
+        "revenueLatestQ": revenue, "grossMarginLatestQ": gross_margin,
     }
 
 
@@ -492,34 +587,114 @@ def main():
         except Exception as e:
             print(f"[warn] {symbol} [graham]: {e}", file=sys.stderr)
 
-    def sorted_results(key):
-        return sorted(results[key], key=lambda r: r["changePercent"], reverse=True)
+    # 依當日漲跌幅排序（跟卡片顯示順序一致），才能正確取出「前N名」
+    for key in results:
+        results[key].sort(key=lambda r: r["changePercent"], reverse=True)
+
+    total_matched = sum(len(v) for v in results.values())
+    per_master_counts = ", ".join(f"{k}={len(v)}" for k, v in results.items())
+    print(
+        f"[info] 5位大師篩選完成：母體 {len(SCREENER_UNIVERSE)} 檔，"
+        f"成功取得資料包 {len(bundles)} 檔，各大師符合檔數合計 {total_matched}（{per_master_counts}，"
+        f"注意同一檔股票可能同時符合多位大師條件，此數字未去重）",
+        file=sys.stderr,
+    )
+
+    # 每位大師前 FUNDAMENTALS_GEMINI_TOP_N 名的股票代號聯集，只有這些才會呼叫 Gemini 健檢分析。
+    # 5位大師分開各取前N名，同一檔股票若同時是好幾位大師的前段班，一樣只算一次、只呼叫一次 Gemini。
+    gemini_target_symbols = set()
+    for key, entries in results.items():
+        for entry in entries[:FUNDAMENTALS_GEMINI_TOP_N]:
+            gemini_target_symbols.add(entry["symbol"])
+
+    unique_matched_symbols = {entry["symbol"] for entries in results.values() for entry in entries}
+    print(
+        f"[info] Gemini 健檢分析目標：每位大師前{FUNDAMENTALS_GEMINI_TOP_N}名，"
+        f"去重後共 {len(gemini_target_symbols)} 檔會呼叫 Gemini"
+        f"（其餘 {len(unique_matched_symbols) - len(gemini_target_symbols)} 檔只顯示量化資料，不做AI分析）",
+        file=sys.stderr,
+    )
+
+    analysis_cache = {}
+    for key, entries in results.items():
+        for entry in entries:
+            symbol = entry["symbol"]
+
+            if symbol not in gemini_target_symbols:
+                entry["fundamentalComment"] = None
+                entry["fundamentalScore"] = None
+                entry["technicalComment"] = None
+                entry["technicalScore"] = None
+                entry["overallComment"] = None
+                entry["totalScore"] = None
+                continue
+
+            if symbol not in analysis_cache:
+                analysis_cache[symbol] = get_stock_health_check(
+                    symbol=symbol,
+                    name=entry["name"],
+                    price=entry["price"],
+                    change_pct=entry["changePercent"],
+                    eps=entry["eps"],
+                    roe=entry["roe"],
+                    pe=entry["pe"],
+                    dividend_yield=entry["dividendYield"],
+                    revenue=entry["revenueLatestQ"],
+                    gross_margin=entry["grossMarginLatestQ"],
+                    ma30=entry["ma30"], ma60=entry["ma60"], ma100=entry["ma100"],
+                    bias30=entry["bias30"],
+                    above30=entry["above30"], ma30_rising=entry["ma30Rising"],
+                    above60=entry["above60"], ma60_rising=entry["ma60Rising"],
+                    above100=entry["above100"], ma100_rising=entry["ma100Rising"],
+                    badges=entry["badges"],
+                )
+                time.sleep(GEMINI_CALL_DELAY_SECONDS)
+
+            analysis = analysis_cache[symbol]
+            if analysis:
+                entry["fundamentalComment"] = analysis["fundamentalComment"]
+                entry["fundamentalScore"] = analysis["fundamentalScore"]
+                entry["technicalComment"] = analysis["technicalComment"]
+                entry["technicalScore"] = analysis["technicalScore"]
+                entry["overallComment"] = analysis["overallComment"]
+                entry["totalScore"] = analysis["totalScore"]
+            else:
+                entry["fundamentalComment"] = None
+                entry["fundamentalScore"] = None
+                entry["technicalComment"] = None
+                entry["technicalScore"] = None
+                entry["overallComment"] = None
+                entry["totalScore"] = None
+
+    analysis_ok = sum(1 for v in analysis_cache.values() if v)
+    analysis_total = len(analysis_cache)
+    print(f"[info] Gemini 健檢分析：{analysis_ok}/{analysis_total} 檔成功產生", file=sys.stderr)
 
     master_sets = [
         {
             "id": "buffett", "name": "巴菲特", "status": "active",
             "description": "近5年平均ROE>15%；最新年度毛利率>40%；負債權益比<50%；連續5年自由現金流>0；本益比<15或低於其5年均值。（yfinance財報年限所限，實際檢核年數可能少於5年）" + UNIVERSE_NOTE,
-            "results": sorted_results("buffett"),
+            "results": results["buffett"],
         },
         {
             "id": "yockey", "name": "馬克約克奇", "status": "active",
             "description": "近12季毛利率平均>20%；近3年平均稅前純益成長率>3%。（yfinance免費季報通常抓不滿12季，實際採用季數見各標的badge標註）" + UNIVERSE_NOTE,
-            "results": sorted_results("yockey"),
+            "results": results["yockey"],
         },
         {
             "id": "murphy", "name": "麥克墨菲", "status": "active",
             "description": "近12季營業利益率平均>10%；近5年平均ROE>8%；近3年平均營收成長率>10%；近4季研發費用占營業額比率>5%。" + UNIVERSE_NOTE,
-            "results": sorted_results("murphy"),
+            "results": results["murphy"],
         },
         {
             "id": "lynch", "name": "彼得林區", "status": "active",
             "description": "近5年平均負債比<30%；本益比<15倍；內部人持股比例>30%（美股無質押比例公開資料，此項僅檢核持股比例）；近3年平均營收成長率>10%；近3年平均稅前純益成長率>3%。" + UNIVERSE_NOTE,
-            "results": sorted_results("lynch"),
+            "results": results["lynch"],
         },
         {
             "id": "graham", "name": "班哲明格拉罕", "status": "active",
             "description": "近5年EPS皆>1元；近3年流動比率皆>100%；本益比<15倍；近5年平均現金股利>3元；近3年平均稅前純益成長率>3%；近12月營收於母體同產業排名前40%（僅在本專案159檔母體內相對排名，非全市場排名）。" + UNIVERSE_NOTE,
-            "results": sorted_results("graham"),
+            "results": results["graham"],
         },
     ]
 

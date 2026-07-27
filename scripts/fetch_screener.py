@@ -530,7 +530,8 @@ def main():
         "conditionSets": condition_sets,
     }
     with open("data/screener.json", "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=2)
+        # allow_nan=False：同樣的安全網，見 fetch_fundamentals.py 對應位置的說明
+        json.dump(out, f, ensure_ascii=False, indent=2, allow_nan=False)
     print("Wrote data/screener.json")
 
 

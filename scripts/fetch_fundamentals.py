@@ -599,7 +599,11 @@ def main():
         "masterSets": master_sets,
     }
     with open("data/fundamentals.json", "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=2)
+        # allow_nan=False：故意設成不允許 NaN，只要有任何欄位是 NaN 沒被 safe_round() 擋掉，
+        # 這裡會直接丟例外讓這次 Action 執行失敗、在 log 看到明確錯誤，而不是安靜地寫出一份
+        # 瀏覽器 JSON.parse() 解析不了的「無效但Python讀得懂」的檔案——那種問題會讓 Actions
+        # log 顯示成功、實際上網頁整頁壞掉，非常難排查，寧可讓它在這裡就直接爆炸。
+        json.dump(out, f, ensure_ascii=False, indent=2, allow_nan=False)
     print("Wrote data/fundamentals.json")
 
 

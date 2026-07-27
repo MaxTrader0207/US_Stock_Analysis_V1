@@ -43,60 +43,21 @@ evaluate_xxx() 函式前的註解。
 import json
 import os
 import sys
-import time
 from datetime import datetime, timezone
 
 import pandas as pd
 import yfinance as yf
 
 from tickers import SCREENER_UNIVERSE
-from gemini import get_stock_health_check
+from common import (
+    safe_round, get_row, pct_change, ma_status, extract_fundamentals_from_info,
+    yf_call_with_retry, load_gemini_cache, save_gemini_cache, run_gemini_health_check_pass,
+    CROSS_LOOKBACK,
+)
 
 UNIVERSE_NOTE = "母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。"
 
-CROSS_LOOKBACK = 5  # 判定均線上揚/下彎回看的交易日數，跟強勢股頁一致
-
-# Gemini 健檢分析的呼叫節奏與額度控制，設計理念跟 fetch_screener.py 完全一致
-GEMINI_CALL_DELAY_SECONDS = float(os.environ.get("GEMINI_CALL_DELAY_SECONDS") or 1.5)
 FUNDAMENTALS_GEMINI_TOP_N = int(os.environ.get("FUNDAMENTALS_GEMINI_TOP_N") or 5)
-
-
-# ============================================================
-# 共用小工具
-# ============================================================
-
-def get_row(df, candidates):
-    """從財報 DataFrame 裡找第一個存在的列名，回傳該列。找不到回傳 None。
-    yfinance 不同版本對同一個科目的列名不一致，所以用候選清單依序嘗試。"""
-    if df is None or df.empty:
-        return None
-    for name in candidates:
-        if name in df.index:
-            return df.loc[name]
-    return None
-
-
-def safe_round(v, d=2):
-    if v is None:
-        return None
-    try:
-        if pd.isna(v):
-            return None
-    except (TypeError, ValueError):
-        pass
-    return round(float(v), d)
-
-
-def _ma_status(price, series):
-    """回傳 (是否站上這條均線, 均線是否上揚)；資料不足時回傳 (None, None)。
-    跟 fetch_screener.py 的判斷方式完全一致，方便兩個頁面的技術面數字互相對照。"""
-    if series is None or len(series) < CROSS_LOOKBACK + 1:
-        return None, None
-    latest = series.iloc[-1]
-    prev = series.iloc[-1 - CROSS_LOOKBACK]
-    if pd.isna(latest) or pd.isna(prev):
-        return None, None
-    return bool(price > latest), bool(latest > prev)
 
 
 def latest_quarter_revenue_and_margin(qfin):
@@ -115,11 +76,6 @@ def latest_quarter_revenue_and_margin(qfin):
         if gp is not None and pd.notna(gp):
             gross_margin = round(float(gp) / revenue * 100, 2)
     return revenue, gross_margin
-
-
-def pct_change(close):
-    prev_close = close.iloc[-2] if len(close) > 1 else close.iloc[-1]
-    return (close.iloc[-1] - prev_close) / prev_close * 100 if prev_close else 0
 
 
 def avg_ratio(numerator_row, denominator_row, max_periods=None):
@@ -219,11 +175,23 @@ def fetch_ticker_bundle(symbol):
     tk = yf.Ticker(symbol)
     # 原本只抓5天（只夠算漲跌幅），現在改抓1年，用來計算30/60/100MA
     # （B區塊技術面）。跟財報/股利資料是各自獨立的請求，不影響原本5位大師的判斷邏輯。
-    price_hist = tk.history(period="1y", interval="1d", auto_adjust=True)
-    if price_hist.empty:
+    #
+    # history() 跟 info 是這包資料裡最關鍵、也最容易撞到 Yahoo 限流的兩個請求
+    # （這個腳本一檔股票要打將近9次請求，159檔就是1400+次，比 fetch_screener.py
+    # 更容易被限流），所以這兩個加上重試機制；其餘財報類請求(financials/balance_sheet/
+    # cashflow/dividends)目前維持原樣，個別失敗時整批 bundle 會被外層 try/except 捕捉、
+    # 跳過該檔股票——如果之後發現財報這幾個也常失敗，可以再比照加上重試。
+    price_hist = yf_call_with_retry(
+        lambda: tk.history(period="1y", interval="1d", auto_adjust=True),
+        f"{symbol} 歷史股價",
+    )
+    if price_hist is None or price_hist.empty:
         return None
+
+    info = yf_call_with_retry(lambda: tk.info, f"{symbol} info") or {}
+
     return {
-        "info": tk.info or {},
+        "info": info,
         "fin": tk.financials,
         "qfin": tk.quarterly_financials,
         "bs": tk.balance_sheet,
@@ -247,17 +215,12 @@ def base_result(symbol, name, bundle):
     ma100 = safe_round(ma100_series.iloc[-1]) if len(ma100_series) else None
     bias30 = round((price - ma30) / ma30 * 100, 2) if ma30 else None
 
-    above30, ma30_rising = _ma_status(price, ma30_series)
-    above60, ma60_rising = _ma_status(price, ma60_series)
-    above100, ma100_rising = _ma_status(price, ma100_series)
+    above30, ma30_rising = ma_status(price, ma30_series)
+    above60, ma60_rising = ma_status(price, ma60_series)
+    above100, ma100_rising = ma_status(price, ma100_series)
 
     info = bundle["info"]
-    eps = info.get("trailingEps")
-    pe = info.get("trailingPE")
-    roe_raw = info.get("returnOnEquity")
-    roe = round(float(roe_raw) * 100, 2) if roe_raw is not None else None
-    dy_raw = info.get("dividendYield")
-    dividend_yield = round(float(dy_raw), 2) if dy_raw is not None else None
+    eps, roe, pe, dividend_yield = extract_fundamentals_from_info(info)
 
     revenue, gross_margin = latest_quarter_revenue_and_margin(bundle["qfin"])
 
@@ -587,10 +550,6 @@ def main():
         except Exception as e:
             print(f"[warn] {symbol} [graham]: {e}", file=sys.stderr)
 
-    # 依當日漲跌幅排序（跟卡片顯示順序一致），才能正確取出「前N名」
-    for key in results:
-        results[key].sort(key=lambda r: r["changePercent"], reverse=True)
-
     total_matched = sum(len(v) for v in results.values())
     per_master_counts = ", ".join(f"{k}={len(v)}" for k, v in results.items())
     print(
@@ -600,75 +559,12 @@ def main():
         file=sys.stderr,
     )
 
-    # 每位大師前 FUNDAMENTALS_GEMINI_TOP_N 名的股票代號聯集，只有這些才會呼叫 Gemini 健檢分析。
-    # 5位大師分開各取前N名，同一檔股票若同時是好幾位大師的前段班，一樣只算一次、只呼叫一次 Gemini。
-    gemini_target_symbols = set()
-    for key, entries in results.items():
-        for entry in entries[:FUNDAMENTALS_GEMINI_TOP_N]:
-            gemini_target_symbols.add(entry["symbol"])
-
-    unique_matched_symbols = {entry["symbol"] for entries in results.values() for entry in entries}
-    print(
-        f"[info] Gemini 健檢分析目標：每位大師前{FUNDAMENTALS_GEMINI_TOP_N}名，"
-        f"去重後共 {len(gemini_target_symbols)} 檔會呼叫 Gemini"
-        f"（其餘 {len(unique_matched_symbols) - len(gemini_target_symbols)} 檔只顯示量化資料，不做AI分析）",
-        file=sys.stderr,
-    )
-
-    analysis_cache = {}
-    for key, entries in results.items():
-        for entry in entries:
-            symbol = entry["symbol"]
-
-            if symbol not in gemini_target_symbols:
-                entry["fundamentalComment"] = None
-                entry["fundamentalScore"] = None
-                entry["technicalComment"] = None
-                entry["technicalScore"] = None
-                entry["overallComment"] = None
-                entry["totalScore"] = None
-                continue
-
-            if symbol not in analysis_cache:
-                analysis_cache[symbol] = get_stock_health_check(
-                    symbol=symbol,
-                    name=entry["name"],
-                    price=entry["price"],
-                    change_pct=entry["changePercent"],
-                    eps=entry["eps"],
-                    roe=entry["roe"],
-                    pe=entry["pe"],
-                    dividend_yield=entry["dividendYield"],
-                    revenue=entry["revenueLatestQ"],
-                    gross_margin=entry["grossMarginLatestQ"],
-                    ma30=entry["ma30"], ma60=entry["ma60"], ma100=entry["ma100"],
-                    bias30=entry["bias30"],
-                    above30=entry["above30"], ma30_rising=entry["ma30Rising"],
-                    above60=entry["above60"], ma60_rising=entry["ma60Rising"],
-                    above100=entry["above100"], ma100_rising=entry["ma100Rising"],
-                    badges=entry["badges"],
-                )
-                time.sleep(GEMINI_CALL_DELAY_SECONDS)
-
-            analysis = analysis_cache[symbol]
-            if analysis:
-                entry["fundamentalComment"] = analysis["fundamentalComment"]
-                entry["fundamentalScore"] = analysis["fundamentalScore"]
-                entry["technicalComment"] = analysis["technicalComment"]
-                entry["technicalScore"] = analysis["technicalScore"]
-                entry["overallComment"] = analysis["overallComment"]
-                entry["totalScore"] = analysis["totalScore"]
-            else:
-                entry["fundamentalComment"] = None
-                entry["fundamentalScore"] = None
-                entry["technicalComment"] = None
-                entry["technicalScore"] = None
-                entry["overallComment"] = None
-                entry["totalScore"] = None
-
-    analysis_ok = sum(1 for v in analysis_cache.values() if v)
-    analysis_total = len(analysis_cache)
-    print(f"[info] Gemini 健檢分析：{analysis_ok}/{analysis_total} 檔成功產生", file=sys.stderr)
+    # 健檢分析：用 common.py 裡共用的流程，依漲跌幅排序取每位大師前
+    # FUNDAMENTALS_GEMINI_TOP_N 名才分析，並透過跨腳本共用的 data/gemini_cache.json 快取——
+    # 如果 fetch_screener.py 今天稍早已經分析過同一檔股票，這裡會直接複用，不重打 Gemini。
+    gemini_cache, cache_date = load_gemini_cache()
+    run_gemini_health_check_pass(results, FUNDAMENTALS_GEMINI_TOP_N, gemini_cache)
+    save_gemini_cache(gemini_cache, cache_date)
 
     master_sets = [
         {

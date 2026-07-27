@@ -83,18 +83,26 @@ def extract_fundamentals_from_info(info):
     ⚠️ 這個 repo 目前用的 yfinance 版本，dividendYield 回傳的就已經是百分比數字本身
     （例如 0.36 代表 0.36%），不是比例，不需要再 ×100。之前誤判成比例多乘了一次100，
     導致殖利率顯示成 36% 這種不合理的數字，這裡是修正後的版本。
+
+    ⚠️ 這裡每個數值都會經過 safe_round()，不是只為了四捨五入──yfinance 對虧損公司這類
+    情況，有時候 trailingPE/trailingEps 回傳的是真正的浮點數 NaN（不是 None）。
+    Python 的 json.dump() 預設會把 NaN 直接寫成 JSON 裡不合法的 `NaN` 字面值，
+    這種「Python讀得回來、瀏覽器JSON.parse()會整份炸掉」的狀況非常隱蔽——Actions log
+    會顯示成功、檔案也真的寫出來了，但前端完全解析不了，只會顯示「找不到資料檔」
+    這種容易誤導排查方向的訊息。safe_round() 內部有做 pd.isna() 檢查，NaN 一律轉成
+    None（也就是合法 JSON 的 null），從源頭避免這個問題。
     """
-    eps = info.get("trailingEps")
-    pe = info.get("trailingPE")
+    eps = safe_round(info.get("trailingEps"))
+    pe = safe_round(info.get("trailingPE"))
 
     roe_raw = info.get("returnOnEquity")
-    roe = round(float(roe_raw) * 100, 2) if roe_raw is not None else None
+    roe = safe_round(float(roe_raw) * 100) if roe_raw is not None else None
 
     dy_raw = info.get("dividendYield")
     dividend_yield = None
     if dy_raw is not None:
-        dividend_yield = round(float(dy_raw), 2)
-        if dividend_yield > 50:
+        dividend_yield = safe_round(float(dy_raw))
+        if dividend_yield is not None and dividend_yield > 50:
             # 正常股票殖利率幾乎不可能超過50%，這種情況通常代表yfinance那個版本
             # 又把單位改回比例了，印警告方便之後排查，但不自動幫你猜怎麼換算
             print(f"[warn] 殖利率數值異常({dividend_yield}%)，yfinance回傳格式可能又變了，請人工確認", file=sys.stderr)
@@ -158,7 +166,7 @@ def load_gemini_cache():
 def save_gemini_cache(cache, today):
     os.makedirs(os.path.dirname(GEMINI_CACHE_PATH) or ".", exist_ok=True)
     with open(GEMINI_CACHE_PATH, "w", encoding="utf-8") as f:
-        json.dump({"date": today, "entries": cache}, f, ensure_ascii=False, indent=2)
+        json.dump({"date": today, "entries": cache}, f, ensure_ascii=False, indent=2, allow_nan=False)
     print(f"[info] 已寫入 Gemini 快取，共 {len(cache)} 檔", file=sys.stderr)
 
 

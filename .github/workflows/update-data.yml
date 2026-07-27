@@ -11,6 +11,14 @@ on:
 permissions:
   contents: write
 
+# 同一個 workflow 的所有觸發來源（每小時熱力圖排程、台股收盤排程、手動觸發）共用同一個
+# concurrency group，確保任何時候最多只有一個在跑，其餘排隊等待，不會並行執行。
+# 這是為了避免「跑得快的熱力圖排程」搶先 push，導致「跑得慢的選股排程/手動觸發」
+# 最後 commit 時因為 main 分支已經被改過而 push 失敗（git push rejected: fetch first）。
+concurrency:
+  group: update-market-data
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -45,5 +53,21 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/*.json
-          git diff --cached --quiet || git commit -m "chore: update market data"
-          git push
+          if git diff --cached --quiet; then
+            echo "沒有資料變化，不需要 commit"
+            exit 0
+          fi
+          git commit -m "chore: update market data"
+          # 保險機制：即使有 concurrency 擋著，仍保留重試，應對極少數的邊界情況
+          # （例如 concurrency 排隊釋放的瞬間跟別的 push 撞上）。
+          # 用 rebase 而不是 merge，保持 commit 歷史線性、乾淨。
+          for i in 1 2 3 4 5; do
+            if git pull --rebase origin main && git push; then
+              echo "push 成功（第 $i 次嘗試）"
+              exit 0
+            fi
+            echo "push 失敗，等待後重試（第 $i 次）..."
+            sleep $((RANDOM % 10 + 5))
+          done
+          echo "已重試5次仍push失敗，放棄"
+          exit 1

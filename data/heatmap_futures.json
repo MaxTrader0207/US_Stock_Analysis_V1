@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-27T18:21:34.915416+00:00",
+  "updated": "2026-07-27T19:54:38.667383+00:00",
   "sectors": [
     {
       "name": "Indices",
@@ -7,30 +7,30 @@
         {
           "symbol": "ES",
           "name": "ES=F",
-          "price": 7436.0,
-          "changePercent": -0.15,
-          "marketCap": 1.11
+          "price": 7447.75,
+          "changePercent": 0.0,
+          "marketCap": 1.28
         },
         {
           "symbol": "NQ",
           "name": "NQ=F",
-          "price": 28101.25,
-          "changePercent": -0.64,
-          "marketCap": 0.48
+          "price": 28183.25,
+          "changePercent": -0.35,
+          "marketCap": 0.55
         },
         {
           "symbol": "YM",
           "name": "YM=F",
-          "price": 52284.0,
-          "changePercent": 0.31,
-          "marketCap": 0.07
+          "price": 52388.0,
+          "changePercent": 0.51,
+          "marketCap": 0.08
         },
         {
           "symbol": "RTY",
           "name": "RTY=F",
-          "price": 2952.7,
-          "changePercent": 0.39,
-          "marketCap": 0.11
+          "price": 2961.3,
+          "changePercent": 0.68,
+          "marketCap": 0.13
         }
       ]
     },
@@ -40,23 +40,23 @@
         {
           "symbol": "CL",
           "name": "CL=F",
-          "price": 82.3,
-          "changePercent": -7.85,
-          "marketCap": 0.28
+          "price": 82.2,
+          "changePercent": -7.96,
+          "marketCap": 0.32
         },
         {
           "symbol": "NG",
           "name": "NG=F",
           "price": 2.78,
-          "changePercent": -3.27,
-          "marketCap": 0.11
+          "changePercent": -3.31,
+          "marketCap": 0.14
         },
         {
           "symbol": "RB",
           "name": "RB=F",
-          "price": 3.17,
-          "changePercent": -6.7,
-          "marketCap": 0.05
+          "price": 3.16,
+          "changePercent": -6.88,
+          "marketCap": 0.06
         }
       ]
     },
@@ -66,22 +66,22 @@
         {
           "symbol": "GC",
           "name": "GC=F",
-          "price": 4079.3,
-          "changePercent": 0.29,
-          "marketCap": 0.12
+          "price": 4089.4,
+          "changePercent": 0.54,
+          "marketCap": 0.13
         },
         {
           "symbol": "SI",
           "name": "SI=F",
-          "price": 58.74,
-          "changePercent": 0.14,
+          "price": 58.88,
+          "changePercent": 0.38,
           "marketCap": 0.03
         },
         {
           "symbol": "HG",
           "name": "HG=F",
-          "price": 6.39,
-          "changePercent": 1.12,
+          "price": 6.41,
+          "changePercent": 1.36,
           "marketCap": 0.03
         }
       ]
@@ -92,23 +92,23 @@
         {
           "symbol": "ZC",
           "name": "ZC=F",
-          "price": 475.0,
-          "changePercent": 2.32,
-          "marketCap": 0.23
+          "price": 473.25,
+          "changePercent": 1.94,
+          "marketCap": 0.25
         },
         {
           "symbol": "ZS",
           "name": "ZS=F",
-          "price": 1215.0,
-          "changePercent": -2.64,
-          "marketCap": 0.2
+          "price": 1211.5,
+          "changePercent": -2.92,
+          "marketCap": 0.21
         },
         {
           "symbol": "ZW",
           "name": "ZW=F",
-          "price": 661.25,
-          "changePercent": -2.47,
-          "marketCap": 0.06
+          "price": 658.0,
+          "changePercent": -2.95,
+          "marketCap": 0.07
         }
       ]
     },
@@ -120,21 +120,21 @@
           "name": "6E=F",
           "price": 1.14,
           "changePercent": 0.14,
-          "marketCap": 0.11
+          "marketCap": 0.13
         },
         {
           "symbol": "6J",
           "name": "6J=F",
           "price": 0.01,
           "changePercent": 0.3,
-          "marketCap": 0.08
+          "marketCap": 0.1
         },
         {
           "symbol": "6B",
           "name": "6B=F",
           "price": 1.33,
-          "changePercent": -0.24,
-          "marketCap": 0.05
+          "changePercent": -0.22,
+          "marketCap": 0.06
         }
       ]
     },
@@ -144,16 +144,16 @@
         {
           "symbol": "ZB",
           "name": "ZB=F",
-          "price": 110.25,
-          "changePercent": 0.48,
-          "marketCap": 0.28
+          "price": 110.34,
+          "changePercent": 0.57,
+          "marketCap": 0.35
         },
         {
           "symbol": "ZN",
           "name": "ZN=F",
-          "price": 108.55,
-          "changePercent": 0.2,
-          "marketCap": 1.21
+          "price": 108.56,
+          "changePercent": 0.22,
+          "marketCap": 1.46
         }
       ]
     }

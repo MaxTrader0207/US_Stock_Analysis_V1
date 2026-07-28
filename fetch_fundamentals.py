@@ -4,7 +4,7 @@
 輸出 data/fundamentals.json 供前端「基本面選股」頁籤使用。
 
 用法：python scripts/fetch_fundamentals.py
-需求：pip install yfinance pandas
+需求：pip install yfinance pandas requests
 
 5 位大師：巴菲特、馬克約克奇、麥克墨菲、彼得林區、班哲明格拉罕，條件詳見各
 evaluate_xxx() 函式前的註解。
@@ -12,6 +12,16 @@ evaluate_xxx() 函式前的註解。
 效能設計：每檔股票只抓一次完整的財報／股利／股價資料包（fetch_ticker_bundle），
 5 位大師共用同一包資料各自判斷，不會每位大師都重新打一次 API——
 母體有 159 檔，若不做這個優化，API 呼叫量會直接乘以 5。
+
+卡片內容（比照強勢股選股頁的三色區塊格式，欄位命名也完全一致）：
+  - A.基本面：EPS/ROE/P/E/殖利率，這些欄位其實已經包含在 fetch_ticker_bundle 抓的
+    tk.info 裡（5位大師的篩選條件本來就要用到），不需要額外多打API
+  - B.技術面：30/60/100MA 站上/上揚狀態＋30MA乖離率，需要把 price_hist 從原本的
+    5天改成抓1年，才夠算出這幾條均線（詳見 fetch_ticker_bundle）
+  - C.健檢分數：呼叫 Gemini API 產生基本面/技術面/綜合三段短評＋兩個分數，
+    為了控制額度消耗，只對每位大師「依當日漲跌幅排序」的前 FUNDAMENTALS_GEMINI_TOP_N
+    名呼叫（預設5名，比強勢股頁的10名更保守——因為這裡是5位大師各自算一次，
+    加總後對 Gemini 的呼叫量本來就會是強勢股頁的好幾倍）
 
 ⚠️ 資料來源限制（務必留意，這些是 yfinance 免費資料的先天限制，不是程式bug）：
   - 「近12季」：yfinance 免費版的季報通常只給「最近4~8季」，抓不滿12季。
@@ -26,8 +36,12 @@ evaluate_xxx() 函式前的註解。
     的 industry 分類做相對排名，不是跟該產業「全市場」所有公司比較。如果某產業
     在母體裡剛好只有1~2檔，排名幾乎沒有意義，這點請知悉。
   - 部分股票缺少特定欄位時，程式一律直接跳過該檔，不會用假設值硬湊。
+  - 股息殖利率(dividendYield)：這個 repo 目前用的 yfinance 版本回傳的就已經是
+    百分比數字本身（例如0.36代表0.36%），不需要再乘以100（強勢股頁那邊踩過這個坑，
+    這裡直接用修正後的寫法）。
 """
 import json
+import os
 import sys
 from datetime import datetime, timezone
 
@@ -35,28 +49,33 @@ import pandas as pd
 import yfinance as yf
 
 from tickers import SCREENER_UNIVERSE
+from common import (
+    safe_round, get_row, pct_change, ma_status, extract_fundamentals_from_info,
+    yf_call_with_retry, load_gemini_cache, save_gemini_cache, run_gemini_health_check_pass,
+    parallel_map, check_and_notify, CROSS_LOOKBACK,
+)
 
 UNIVERSE_NOTE = "母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。"
 
-
-# ============================================================
-# 共用小工具
-# ============================================================
-
-def get_row(df, candidates):
-    """從財報 DataFrame 裡找第一個存在的列名，回傳該列。找不到回傳 None。
-    yfinance 不同版本對同一個科目的列名不一致，所以用候選清單依序嘗試。"""
-    if df is None or df.empty:
-        return None
-    for name in candidates:
-        if name in df.index:
-            return df.loc[name]
-    return None
+FUNDAMENTALS_GEMINI_TOP_N = int(os.environ.get("FUNDAMENTALS_GEMINI_TOP_N") or 5)
 
 
-def pct_change(close):
-    prev_close = close.iloc[-2] if len(close) > 1 else close.iloc[-1]
-    return (close.iloc[-1] - prev_close) / prev_close * 100 if prev_close else 0
+def latest_quarter_revenue_and_margin(qfin):
+    """近一季營收、毛利率。qfin 是 fetch_ticker_bundle 已經抓好的季報，不需要額外打API。"""
+    rev_row = get_row(qfin, ["Total Revenue", "TotalRevenue"])
+    gp_row = get_row(qfin, ["Gross Profit", "GrossProfit"])
+    if rev_row is None or rev_row.empty:
+        return None, None
+    revenue = rev_row.iloc[0]
+    if revenue is None or pd.isna(revenue) or revenue == 0:
+        return None, None
+    revenue = float(revenue)
+    gross_margin = None
+    if gp_row is not None and not gp_row.empty:
+        gp = gp_row.iloc[0]
+        if gp is not None and pd.notna(gp):
+            gross_margin = round(float(gp) / revenue * 100, 2)
+    return revenue, gross_margin
 
 
 def avg_ratio(numerator_row, denominator_row, max_periods=None):
@@ -154,11 +173,25 @@ def avg_annual_dividend(dividends, years=5):
 
 def fetch_ticker_bundle(symbol):
     tk = yf.Ticker(symbol)
-    price_hist = tk.history(period="5d", interval="1d", auto_adjust=True)
-    if price_hist.empty:
+    # 原本只抓5天（只夠算漲跌幅），現在改抓1年，用來計算30/60/100MA
+    # （B區塊技術面）。跟財報/股利資料是各自獨立的請求，不影響原本5位大師的判斷邏輯。
+    #
+    # history() 跟 info 是這包資料裡最關鍵、也最容易撞到 Yahoo 限流的兩個請求
+    # （這個腳本一檔股票要打將近9次請求，159檔就是1400+次，比 fetch_screener.py
+    # 更容易被限流），所以這兩個加上重試機制；其餘財報類請求(financials/balance_sheet/
+    # cashflow/dividends)目前維持原樣，個別失敗時整批 bundle 會被外層 try/except 捕捉、
+    # 跳過該檔股票——如果之後發現財報這幾個也常失敗，可以再比照加上重試。
+    price_hist = yf_call_with_retry(
+        lambda: tk.history(period="1y", interval="1d", auto_adjust=True),
+        f"{symbol} 歷史股價",
+    )
+    if price_hist is None or price_hist.empty:
         return None
+
+    info = yf_call_with_retry(lambda: tk.info, f"{symbol} info") or {}
+
     return {
-        "info": tk.info or {},
+        "info": info,
         "fin": tk.financials,
         "qfin": tk.quarterly_financials,
         "bs": tk.balance_sheet,
@@ -172,11 +205,36 @@ def fetch_ticker_bundle(symbol):
 
 def base_result(symbol, name, bundle):
     close = bundle["price_hist"]["Close"]
+    price = float(close.iloc[-1])
+
+    ma30_series = close.rolling(30).mean()
+    ma60_series = close.rolling(60).mean()
+    ma100_series = close.rolling(100).mean()
+    ma30 = safe_round(ma30_series.iloc[-1]) if len(ma30_series) else None
+    ma60 = safe_round(ma60_series.iloc[-1]) if len(ma60_series) else None
+    ma100 = safe_round(ma100_series.iloc[-1]) if len(ma100_series) else None
+    bias30 = round((price - ma30) / ma30 * 100, 2) if ma30 else None
+
+    above30, ma30_rising = ma_status(price, ma30_series)
+    above60, ma60_rising = ma_status(price, ma60_series)
+    above100, ma100_rising = ma_status(price, ma100_series)
+
+    info = bundle["info"]
+    eps, roe, pe, dividend_yield = extract_fundamentals_from_info(info)
+
+    revenue, gross_margin = latest_quarter_revenue_and_margin(bundle["qfin"])
+
     return {
         "symbol": symbol,
         "name": name,
-        "price": round(float(close.iloc[-1]), 2),
+        "price": round(price, 2),
         "changePercent": round(float(pct_change(close)), 2),
+        "ma30": ma30, "ma60": ma60, "ma100": ma100, "bias30": bias30,
+        "above30": above30, "ma30Rising": ma30_rising,
+        "above60": above60, "ma60Rising": ma60_rising,
+        "above100": above100, "ma100Rising": ma100_rising,
+        "eps": eps, "roe": roe, "pe": pe, "dividendYield": dividend_yield,
+        "revenueLatestQ": revenue, "grossMarginLatestQ": gross_margin,
     }
 
 
@@ -420,18 +478,29 @@ def compute_ttm_revenue(bundle):
     return None
 
 
+def _fetch_one_bundle(symbol):
+    return fetch_ticker_bundle(symbol)
+
+
 def main():
+    symbols = list(SCREENER_UNIVERSE.keys())
+    print(f"Fetching bundles for {len(symbols)} tickers（平行擷取）...", file=sys.stderr)
+    bundle_results = parallel_map(
+        symbols, _fetch_one_bundle,
+        max_workers=4,  # 這裡一檔要打將近9次請求(info/財報/季報/資產負債表/現金流/股利/股價)，
+                         # worker數比其他頁面更保守，避免太容易撞 Yahoo 限流
+        description="檔財報資料包",
+    )
+
     bundles = {}
     ttm_revenue = {}
     industry = {}
-
-    print(f"Fetching bundles for {len(SCREENER_UNIVERSE)} tickers...", file=sys.stderr)
     for symbol, name in SCREENER_UNIVERSE.items():
+        bundle = bundle_results.get(symbol)
+        if bundle is None:
+            print(f"[warn] {symbol}: no price data", file=sys.stderr)
+            continue
         try:
-            bundle = fetch_ticker_bundle(symbol)
-            if bundle is None:
-                print(f"[warn] {symbol}: no price data", file=sys.stderr)
-                continue
             bundles[symbol] = bundle
             ttm_revenue[symbol] = compute_ttm_revenue(bundle)
             industry[symbol] = bundle["info"].get("industry")
@@ -492,34 +561,53 @@ def main():
         except Exception as e:
             print(f"[warn] {symbol} [graham]: {e}", file=sys.stderr)
 
-    def sorted_results(key):
-        return sorted(results[key], key=lambda r: r["changePercent"], reverse=True)
+    total_matched = sum(len(v) for v in results.values())
+    per_master_counts = ", ".join(f"{k}={len(v)}" for k, v in results.items())
+    print(
+        f"[info] 5位大師篩選完成：母體 {len(SCREENER_UNIVERSE)} 檔，"
+        f"成功取得資料包 {len(bundles)} 檔，各大師符合檔數合計 {total_matched}（{per_master_counts}，"
+        f"注意同一檔股票可能同時符合多位大師條件，此數字未去重）",
+        file=sys.stderr,
+    )
+
+    # 健檢分析：用 common.py 裡共用的流程，依漲跌幅排序取每位大師前
+    # FUNDAMENTALS_GEMINI_TOP_N 名才分析，並透過跨腳本共用的 data/gemini_cache.json 快取——
+    # 如果 fetch_screener.py 今天稍早已經分析過同一檔股票，這裡會直接複用，不重打 Gemini。
+    gemini_cache, cache_date = load_gemini_cache()
+    gemini_stats = run_gemini_health_check_pass(results, FUNDAMENTALS_GEMINI_TOP_N, gemini_cache)
+    save_gemini_cache(gemini_cache, cache_date)
+
+    # 資料健檢：異常狀況（完全沒有股票符合任何大師條件、或 Gemini 成功率過低）會印出
+    # [ALERT] 並嘗試推播 LINE 通知。matched_count 用「去重後的獨立股票數」而不是
+    # total_matched（5位大師合計、同一檔可能被算好幾次），避免誤判。
+    unique_matched_count = len({entry["symbol"] for entries in results.values() for entry in entries})
+    check_and_notify("基本面選股 (fetch_fundamentals.py)", len(SCREENER_UNIVERSE), unique_matched_count, gemini_stats)
 
     master_sets = [
         {
             "id": "buffett", "name": "巴菲特", "status": "active",
             "description": "近5年平均ROE>15%；最新年度毛利率>40%；負債權益比<50%；連續5年自由現金流>0；本益比<15或低於其5年均值。（yfinance財報年限所限，實際檢核年數可能少於5年）" + UNIVERSE_NOTE,
-            "results": sorted_results("buffett"),
+            "results": results["buffett"],
         },
         {
             "id": "yockey", "name": "馬克約克奇", "status": "active",
             "description": "近12季毛利率平均>20%；近3年平均稅前純益成長率>3%。（yfinance免費季報通常抓不滿12季，實際採用季數見各標的badge標註）" + UNIVERSE_NOTE,
-            "results": sorted_results("yockey"),
+            "results": results["yockey"],
         },
         {
             "id": "murphy", "name": "麥克墨菲", "status": "active",
             "description": "近12季營業利益率平均>10%；近5年平均ROE>8%；近3年平均營收成長率>10%；近4季研發費用占營業額比率>5%。" + UNIVERSE_NOTE,
-            "results": sorted_results("murphy"),
+            "results": results["murphy"],
         },
         {
             "id": "lynch", "name": "彼得林區", "status": "active",
             "description": "近5年平均負債比<30%；本益比<15倍；內部人持股比例>30%（美股無質押比例公開資料，此項僅檢核持股比例）；近3年平均營收成長率>10%；近3年平均稅前純益成長率>3%。" + UNIVERSE_NOTE,
-            "results": sorted_results("lynch"),
+            "results": results["lynch"],
         },
         {
             "id": "graham", "name": "班哲明格拉罕", "status": "active",
             "description": "近5年EPS皆>1元；近3年流動比率皆>100%；本益比<15倍；近5年平均現金股利>3元；近3年平均稅前純益成長率>3%；近12月營收於母體同產業排名前40%（僅在本專案159檔母體內相對排名，非全市場排名）。" + UNIVERSE_NOTE,
-            "results": sorted_results("graham"),
+            "results": results["graham"],
         },
     ]
 
@@ -528,7 +616,11 @@ def main():
         "masterSets": master_sets,
     }
     with open("data/fundamentals.json", "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=2)
+        # allow_nan=False：故意設成不允許 NaN，只要有任何欄位是 NaN 沒被 safe_round() 擋掉，
+        # 這裡會直接丟例外讓這次 Action 執行失敗、在 log 看到明確錯誤，而不是安靜地寫出一份
+        # 瀏覽器 JSON.parse() 解析不了的「無效但Python讀得懂」的檔案——那種問題會讓 Actions
+        # log 顯示成功、實際上網頁整頁壞掉，非常難排查，寧可讓它在這裡就直接爆炸。
+        json.dump(out, f, ensure_ascii=False, indent=2, allow_nan=False)
     print("Wrote data/fundamentals.json")
 
 

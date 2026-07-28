@@ -93,29 +93,26 @@ condition_meta 裡加一筆設定即可，不需要修改前端。
 import json
 import os
 import sys
-import time
 from datetime import datetime, timezone
 
 import pandas as pd
 import yfinance as yf
 
 from tickers import SCREENER_UNIVERSE
-from gemini import get_stock_health_check
-
-CROSS_LOOKBACK = 5  # 判定「近期黃金交叉」回看的交易日數
+from common import (
+    safe_round, get_row, pct_change, ma_status, extract_fundamentals_from_info,
+    yf_call_with_retry, load_gemini_cache, save_gemini_cache, run_gemini_health_check_pass,
+    parallel_map, check_and_notify, CROSS_LOOKBACK,
+)
 
 # 支撐/壓力/停損計算參數
 SR_LOOKBACK_DAYS = 20      # 支撐、壓力採近N個交易日（不含今日）高低點
 STOP_LOSS_BUFFER_PCT = 0.03  # 停損價 = 支撐價再往下這個比例，避免一碰支撐就停損，等真正跌破才觸發
 
-# 每次呼叫 Gemini 之間固定間隔的秒數，從源頭拉開請求密度、降低撞到免費額度
-# 每分鐘請求數上限（RPM）的機率。可用環境變數覆寫，預設 1.5 秒。
-GEMINI_CALL_DELAY_SECONDS = float(os.environ.get("GEMINI_CALL_DELAY_SECONDS") or 1.5)
-
 # EPS / 近一季營收 / 近一季毛利率：每個「有符合任一選股條件」的股票額外多打
-# 2 次 Yahoo Finance 請求（info + 季報財報），跟 fetch_fundamentals.py 面對的是同一個
-# 限流風險，所以這裡也做了同樣的間隔設計，只是只對「有中選」的子集抓，不是對全部159檔抓。
-FUNDAMENTALS_CALL_DELAY_SECONDS = float(os.environ.get("FUNDAMENTALS_CALL_DELAY_SECONDS") or 1.0)
+# 2 次 Yahoo Finance 請求（info + 季報財報）。原本用固定間隔序列抓取控制節奏，
+# 現在改用 common.parallel_map 平行抓取（worker數設4，比歷史股價階段更保守），
+# 節奏改由 worker 數量控制，不再需要這個延遲常數。
 
 # Gemini 健檢分析的呼叫次數是主要的額度消耗來源（每次都是「基本面+技術面+綜合」三段短評
 # 加兩個分數，prompt/回應都不小）。與其對每組條件符合的所有股票都打一次，這裡改成只對
@@ -130,59 +127,30 @@ REVENUE_ROW_NAMES = ["Total Revenue", "TotalRevenue"]
 GROSS_PROFIT_ROW_NAMES = ["Gross Profit", "GrossProfit"]
 
 
-def _find_row(df, names):
-    for n in names:
-        if n in df.index:
-            return df.loc[n]
-    return None
-
-
 def fetch_fundamentals_light(symbol):
     """抓 EPS(TTM)、ROE、本益比(TTM)、股息殖利率、近一季營收、近一季毛利率。
     EPS/ROE/PE/殖利率都來自同一個 info 請求（不額外增加網路呼叫），
-    營收/毛利率是另一個獨立請求。兩組請求各自 try/except 包起來，
-    任一步驟失敗只會讓對應欄位變 None，不會讓其他欄位或整體抓取跟著失敗。"""
+    營收/毛利率是另一個獨立請求。兩組請求各自包了重試機制（yf_call_with_retry），
+    重試用完仍失敗只會讓對應欄位變 None，不會讓其他欄位或整體抓取跟著失敗。"""
     eps = roe = pe = dividend_yield = revenue = gross_margin = None
     ticker_obj = yf.Ticker(symbol)
 
-    try:
-        info = ticker_obj.get_info()
-        eps = info.get("trailingEps")
-        pe = info.get("trailingPE")
+    info = yf_call_with_retry(lambda: ticker_obj.get_info(), f"{symbol} info(EPS/ROE/PE/殖利率)")
+    if info is not None:
+        eps, roe, pe, dividend_yield = extract_fundamentals_from_info(info)
 
-        roe_raw = info.get("returnOnEquity")
-        if roe_raw is not None:
-            roe = round(float(roe_raw) * 100, 2)
-
-        dy_raw = info.get("dividendYield")
-        if dy_raw is not None:
-            dy_raw = float(dy_raw)
-            # 這個 repo 目前用的 yfinance 版本，dividendYield 回傳的就已經是百分比數字本身
-            # （例如 0.36 代表 0.36%），不是比例（不需要再 ×100）。
-            # 之前誤判成比例、多乘了一次 100，導致殖利率顯示成 36% 這種不合理的數字。
-            dividend_yield = round(dy_raw, 2)
-            if dividend_yield > 50:
-                # 正常股票殖利率幾乎不可能超過50%，這種情況通常代表yfinance那個版本
-                # 又把單位改回比例了，印警告方便之後排查，但不自動幫你猜怎麼換算
-                print(f"[warn] {symbol}: 殖利率數值異常({dividend_yield}%)，yfinance回傳格式可能又變了，請人工確認", file=sys.stderr)
-    except Exception as e:
-        print(f"[warn] {symbol}: EPS/ROE/PE/殖利率取得失敗 {e}", file=sys.stderr)
-
-    try:
-        qis = ticker_obj.quarterly_income_stmt
-        if qis is not None and not qis.empty:
-            latest_col = qis.columns[0]
-            rev_row = _find_row(qis, REVENUE_ROW_NAMES)
-            gp_row = _find_row(qis, GROSS_PROFIT_ROW_NAMES)
-            revenue_val = rev_row.get(latest_col) if rev_row is not None else None
-            if revenue_val is not None and not pd.isna(revenue_val):
-                revenue = float(revenue_val)
-            if gp_row is not None and revenue:
-                gp_val = gp_row.get(latest_col)
-                if gp_val is not None and not pd.isna(gp_val):
-                    gross_margin = round(float(gp_val) / revenue * 100, 2)
-    except Exception as e:
-        print(f"[warn] {symbol}: 近一季營收/毛利率取得失敗 {e}", file=sys.stderr)
+    qis = yf_call_with_retry(lambda: ticker_obj.quarterly_income_stmt, f"{symbol} 季報(營收/毛利率)")
+    if qis is not None and not qis.empty:
+        latest_col = qis.columns[0]
+        rev_row = get_row(qis, REVENUE_ROW_NAMES)
+        gp_row = get_row(qis, GROSS_PROFIT_ROW_NAMES)
+        revenue_val = rev_row.get(latest_col) if rev_row is not None else None
+        if revenue_val is not None and not pd.isna(revenue_val):
+            revenue = float(revenue_val)
+        if gp_row is not None and revenue:
+            gp_val = gp_row.get(latest_col)
+            if gp_val is not None and not pd.isna(gp_val):
+                gross_margin = round(float(gp_val) / revenue * 100, 2)
 
     return {
         "eps": eps,
@@ -230,27 +198,6 @@ def crossed_above(a, b, lookback=CROSS_LOOKBACK):
     return bool((window_a <= window_b).any())
 
 
-def pct_change(close):
-    prev_close = close.iloc[-2] if len(close) > 1 else close.iloc[-1]
-    return (close.iloc[-1] - prev_close) / prev_close * 100 if prev_close else 0
-
-
-def safe_round(v, digits=2):
-    return round(float(v), digits) if v is not None and not pd.isna(v) else None
-
-
-def _ma_status(price, series):
-    """回傳 (是否站上這條均線, 均線是否上揚)；資料不足時回傳 (None, None)。
-    上揚/下彎判斷方式跟 check_strength_a 等選股邏輯一致：比較 CROSS_LOOKBACK 個交易日前。"""
-    if len(series) < CROSS_LOOKBACK + 1:
-        return None, None
-    latest = series.iloc[-1]
-    prev = series.iloc[-1 - CROSS_LOOKBACK]
-    if pd.isna(latest) or pd.isna(prev):
-        return None, None
-    return bool(price > latest), bool(latest > prev)
-
-
 def base_result(symbol, name, hist):
     close = hist["Close"]
     price = float(close.iloc[-1])
@@ -264,9 +211,9 @@ def base_result(symbol, name, hist):
     ma100 = safe_round(ma100_series.iloc[-1])
     bias30 = round((price - ma30) / ma30 * 100, 2) if ma30 else None
 
-    above30, ma30_rising = _ma_status(price, ma30_series)
-    above60, ma60_rising = _ma_status(price, ma60_series)
-    above100, ma100_rising = _ma_status(price, ma100_series)
+    above30, ma30_rising = ma_status(price, ma30_series)
+    above60, ma60_rising = ma_status(price, ma60_series)
+    above100, ma100_rising = ma_status(price, ma100_series)
 
     # 支撐/壓力：近 SR_LOOKBACK_DAYS 個交易日（不含今日）的最低/最高價
     # 停損：支撐價再往下 STOP_LOSS_BUFFER_PCT，等真正跌破支撐才觸發，而非一碰到支撐就停損
@@ -496,21 +443,33 @@ CONDITION_META = {
 UNIVERSE_NOTE = "母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 + 那斯達克100完整清單(101檔) + 費城半導體指數SOX(30檔)，去重合併共159檔。"
 
 
+def _fetch_one_history(symbol):
+    return yf_call_with_retry(
+        lambda: yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True),
+        f"{symbol} 歷史股價",
+    )
+
+
 def main():
     results_by_condition = {cid: [] for cid in CONDITION_CHECKS}
     processed_count = 0
     empty_history_count = 0
 
-    for symbol, name in SCREENER_UNIVERSE.items():
-        try:
-            hist = yf.Ticker(symbol).history(period="1y", interval="1d", auto_adjust=True)
-            if hist.empty:
-                empty_history_count += 1
-                print(f"[warn] {symbol}: no history data", file=sys.stderr)
-                continue
-            processed_count += 1
-            close = hist["Close"]
+    symbols = list(SCREENER_UNIVERSE.keys())
+    print(f"[info] 開始平行抓取 {len(symbols)} 檔股票的歷史股價...", file=sys.stderr)
+    hist_by_symbol = parallel_map(symbols, _fetch_one_history, description="檔歷史股價")
 
+    # 選股條件比對是純 CPU 運算（不牽涉網路），維持循序執行即可，平行化沒有意義，
+    # 只有上面「抓歷史股價」這個網路 I/O 密集的階段才需要平行化。
+    for symbol, name in SCREENER_UNIVERSE.items():
+        hist = hist_by_symbol.get(symbol)
+        if hist is None or hist.empty:
+            empty_history_count += 1
+            print(f"[warn] {symbol}: no history data", file=sys.stderr)
+            continue
+        processed_count += 1
+
+        try:
             for cid, check_fn in CONDITION_CHECKS.items():
                 try:
                     badges = check_fn(hist)
@@ -537,97 +496,37 @@ def main():
         file=sys.stderr,
     )
 
-    # 依當日漲跌幅排序（跟前端卡片排序一致），才能正確取出「前N名」。
-    # 這裡排序好之後，後面就不用再排一次，最終輸出也直接用這個順序。
-    for cid in results_by_condition:
-        results_by_condition[cid].sort(key=lambda r: r["changePercent"], reverse=True)
-
-    # 每組條件前 GEMINI_ANALYSIS_TOP_N 名的股票代號聯集，只有這些才會呼叫 Gemini 健檢分析
-    gemini_target_symbols = set()
-    for cid, results in results_by_condition.items():
-        for entry in results[:GEMINI_ANALYSIS_TOP_N]:
-            gemini_target_symbols.add(entry["symbol"])
-    print(
-        f"[info] Gemini 健檢分析目標：每組條件前{GEMINI_ANALYSIS_TOP_N}名，"
-        f"去重後共 {len(gemini_target_symbols)} 檔會呼叫 Gemini（其餘 {len(matched_symbols) - len(gemini_target_symbols)} 檔只顯示量化資料，不做AI分析）",
-        file=sys.stderr,
-    )
-
     # ---- EPS / ROE / P/E / 殖利率 / 近一季營收 / 近一季毛利率：同一檔股票可能出現在
-    #      好幾組條件裡，只抓一次，結果套用到該股票在所有條件組裡的卡片 ----
-    fundamentals_cache = {}
+    #      好幾組條件裡，只抓一次，結果套用到該股票在所有條件組裡的卡片。
+    #      改成平行抓取（worker數比歷史股價階段保守一些，因為這裡一檔要打2次請求） ----
+    matched_symbols_list = sorted(matched_symbols)
+    print(f"[info] 開始平行抓取 {len(matched_symbols_list)} 檔已中選股票的基本面資料...", file=sys.stderr)
+    fundamentals_by_symbol = parallel_map(
+        matched_symbols_list, fetch_fundamentals_light,
+        max_workers=4,  # 這裡一檔要打2次請求(info+季報)，worker數比歷史股價階段更保守
+        description="檔基本面資料",
+    )
     for cid, results in results_by_condition.items():
         for entry in results:
-            symbol = entry["symbol"]
-            if symbol not in fundamentals_cache:
-                fundamentals_cache[symbol] = fetch_fundamentals_light(symbol)
-                time.sleep(FUNDAMENTALS_CALL_DELAY_SECONDS)
-            f = fundamentals_cache[symbol]
-            entry["eps"] = f["eps"]
-            entry["roe"] = f["roe"]
-            entry["pe"] = f["pe"]
-            entry["dividendYield"] = f["dividendYield"]
-            entry["revenueLatestQ"] = f["revenue"]
-            entry["grossMarginLatestQ"] = f["grossMargin"]
+            f = fundamentals_by_symbol.get(entry["symbol"]) or {}
+            entry["eps"] = f.get("eps")
+            entry["roe"] = f.get("roe")
+            entry["pe"] = f.get("pe")
+            entry["dividendYield"] = f.get("dividendYield")
+            entry["revenueLatestQ"] = f.get("revenue")
+            entry["grossMarginLatestQ"] = f.get("grossMargin")
 
-    # ---- 健檢分析（基本面短評+分數／技術面短評+分數／綜合短評）：同一檔股票可能出現在
-    #      好幾組條件裡，只呼叫一次 Gemini，結果套用到該股票在所有條件組裡的卡片。
-    #      只對 gemini_target_symbols（每組條件前N名）呼叫，其餘直接跳過節省額度 ----
-    analysis_cache = {}
-    for cid, results in results_by_condition.items():
-        for entry in results:
-            symbol = entry["symbol"]
+    # ---- 健檢分析（基本面短評+分數／技術面短評+分數／綜合短評）：用 common.py 裡共用的流程，
+    #      依漲跌幅排序取每組前 GEMINI_ANALYSIS_TOP_N 名才分析，並透過跨腳本共用的
+    #      data/gemini_cache.json 快取——如果 fetch_fundamentals.py 今天稍早已經分析過
+    #      同一檔股票，這裡會直接複用，不重打 Gemini ----
+    gemini_cache, cache_date = load_gemini_cache()
+    gemini_stats = run_gemini_health_check_pass(results_by_condition, GEMINI_ANALYSIS_TOP_N, gemini_cache)
+    save_gemini_cache(gemini_cache, cache_date)
 
-            if symbol not in gemini_target_symbols:
-                entry["fundamentalComment"] = None
-                entry["fundamentalScore"] = None
-                entry["technicalComment"] = None
-                entry["technicalScore"] = None
-                entry["overallComment"] = None
-                entry["totalScore"] = None
-                continue
-
-            if symbol not in analysis_cache:
-                analysis_cache[symbol] = get_stock_health_check(
-                    symbol=symbol,
-                    name=entry["name"],
-                    price=entry["price"],
-                    change_pct=entry["changePercent"],
-                    eps=entry["eps"],
-                    roe=entry["roe"],
-                    pe=entry["pe"],
-                    dividend_yield=entry["dividendYield"],
-                    revenue=entry["revenueLatestQ"],
-                    gross_margin=entry["grossMarginLatestQ"],
-                    ma30=entry["ma30"], ma60=entry["ma60"], ma100=entry["ma100"],
-                    bias30=entry["bias30"],
-                    above30=entry["above30"], ma30_rising=entry["ma30Rising"],
-                    above60=entry["above60"], ma60_rising=entry["ma60Rising"],
-                    above100=entry["above100"], ma100_rising=entry["ma100Rising"],
-                    badges=entry["badges"],
-                )
-                # 只在真的打了一次 API 時才等待，cache 命中（同一檔股票在其他條件組裡重複出現）不用等
-                time.sleep(GEMINI_CALL_DELAY_SECONDS)
-
-            analysis = analysis_cache[symbol]
-            if analysis:
-                entry["fundamentalComment"] = analysis["fundamentalComment"]
-                entry["fundamentalScore"] = analysis["fundamentalScore"]
-                entry["technicalComment"] = analysis["technicalComment"]
-                entry["technicalScore"] = analysis["technicalScore"]
-                entry["overallComment"] = analysis["overallComment"]
-                entry["totalScore"] = analysis["totalScore"]
-            else:
-                entry["fundamentalComment"] = None
-                entry["fundamentalScore"] = None
-                entry["technicalComment"] = None
-                entry["technicalScore"] = None
-                entry["overallComment"] = None
-                entry["totalScore"] = None
-
-    analysis_ok = sum(1 for v in analysis_cache.values() if v)
-    analysis_total = len(analysis_cache)
-    print(f"[info] Gemini 健檢分析：{analysis_ok}/{analysis_total} 檔成功產生", file=sys.stderr)
+    # 資料健檢：異常狀況（完全沒有股票符合條件、或 Gemini 成功率過低）會印出 [ALERT]
+    # 並嘗試推播 LINE 通知（沒設定 LINE 相關環境變數就只印 log，不會讓這次執行失敗）
+    check_and_notify("強勢股選股 (fetch_screener.py)", len(SCREENER_UNIVERSE), len(matched_symbols), gemini_stats)
 
     condition_sets = []
     for cid, meta in CONDITION_META.items():
@@ -646,7 +545,8 @@ def main():
         "conditionSets": condition_sets,
     }
     with open("data/screener.json", "w", encoding="utf-8") as f:
-        json.dump(out, f, ensure_ascii=False, indent=2)
+        # allow_nan=False：同樣的安全網，見 fetch_fundamentals.py 對應位置的說明
+        json.dump(out, f, ensure_ascii=False, indent=2, allow_nan=False)
     print("Wrote data/screener.json")
 
 

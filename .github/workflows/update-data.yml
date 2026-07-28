@@ -25,6 +25,13 @@ jobs:
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GEMINI_MODEL: ${{ secrets.GEMINI_MODEL }}
+      # 選配：資料異常時（完全沒有股票符合條件、或 Gemini 成功率過低）主動推播 LINE 通知。
+      # 兩個都要設定才會生效，缺一個就只會印 [ALERT] log，不影響其他功能。
+      # 需要的是 Messaging API 的 channel access token（不是已停用的 LINE Notify），
+      # 申請方式：LINE Developers Console 建立 Messaging API channel 後在
+      # 「Messaging API」頁籤取得長效 token；LINE_USER_ID 是你自己的 LINE 使用者ID。
+      LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+      LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
     steps:
       - uses: actions/checkout@v4
 

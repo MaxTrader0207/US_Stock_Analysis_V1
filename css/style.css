@@ -266,4 +266,41 @@ main{
 .score-value.score-high{ color: var(--accent-green); }
 .score-value.score-mid{ color: var(--accent-amber); }
 .score-value.score-low{ color: var(--accent-red); }
+.status-note{
+  font-family:var(--font-mono); font-size:9.5px; color:var(--text-dim);
+  margin-top:6px; text-align:center;
+}
+.status-note-warn{ color: var(--accent-amber); }
+
+/* ---------- 搜尋框（依代號/名稱過濾卡片列表） ---------- */
+.search-box-wrap{ padding: 8px 14px 2px; }
+.search-box{
+  position:relative;
+  display:flex; align-items:center;
+}
+.search-box input{
+  width:100%;
+  background: var(--bg-panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:9px 34px 9px 12px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size:13px;
+  outline:none;
+}
+.search-box input::placeholder{ color: var(--text-dim); }
+.search-box input:focus{ border-color: var(--accent-green); }
+.search-box .clear-btn{
+  position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  width:20px; height:20px; border-radius:50%;
+  background: var(--border); color: var(--text-dim);
+  border:none; font-size:12px; line-height:1; cursor:pointer;
+  display:none; align-items:center; justify-content:center;
+}
+.search-box.has-value .clear-btn{ display:flex; }
+.search-result-count{
+  font-family: var(--font-mono); font-size:10.5px; color: var(--text-dim);
+  padding: 4px 14px 0;
+}
 

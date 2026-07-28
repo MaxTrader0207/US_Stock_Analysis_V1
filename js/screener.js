@@ -13,6 +13,43 @@
 
   let conditionSets = [];
   let activeIdx = 0;
+  let searchTerm = "";
+
+  // 搜尋框是用 JS 動態插入的（不需要改 HTML），插在 tabs 跟條件說明中間
+  const searchWrap = document.createElement("div");
+  searchWrap.className = "search-box-wrap";
+  searchWrap.innerHTML = `
+    <div class="search-box">
+      <input type="text" id="stock-search-input" placeholder="搜尋代號或公司名稱..." autocomplete="off" />
+      <button type="button" class="clear-btn" aria-label="清除搜尋">✕</button>
+    </div>
+    <div class="search-result-count" id="stock-search-count"></div>
+  `;
+  tabsEl.insertAdjacentElement("afterend", searchWrap);
+  const searchInput = searchWrap.querySelector("input");
+  const searchBoxEl = searchWrap.querySelector(".search-box");
+  const clearBtn = searchWrap.querySelector(".clear-btn");
+  const searchCountEl = searchWrap.querySelector("#stock-search-count");
+
+  searchInput.addEventListener("input", () => {
+    searchTerm = searchInput.value.trim().toUpperCase();
+    searchBoxEl.classList.toggle("has-value", searchTerm.length > 0);
+    renderList();
+  });
+  clearBtn.addEventListener("click", () => {
+    searchInput.value = "";
+    searchTerm = "";
+    searchBoxEl.classList.remove("has-value");
+    renderList();
+    searchInput.focus();
+  });
+
+  function matchesSearch(s) {
+    if (!searchTerm) return true;
+    const sym = (s.symbol || "").toUpperCase();
+    const name = (s.name || "").toUpperCase();
+    return sym.includes(searchTerm) || name.includes(searchTerm);
+  }
 
   function fmtPct(p) {
     const v = p || 0;
@@ -35,7 +72,16 @@
     descEl.textContent = cs.description || "";
     listEl.innerHTML = "";
 
-    if (!cs.results || !cs.results.length) {
+    const allResults = cs.results || [];
+    const results = allResults.filter(matchesSearch);
+
+    if (searchTerm) {
+      searchCountEl.textContent = `符合「${searchInput.value.trim()}」：${results.length} / ${allResults.length} 檔`;
+    } else {
+      searchCountEl.textContent = "";
+    }
+
+    if (!allResults.length) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
       empty.innerHTML = `<strong>${cs.status === "coming-soon" ? "規劃中" : "目前無符合標的"}</strong>${cs.status === "coming-soon" ? "此組選股條件尚在開發，敬請期待。" : "今日沒有股票符合此篩選條件。"}`;
@@ -43,7 +89,15 @@
       return;
     }
 
-    cs.results.forEach((s, i) => {
+    if (!results.length) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.innerHTML = `<strong>找不到符合的股票</strong>試試其他代號或公司名稱關鍵字。`;
+      listEl.appendChild(empty);
+      return;
+    }
+
+    results.forEach((s, i) => {
       const card = document.createElement("div");
       card.className = "stock-card";
       const fmt = v => v != null ? v.toFixed(2) : "—";
@@ -81,6 +135,16 @@
       const scoreRow = total != null
         ? `<div class="score-row"><span class="score-value ${scoreTierCls}">${total}</span><span class="score-max">/100</span></div>`
         : `<div class="score-row"><span class="score-value">—</span></div>`;
+      // totalScore是null時，區分「本來就沒排進分析名單」跟「有排進去但AI分析失敗」，
+      // 不然使用者看到的都只是一個「—」，分不出來是正常還是壞掉，容易誤以為故障來詢問
+      let statusNote = "";
+      if (total == null) {
+        if (s.analysisStatus === "not_targeted") {
+          statusNote = `<div class="status-note">未進入分析名單（僅前段排名股票會有AI健檢）</div>`;
+        } else if (s.analysisStatus === "failed") {
+          statusNote = `<div class="status-note status-note-warn">AI分析暫時失敗，下次更新會再嘗試</div>`;
+        }
+      }
 
       card.innerHTML = `
         <span class="rank">${i + 1}</span>
@@ -112,6 +176,7 @@
           <div class="sec-title">C. 健檢分數</div>
           ${overallComment}
           ${scoreRow}
+          ${statusNote}
         </div>`;
       listEl.appendChild(card);
     });

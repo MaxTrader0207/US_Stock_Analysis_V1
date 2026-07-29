@@ -59,6 +59,12 @@ UNIVERSE_NOTE = "母體：道瓊工業平均(30檔) + S&P 500依權重前71檔 +
 
 FUNDAMENTALS_GEMINI_TOP_N = int(os.environ.get("FUNDAMENTALS_GEMINI_TOP_N") or 5)
 
+# AI特選股：整合「強勢股選股」與「基本面選股」兩邊已完成健檢分析的股票，
+# 依總分排序取前 N 名（超過N檔只取前N檔）
+AI_PICKS_TOP_N = int(os.environ.get("AI_PICKS_TOP_N") or 10)
+AI_PICKS_PATH = "data/ai_picks.json"
+SCREENER_JSON_PATH = "data/screener.json"
+
 
 def latest_quarter_revenue_and_margin(qfin):
     """近一季營收、毛利率。qfin 是 fetch_ticker_bundle 已經抓好的季報，不需要額外打API。"""
@@ -478,6 +484,59 @@ def compute_ttm_revenue(bundle):
     return None
 
 
+def build_ai_picks(fundamentals_results):
+    """整合「強勢股選股」與「基本面選股」兩邊已經完成健檢分析的股票，
+    依總分(totalScore)由高到低排序，取前 AI_PICKS_TOP_N 名（超過N檔只取前N檔），
+    寫成 data/ai_picks.json 給「AI特選股」頁籤讀取。
+
+    這個函式故意放在 fetch_fundamentals.py（而不是獨立腳本或第三個 workflow step），
+    因為它依賴 fetch_screener.py 先跑完寫好的 data/screener.json——workflow 裡兩個
+    腳本本來就是循序執行（screener先、fundamentals後），這裡直接讀取前一步驟留下的
+    檔案，不需要額外的網路請求。
+
+    同一檔股票可能同時出現在強勢股選股跟基本面選股裡，但因為兩邊共用同一份
+    data/gemini_cache.json，分析結果一定相同，用 symbol 去重即可，不用比較兩邊
+    分數挑一個——它們本來就是同一份分析結果。
+    """
+    all_entries = {}
+
+    try:
+        if os.path.exists(SCREENER_JSON_PATH):
+            with open(SCREENER_JSON_PATH, "r", encoding="utf-8") as f:
+                screener_data = json.load(f)
+            for cs in screener_data.get("conditionSets", []):
+                for entry in cs.get("results", []):
+                    if entry.get("totalScore") is not None:
+                        all_entries[entry["symbol"]] = entry
+        else:
+            print(f"[warn] 找不到 {SCREENER_JSON_PATH}，AI特選股這次只會包含基本面選股的結果", file=sys.stderr)
+    except Exception as e:
+        print(f"[warn] 讀取 {SCREENER_JSON_PATH} 失敗：{e}，AI特選股這次只會包含基本面選股的結果", file=sys.stderr)
+
+    for key, entries in fundamentals_results.items():
+        for entry in entries:
+            if entry.get("totalScore") is not None:
+                all_entries[entry["symbol"]] = entry
+
+    ranked = sorted(all_entries.values(), key=lambda r: r["totalScore"], reverse=True)
+    top_picks = ranked[:AI_PICKS_TOP_N]
+
+    out = {
+        "updated": datetime.now(timezone.utc).isoformat(),
+        "description": (
+            f"綜合「強勢股選股」與「基本面選股」兩邊已完成AI健檢分析的股票，"
+            f"依健檢總分由高到低排序，最多顯示前{AI_PICKS_TOP_N}名。"
+        ),
+        "results": top_picks,
+    }
+    with open(AI_PICKS_PATH, "w", encoding="utf-8") as f:
+        json.dump(out, f, ensure_ascii=False, indent=2, allow_nan=False)
+    print(
+        f"[info] AI特選股：整合 {len(all_entries)} 檔已分析股票，取前 {len(top_picks)} 名寫入 {AI_PICKS_PATH}",
+        file=sys.stderr,
+    )
+
+
 def _fetch_one_bundle(symbol):
     return fetch_ticker_bundle(symbol)
 
@@ -622,6 +681,8 @@ def main():
         # log 顯示成功、實際上網頁整頁壞掉，非常難排查，寧可讓它在這裡就直接爆炸。
         json.dump(out, f, ensure_ascii=False, indent=2, allow_nan=False)
     print("Wrote data/fundamentals.json")
+
+    build_ai_picks(results)
 
 
 if __name__ == "__main__":

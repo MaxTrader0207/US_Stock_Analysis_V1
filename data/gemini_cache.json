@@ -345,6 +345,22 @@
       "technicalScore": 15,
       "overallComment": "公司獲利體質極佳，但技術面轉弱，建議優先布局於股價回穩、量能築底後的右側交易機會。",
       "totalScore": 63
+    },
+    "DDOG": {
+      "fundamentalComment": "獲利能力較弱，ROE僅3.93%且本益比極高，估值過熱風險顯著，基本面支撐力道偏弱。",
+      "fundamentalScore": 15,
+      "technicalComment": "均線呈現多頭排列且向上發散，短線乖離率處於健康區間，技術面動能強勁。",
+      "technicalScore": 45,
+      "overallComment": "技術面處於強勢多頭格局，但基本面估值過高，操作建議追價風險較大，宜嚴設停損。",
+      "totalScore": 60
+    },
+    "NFLX": {
+      "fundamentalComment": "獲利能力極強，ROE高達49.54%展現高資本回報效率，EPS表現穩健，本益比合理，成長動能充沛。",
+      "fundamentalScore": 45,
+      "technicalComment": "股價雖站上30MA但長線均線全數下彎呈空頭排列，顯示中期修正壓力仍存，技術結構尚未轉強。",
+      "technicalScore": 20,
+      "overallComment": "基本面數據極為亮眼，唯技術面均線空頭結構限制了短期表現，建議靜待均線走平或轉折向上後的佈局時機。",
+      "totalScore": 65
     }
   }
 }

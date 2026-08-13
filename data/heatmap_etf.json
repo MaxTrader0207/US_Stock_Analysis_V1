@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-12T23:57:19.328731+00:00",
+  "updated": "2026-08-13T07:51:12.563478+00:00",
   "sectors": [
     {
       "name": "Broad Market",
@@ -9,35 +9,35 @@
           "name": "SPY",
           "price": 772.49,
           "changePercent": 0.25,
-          "marketCap": 32.77
+          "marketCap": 33.1
         },
         {
           "symbol": "QQQ",
           "name": "QQQ",
           "price": 723.7,
           "changePercent": 0.73,
-          "marketCap": 28.77
+          "marketCap": 28.93
         },
         {
           "symbol": "DIA",
           "name": "DIA",
           "price": 537.15,
           "changePercent": -0.02,
-          "marketCap": 2.89
+          "marketCap": 3.17
         },
         {
           "symbol": "IWM",
           "name": "IWM",
           "price": 302.71,
           "changePercent": 0.57,
-          "marketCap": 15.4
+          "marketCap": 15.46
         },
         {
           "symbol": "VTI",
           "name": "VTI",
           "price": 381.83,
           "changePercent": 0.31,
-          "marketCap": 2.62
+          "marketCap": 2.79
         }
       ]
     },
@@ -49,42 +49,42 @@
           "name": "XLK",
           "price": 188.86,
           "changePercent": 1.49,
-          "marketCap": 5.72
+          "marketCap": 5.88
         },
         {
           "symbol": "XLF",
           "name": "XLF",
           "price": 57.92,
           "changePercent": 0.21,
-          "marketCap": 17.98
+          "marketCap": 18.52
         },
         {
           "symbol": "XLE",
           "name": "XLE",
           "price": 61.03,
           "changePercent": 0.16,
-          "marketCap": 22.36
+          "marketCap": 22.58
         },
         {
           "symbol": "XLV",
           "name": "XLV",
           "price": 168.44,
           "changePercent": 0.26,
-          "marketCap": 7.13
+          "marketCap": 7.14
         },
         {
           "symbol": "XLY",
           "name": "XLY",
           "price": 117.89,
           "changePercent": -1.13,
-          "marketCap": 4.43
+          "marketCap": 4.48
         },
         {
           "symbol": "XLI",
           "name": "XLI",
           "price": 185.88,
           "changePercent": 0.1,
-          "marketCap": 4.01
+          "marketCap": 4.05
         }
       ]
     },
@@ -96,14 +96,14 @@
           "name": "TLT",
           "price": 82.11,
           "changePercent": -0.1,
-          "marketCap": 21.24
+          "marketCap": 21.42
         },
         {
           "symbol": "AGG",
           "name": "AGG",
           "price": 97.43,
           "changePercent": 0.11,
-          "marketCap": 5.61
+          "marketCap": 5.97
         },
         {
           "symbol": "LQD",
@@ -117,7 +117,7 @@
           "name": "HYG",
           "price": 79.61,
           "changePercent": 0.13,
-          "marketCap": 25.18
+          "marketCap": 25.24
         }
       ]
     },
@@ -129,21 +129,21 @@
           "name": "GLD",
           "price": 404.92,
           "changePercent": 0.99,
-          "marketCap": 10.18
+          "marketCap": 10.37
         },
         {
           "symbol": "SLV",
           "name": "SLV",
           "price": 59.06,
           "changePercent": 0.87,
-          "marketCap": 18.4
+          "marketCap": 18.49
         },
         {
           "symbol": "USO",
           "name": "USO",
           "price": 127.3,
           "changePercent": -0.24,
-          "marketCap": 3.52
+          "marketCap": 3.59
         }
       ]
     },
@@ -155,21 +155,21 @@
           "name": "EFA",
           "price": 108.5,
           "changePercent": 0.38,
-          "marketCap": 8.96
+          "marketCap": 9.9
         },
         {
           "symbol": "EEM",
           "name": "EEM",
           "price": 66.46,
           "changePercent": 1.57,
-          "marketCap": 19.87
+          "marketCap": 20.26
         },
         {
           "symbol": "FXI",
           "name": "FXI",
           "price": 35.23,
           "changePercent": -1.21,
-          "marketCap": 20.47
+          "marketCap": 20.48
         }
       ]
     }

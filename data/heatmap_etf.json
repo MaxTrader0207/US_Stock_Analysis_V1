@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-14T23:35:51.813558+00:00",
+  "updated": "2026-08-17T07:15:11.141569+00:00",
   "sectors": [
     {
       "name": "Broad Market",
@@ -9,28 +9,28 @@
           "name": "SPY",
           "price": 776.34,
           "changePercent": -0.2,
-          "marketCap": 29.94
+          "marketCap": 31.33
         },
         {
           "symbol": "QQQ",
           "name": "QQQ",
           "price": 731.07,
           "changePercent": -0.14,
-          "marketCap": 23.49
+          "marketCap": 23.75
         },
         {
           "symbol": "DIA",
           "name": "DIA",
           "price": 536.8,
           "changePercent": -0.21,
-          "marketCap": 1.98
+          "marketCap": 2.09
         },
         {
           "symbol": "IWM",
           "name": "IWM",
           "price": 305.09,
           "changePercent": 0.52,
-          "marketCap": 12.84
+          "marketCap": 13.15
         },
         {
           "symbol": "VTI",
@@ -49,42 +49,42 @@
           "name": "XLK",
           "price": 190.01,
           "changePercent": -0.4,
-          "marketCap": 3.54
+          "marketCap": 3.63
         },
         {
           "symbol": "XLF",
           "name": "XLF",
           "price": 58.16,
           "changePercent": -0.17,
-          "marketCap": 27.29
+          "marketCap": 28.13
         },
         {
           "symbol": "XLE",
           "name": "XLE",
           "price": 61.91,
           "changePercent": 1.39,
-          "marketCap": 22.74
+          "marketCap": 22.76
         },
         {
           "symbol": "XLV",
           "name": "XLV",
           "price": 167.37,
           "changePercent": -0.6,
-          "marketCap": 5.0
+          "marketCap": 5.02
         },
         {
           "symbol": "XLY",
           "name": "XLY",
           "price": 118.2,
           "changePercent": -0.21,
-          "marketCap": 3.83
+          "marketCap": 3.84
         },
         {
           "symbol": "XLI",
           "name": "XLI",
           "price": 186.51,
           "changePercent": 0.39,
-          "marketCap": 3.54
+          "marketCap": 3.59
         }
       ]
     },
@@ -96,28 +96,28 @@
           "name": "TLT",
           "price": 82.04,
           "changePercent": -0.67,
-          "marketCap": 30.4
+          "marketCap": 31.36
         },
         {
           "symbol": "AGG",
           "name": "AGG",
           "price": 97.48,
           "changePercent": -0.21,
-          "marketCap": 5.72
+          "marketCap": 7.18
         },
         {
           "symbol": "LQD",
           "name": "LQD",
           "price": 106.12,
           "changePercent": -0.4,
-          "marketCap": 29.49
+          "marketCap": 29.53
         },
         {
           "symbol": "HYG",
           "name": "HYG",
           "price": 79.71,
           "changePercent": -0.1,
-          "marketCap": 26.15
+          "marketCap": 26.61
         }
       ]
     },
@@ -129,21 +129,21 @@
           "name": "GLD",
           "price": 401.48,
           "changePercent": 0.63,
-          "marketCap": 6.16
+          "marketCap": 6.74
         },
         {
           "symbol": "SLV",
           "name": "SLV",
           "price": 58.48,
           "changePercent": 0.55,
-          "marketCap": 10.21
+          "marketCap": 10.26
         },
         {
           "symbol": "USO",
           "name": "USO",
           "price": 126.6,
           "changePercent": 1.26,
-          "marketCap": 3.82
+          "marketCap": 3.83
         }
       ]
     },
@@ -155,21 +155,21 @@
           "name": "EFA",
           "price": 108.64,
           "changePercent": -0.05,
-          "marketCap": 5.31
+          "marketCap": 5.66
         },
         {
           "symbol": "EEM",
           "name": "EEM",
           "price": 66.61,
           "changePercent": -0.1,
-          "marketCap": 11.41
+          "marketCap": 11.96
         },
         {
           "symbol": "FXI",
           "name": "FXI",
           "price": 34.89,
           "changePercent": 0.09,
-          "marketCap": 10.96
+          "marketCap": 11.08
         }
       ]
     }

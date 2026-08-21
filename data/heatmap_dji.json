@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-20T23:39:01.856863+00:00",
+  "updated": "2026-08-21T07:05:36.758832+00:00",
   "sectors": [
     {
       "name": "Technology",
@@ -9,7 +9,7 @@
           "name": "AAPL",
           "price": 311.3,
           "changePercent": -1.75,
-          "marketCap": 40.89
+          "marketCap": 40.9
         },
         {
           "symbol": "CSCO",
@@ -29,15 +29,15 @@
           "symbol": "MSFT",
           "name": "MSFT",
           "price": 481.15,
-          "changePercent": -0.65,
-          "marketCap": 20.0
+          "changePercent": -0.47,
+          "marketCap": 20.01
         },
         {
           "symbol": "NVDA",
           "name": "NVDA",
           "price": 216.85,
           "changePercent": -0.33,
-          "marketCap": 92.25
+          "marketCap": 92.28
         },
         {
           "symbol": "CRM",
@@ -70,7 +70,7 @@
           "name": "JPM",
           "price": 351.55,
           "changePercent": -1.6,
-          "marketCap": 6.79
+          "marketCap": 6.8
         },
         {
           "symbol": "TRV",
@@ -129,7 +129,7 @@
           "name": "AMZN",
           "price": 260.11,
           "changePercent": -2.16,
-          "marketCap": 28.29
+          "marketCap": 28.3
         },
         {
           "symbol": "HD",
@@ -150,7 +150,7 @@
           "name": "NKE",
           "price": 40.21,
           "changePercent": -2.05,
-          "marketCap": 16.63
+          "marketCap": 16.65
         }
       ]
     },
@@ -228,7 +228,7 @@
           "name": "WMT",
           "price": 103.84,
           "changePercent": -9.15,
-          "marketCap": 83.47
+          "marketCap": 83.49
         }
       ]
     },

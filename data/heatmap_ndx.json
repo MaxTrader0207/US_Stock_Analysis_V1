@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-20T23:39:10.625590+00:00",
+  "updated": "2026-08-21T07:05:42.616676+00:00",
   "sectors": [
     {
       "name": "Technology",
@@ -9,21 +9,21 @@
           "name": "AAPL",
           "price": 311.3,
           "changePercent": -1.75,
-          "marketCap": 40.89
+          "marketCap": 40.9
         },
         {
           "symbol": "MSFT",
           "name": "MSFT",
           "price": 481.15,
-          "changePercent": -0.65,
-          "marketCap": 20.0
+          "changePercent": -0.47,
+          "marketCap": 20.01
         },
         {
           "symbol": "NVDA",
           "name": "NVDA",
           "price": 216.85,
           "changePercent": -0.33,
-          "marketCap": 92.25
+          "marketCap": 92.28
         },
         {
           "symbol": "AVGO",
@@ -35,9 +35,9 @@
         {
           "symbol": "AMD",
           "name": "AMD",
-          "price": 469.45,
+          "price": 469.46,
           "changePercent": 0.65,
-          "marketCap": 15.14
+          "marketCap": 15.15
         },
         {
           "symbol": "ASML",
@@ -50,8 +50,8 @@
           "symbol": "AMAT",
           "name": "AMAT",
           "price": 496.21,
-          "changePercent": 0.01,
-          "marketCap": 6.59
+          "changePercent": 0.11,
+          "marketCap": 6.6
         },
         {
           "symbol": "QCOM",
@@ -79,7 +79,7 @@
           "name": "MU",
           "price": 974.33,
           "changePercent": 3.97,
-          "marketCap": 25.02
+          "marketCap": 25.05
         },
         {
           "symbol": "ARM",
@@ -203,7 +203,7 @@
           "name": "NFLX",
           "price": 80.14,
           "changePercent": -0.1,
-          "marketCap": 27.08
+          "marketCap": 27.09
         }
       ]
     },
@@ -215,14 +215,14 @@
           "name": "AMZN",
           "price": 260.11,
           "changePercent": -2.16,
-          "marketCap": 28.29
+          "marketCap": 28.3
         },
         {
           "symbol": "TSLA",
           "name": "TSLA",
           "price": 345.13,
           "changePercent": -1.71,
-          "marketCap": 30.69
+          "marketCap": 30.7
         },
         {
           "symbol": "COST",
@@ -263,7 +263,7 @@
           "symbol": "MAR",
           "name": "MAR",
           "price": 356.6,
-          "changePercent": -0.93,
+          "changePercent": -0.73,
           "marketCap": 1.86
         },
         {
@@ -332,7 +332,7 @@
           "name": "MRNA",
           "price": 133.32,
           "changePercent": -23.55,
-          "marketCap": 99.12
+          "marketCap": 99.11
         },
         {
           "symbol": "AZN",

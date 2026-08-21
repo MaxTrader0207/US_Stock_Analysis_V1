@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-20T23:39:23.263111+00:00",
+  "updated": "2026-08-21T07:05:51.340686+00:00",
   "sectors": [
     {
       "name": "Broad Market",
@@ -9,35 +9,35 @@
           "name": "SPY",
           "price": 762.6,
           "changePercent": -0.84,
-          "marketCap": 45.43
+          "marketCap": 45.48
         },
         {
           "symbol": "QQQ",
           "name": "QQQ",
           "price": 710.93,
           "changePercent": -0.72,
-          "marketCap": 33.27
+          "marketCap": 33.31
         },
         {
           "symbol": "DIA",
           "name": "DIA",
           "price": 527.51,
           "changePercent": -1.27,
-          "marketCap": 2.86
+          "marketCap": 2.87
         },
         {
           "symbol": "IWM",
           "name": "IWM",
           "price": 297.67,
           "changePercent": -1.34,
-          "marketCap": 21.55
+          "marketCap": 21.6
         },
         {
           "symbol": "VTI",
           "name": "VTI",
           "price": 376.58,
           "changePercent": -0.9,
-          "marketCap": 3.42
+          "marketCap": 3.43
         }
       ]
     },
@@ -56,7 +56,7 @@
           "name": "XLF",
           "price": 56.95,
           "changePercent": -0.92,
-          "marketCap": 30.68
+          "marketCap": 30.7
         },
         {
           "symbol": "XLE",
@@ -117,7 +117,7 @@
           "name": "HYG",
           "price": 79.56,
           "changePercent": -0.19,
-          "marketCap": 41.68
+          "marketCap": 41.76
         }
       ]
     },
@@ -129,14 +129,14 @@
           "name": "GLD",
           "price": 415.26,
           "changePercent": 0.34,
-          "marketCap": 13.84
+          "marketCap": 13.86
         },
         {
           "symbol": "SLV",
           "name": "SLV",
           "price": 61.66,
           "changePercent": 2.75,
-          "marketCap": 24.05
+          "marketCap": 24.07
         },
         {
           "symbol": "USO",
@@ -169,7 +169,7 @@
           "name": "FXI",
           "price": 35.67,
           "changePercent": -0.03,
-          "marketCap": 17.52
+          "marketCap": 17.61
         }
       ]
     }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-25T23:36:56.702138+00:00",
+  "updated": "2026-08-26T07:07:28.445352+00:00",
   "sectors": [
     {
       "name": "Technology",
@@ -9,70 +9,70 @@
           "name": "AAPL",
           "price": 309.9,
           "changePercent": -0.14,
-          "marketCap": 25.67
+          "marketCap": 25.84
         },
         {
           "symbol": "MSFT",
           "name": "MSFT",
           "price": 491.71,
           "changePercent": 0.9,
-          "marketCap": 19.14
+          "marketCap": 19.5
         },
         {
           "symbol": "NVDA",
           "name": "NVDA",
           "price": 213.05,
           "changePercent": 2.19,
-          "marketCap": 120.44
+          "marketCap": 121.72
         },
         {
           "symbol": "AVGO",
           "name": "AVGO",
           "price": 356.74,
           "changePercent": -0.56,
-          "marketCap": 17.93
+          "marketCap": 17.98
         },
         {
           "symbol": "ORCL",
           "name": "ORCL",
           "price": 144.76,
           "changePercent": 1.62,
-          "marketCap": 13.25
+          "marketCap": 13.28
         },
         {
           "symbol": "CRM",
           "name": "CRM",
           "price": 205.69,
           "changePercent": -1.61,
-          "marketCap": 10.07
+          "marketCap": 10.08
         },
         {
           "symbol": "ADBE",
           "name": "ADBE",
           "price": 273.92,
           "changePercent": -0.85,
-          "marketCap": 3.13
+          "marketCap": 3.14
         },
         {
           "symbol": "AMD",
           "name": "AMD",
           "price": 479.18,
           "changePercent": 4.91,
-          "marketCap": 18.91
+          "marketCap": 18.95
         },
         {
           "symbol": "CSCO",
           "name": "CSCO",
           "price": 111.11,
           "changePercent": 0.8,
-          "marketCap": 11.81
+          "marketCap": 11.82
         },
         {
           "symbol": "IBM",
           "name": "IBM",
           "price": 234.19,
           "changePercent": 1.36,
-          "marketCap": 3.01
+          "marketCap": 3.02
         }
       ]
     },
@@ -84,28 +84,28 @@
           "name": "GOOGL",
           "price": 346.96,
           "changePercent": -0.32,
-          "marketCap": 20.6
+          "marketCap": 20.62
         },
         {
           "symbol": "META",
           "name": "META",
           "price": 570.05,
           "changePercent": 1.97,
-          "marketCap": 9.72
+          "marketCap": 9.75
         },
         {
           "symbol": "NFLX",
           "name": "NFLX",
           "price": 82.23,
           "changePercent": 2.77,
-          "marketCap": 29.38
+          "marketCap": 29.41
         },
         {
           "symbol": "TMUS",
           "name": "TMUS",
           "price": 181.61,
           "changePercent": -0.55,
-          "marketCap": 3.21
+          "marketCap": 3.27
         },
         {
           "symbol": "DIS",
@@ -131,21 +131,21 @@
           "name": "AMZN",
           "price": 261.06,
           "changePercent": -0.39,
-          "marketCap": 25.45
+          "marketCap": 25.5
         },
         {
           "symbol": "TSLA",
           "name": "TSLA",
           "price": 350.25,
           "changePercent": 0.37,
-          "marketCap": 29.72
+          "marketCap": 29.77
         },
         {
           "symbol": "HD",
           "name": "HD",
           "price": 337.88,
           "changePercent": 0.13,
-          "marketCap": 2.37
+          "marketCap": 2.53
         },
         {
           "symbol": "MCD",
@@ -159,21 +159,21 @@
           "name": "NKE",
           "price": 39.48,
           "changePercent": -3.12,
-          "marketCap": 41.42
+          "marketCap": 41.45
         },
         {
           "symbol": "SBUX",
           "name": "SBUX",
           "price": 105.76,
           "changePercent": -1.61,
-          "marketCap": 5.78
+          "marketCap": 5.79
         },
         {
           "symbol": "LOW",
           "name": "LOW",
           "price": 214.6,
           "changePercent": -1.1,
-          "marketCap": 1.94
+          "marketCap": 1.99
         },
         {
           "symbol": "TJX",
@@ -199,14 +199,14 @@
           "name": "JPM",
           "price": 356.69,
           "changePercent": 0.08,
-          "marketCap": 4.15
+          "marketCap": 4.3
         },
         {
           "symbol": "V",
           "name": "V",
           "price": 384.14,
           "changePercent": 0.45,
-          "marketCap": 6.77
+          "marketCap": 6.78
         },
         {
           "symbol": "MA",
@@ -220,7 +220,7 @@
           "name": "BAC",
           "price": 62.43,
           "changePercent": 0.16,
-          "marketCap": 23.38
+          "marketCap": 23.39
         },
         {
           "symbol": "WFC",
@@ -234,7 +234,7 @@
           "name": "GS",
           "price": 1058.88,
           "changePercent": 2.18,
-          "marketCap": 2.3
+          "marketCap": 2.5
         },
         {
           "symbol": "MS",
@@ -253,7 +253,7 @@
           "name": "LLY",
           "price": 1233.66,
           "changePercent": -1.06,
-          "marketCap": 2.13
+          "marketCap": 2.14
         },
         {
           "symbol": "UNH",
@@ -266,8 +266,8 @@
           "symbol": "JNJ",
           "name": "JNJ",
           "price": 273.14,
-          "changePercent": 0.04,
-          "marketCap": 4.09
+          "changePercent": 0.53,
+          "marketCap": 4.69
         },
         {
           "symbol": "ABBV",
@@ -281,14 +281,14 @@
           "name": "MRK",
           "price": 156.45,
           "changePercent": 3.84,
-          "marketCap": 13.9
+          "marketCap": 13.99
         },
         {
           "symbol": "PFE",
           "name": "PFE",
           "price": 28.57,
           "changePercent": 2.15,
-          "marketCap": 31.84
+          "marketCap": 31.88
         },
         {
           "symbol": "TMO",
@@ -307,14 +307,14 @@
           "name": "XOM",
           "price": 160.64,
           "changePercent": -2.08,
-          "marketCap": 17.26
+          "marketCap": 17.51
         },
         {
           "symbol": "CVX",
           "name": "CVX",
           "price": 199.89,
           "changePercent": -1.58,
-          "marketCap": 7.54
+          "marketCap": 8.17
         },
         {
           "symbol": "COP",
@@ -328,7 +328,7 @@
           "name": "SLB",
           "price": 53.29,
           "changePercent": -1.31,
-          "marketCap": 10.69
+          "marketCap": 10.71
         }
       ]
     },
@@ -361,7 +361,7 @@
           "name": "HON",
           "price": 215.68,
           "changePercent": 0.42,
-          "marketCap": 2.16
+          "marketCap": 2.27
         },
         {
           "symbol": "UPS",
@@ -375,7 +375,7 @@
           "name": "RTX",
           "price": 210.28,
           "changePercent": 0.51,
-          "marketCap": 4.84
+          "marketCap": 4.89
         }
       ]
     }

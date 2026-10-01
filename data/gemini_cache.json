@@ -1,221 +1,191 @@
 {
-  "date": "2026-09-30",
+  "date": "2026-10-01",
   "entries": {
-    "META": {
-      "fundamentalComment": "獲利能力極佳，ROE近30%且EPS表現強勁，本益比合理，具備極高成長動能與穩健財務體質。",
-      "fundamentalScore": 46,
-      "technicalComment": "均線呈強勢多頭排列，惟乖離率逾15%暗示短線技術性過熱，需留意回檔風險。",
-      "technicalScore": 42,
-      "overallComment": "基本面強勢支撐中長期多頭格局，技術面雖短線過熱，但趨勢明確，建議待修正乖離後分批佈局。",
-      "totalScore": 88
-    },
-    "CRWD": {
-      "fundamentalComment": "獲利能力極低，EPS與ROE表現偏弱，本益比因虧損邊緣而極度失真，基本面缺乏支撐。",
-      "fundamentalScore": 15,
-      "technicalComment": "均線呈多頭排列且強勢上揚，惟乖離率過高顯示短線漲幅已大，存在回檔修正壓力。",
-      "technicalScore": 40,
-      "overallComment": "技術面雖處強勢多頭趨勢，但基本面獲利能力薄弱且估值過高，操作上須提防短線乖離修正風險。",
-      "totalScore": 55
-    },
-    "TSM": {
-      "fundamentalComment": "獲利能力極強，ROE逼近40%且毛利率高檔，雖本益比偏高，但成長動能穩健，基本面表現優異。",
-      "fundamentalScore": 42,
-      "technicalComment": "均線呈現標準多頭排列，各期均線皆向上揚升，乖離率適中，技術指標顯現強勢格局。",
-      "technicalScore": 48,
-      "overallComment": "台積電基本面營運強勁且具護城河，搭配技術面多頭排列，整體強勢，適合長線投資與波段布局。",
-      "totalScore": 90
-    },
-    "SWKS": {
-      "fundamentalComment": "獲利能力較弱且ROE僅5.09%，本益比偏高達45倍，雖有殖利率支撐，但整體基本面表現疲軟。",
-      "fundamentalScore": 15,
-      "technicalComment": "均線呈多頭排列且持續上揚，短線乖離率略高但處於強勢多頭格局，走勢相當穩健。",
-      "technicalScore": 42,
-      "overallComment": "技術面處於強勢多頭，但基本面獲利成長疲弱且估值偏高，建議留意追價風險，待修正後再布局。",
+    "SNPS": {
+      "fundamentalComment": "獲利表現平穩但ROE僅3.66%偏低，且本益比高達75倍，評價面略顯過熱，需留意未來獲利成長能否支撐高估值。",
+      "fundamentalScore": 22,
+      "technicalComment": "股價站上三條均線，短期趨勢強勢，惟中長期均線呈現下彎，需持續觀察後續能否有效扭轉均線走勢並穩住支撐。",
+      "technicalScore": 35,
+      "overallComment": "技術面出現短多訊號，但基本面評價偏高且ROE表現一般，建議投資人分批佈局，並嚴設停損以因應高估值帶來的波動風險。",
       "totalScore": 57
     },
-    "MRK": {
-      "fundamentalComment": "獲利能力相對疲弱，ROE低於10%且EPS偏低，導致本益比過高，估值呈現失真狀態，基本面表現平淡。",
+    "PANW": {
+      "fundamentalComment": "獲利能力偏弱，ROE僅1.74%，本益比高達993倍且EPS過低，基本面估值過高，缺乏獲利支撐。",
       "fundamentalScore": 15,
-      "technicalComment": "股價穩守多條重要均線，且30/60/100MA均呈上揚排列，技術形態健康，無過熱跡象，動能趨勢強勁。",
-      "technicalScore": 45,
-      "overallComment": "技術面展現強勢多頭格局，然基本面獲利能力亟待改善，估值偏高需審慎評估，操作上建議以技術支撐為防守點。",
-      "totalScore": 60
+      "technicalComment": "股價站上三條關鍵均線並呈多頭排列，技術指標強勢，惟乖離率近一成，短線留意回檔風險。",
+      "technicalScore": 42,
+      "overallComment": "技術面雖維持強勢多頭格局，但基本面獲利能力極低且估值過高，風險報酬比不佳，建議審慎操作。",
+      "totalScore": 57
     },
-    "QRVO": {
-      "fundamentalComment": "獲利表現穩定且毛利率優異，ROE處於中段水準，本益比合理，整體財務體質健康。",
-      "fundamentalScore": 35,
-      "technicalComment": "均線呈現強勢多頭排列且持續上揚，乖離率適中，技術面走勢相當強勁。",
-      "technicalScore": 45,
-      "overallComment": "基本面穩健支撐股價，技術面多頭格局確立，後市展望正向，建議持續關注。",
-      "totalScore": 80
-    },
-    "TMO": {
-      "fundamentalComment": "EPS表現穩定且毛利率優異，ROE處於中等水平，惟目前本益比偏高，評價面稍顯昂貴。",
-      "fundamentalScore": 35,
-      "technicalComment": "均線呈現標準多頭排列且向上揚升，乖離率適中，短線走勢穩健且強勢，處於健康多頭格局。",
+    "AAPL": {
+      "fundamentalComment": "獲利能力極強且ROE表現卓越，惟本益比處於相對高檔，估值溢價壓力稍大，整體基本面穩健。",
+      "fundamentalScore": 38,
+      "technicalComment": "股價站上所有主要均線，且三線呈現多頭排列，技術面結構強勢，乖離率適中無過熱風險。",
       "technicalScore": 48,
-      "overallComment": "基本面質地優良但估值偏高，技術面具備強勁多頭趨勢，建議逢回布局以降低持有成本。",
-      "totalScore": 83
-    },
-    "MSFT": {
-      "fundamentalComment": "獲利能力極強，ROE高達34%展現優秀資本效率，EPS穩定且本益比合理，屬穩健成長型優質標的。",
-      "fundamentalScore": 45,
-      "technicalComment": "均線呈現完美多頭排列且向上發散，乖離率適中未過熱，盤勢強勁且多頭趨勢確立，技術結構扎實。",
-      "technicalScore": 48,
-      "overallComment": "微軟財務績效卓越且技術面強勢站穩多頭趨勢，基本面與技術面共振，適合中長期穩健佈局持有。",
-      "totalScore": 93
-    },
-    "AMD": {
-      "fundamentalComment": "EPS維持正成長，但目前本益比過高且ROE僅處於普通水準，估值偏貴反映市場過度樂觀期待。",
-      "fundamentalScore": 25,
-      "technicalComment": "均線呈現強勢多頭排列，惟短線乖離率高達17.11%顯示追高風險大，技術面進入超買過熱區。",
-      "technicalScore": 35,
-      "overallComment": "技術指標強勁但估值面已過高，建議避開短線乖離修正風險，待回檔至合理區間再行布局。",
-      "totalScore": 60
-    },
-    "WBD": {
-      "fundamentalComment": "EPS與ROE皆為負值，財務結構疲弱，缺乏獲利支撐，基本面表現低迷。",
-      "fundamentalScore": 10,
-      "technicalComment": "均線呈多頭排列且持續上揚，短線乖離率在合理範圍，走勢維持強勁趨勢。",
-      "technicalScore": 45,
-      "overallComment": "技術面呈現強勢多頭格局，但基本面營運績效仍待改善，目前屬於純技術面的操作行情。",
-      "totalScore": 55
-    },
-    "PG": {
-      "fundamentalComment": "獲利能力極佳，ROE高達30.29%，EPS表現穩健且具備穩定配息，估值處於合理範圍。",
-      "fundamentalScore": 45,
-      "technicalComment": "股價站上三條均線，惟60MA仍呈現下彎，且乖離率適中，技術面整體偏向整理轉強格局。",
-      "technicalScore": 35,
-      "overallComment": "PG基本面財務體質強健且配息穩定，技術面正重回多頭排列，建議投資人持續關注均線收斂後的續漲力道。",
-      "totalScore": 80
-    },
-    "SNDK": {
-      "fundamentalComment": "EPS表現強勁且ROE高達91.64%，顯示獲利能力極其優異，本益比合理，基本面穩健且具備高成長動能。",
-      "fundamentalScore": 48,
-      "technicalComment": "股價站上三條關鍵均線，30MA與100MA呈多頭排列且向上，惟60MA仍呈現下彎，技術面處於轉強震盪整理期。",
-      "technicalScore": 38,
-      "overallComment": "基本面極度亮眼且技術面呈現多頭架構，雖然60MA尚未完全修復，但整體強勢格局未變，建議維持偏多操作。",
+      "overallComment": "蘋果憑藉極佳的獲利能力支撐強勢股價，多頭趨勢明確，惟需持續關注高本益比是否能由未來成長性合理化。",
       "totalScore": 86
     },
-    "V": {
-      "fundamentalComment": "Visa獲利能力強勁，ROE高達61%展現極高資本效率，EPS穩定成長，雖本益比略高但獲利基礎穩健，整體財務面極佳。",
-      "fundamentalScore": 45,
-      "technicalComment": "股價站穩60日與100日均線且均線呈上揚走勢，顯示中期趨勢向上，雖近期小幅回檔跌破30日線，但整體技術結構仍屬多頭格局。",
-      "technicalScore": 38,
-      "overallComment": "Visa具備強大的護城河與獲利效率，長線投資價值高；技術面處於多頭趨勢整理階段，建議待股價重新站回30日線後分批佈局。",
-      "totalScore": 83
-    },
-    "ASML": {
-      "fundamentalComment": "獲利能力極佳且ROE數據亮眼，惟本益比偏高反映市場高預期，目前基本面支撐穩健。",
-      "fundamentalScore": 42,
-      "technicalComment": "股價站上均線顯示買盤回籠，惟中期均線仍呈下彎趨勢，短線乖離率尚屬合理區間。",
-      "technicalScore": 35,
-      "overallComment": "公司基本面強勢領先，技術面短期轉強但中期動能仍待均線修復，建議逢低布局長期持有。",
-      "totalScore": 77
-    },
-    "COST": {
-      "fundamentalComment": "獲利能力與ROE表現卓越，財務體質強健，惟本益比偏高，評價面溢價較重。",
+    "XOM": {
+      "fundamentalComment": "獲利表現穩健且具備穩定配息，ROE達12.58%表現中規中矩，本益比處於合理區間。",
       "fundamentalScore": 38,
-      "technicalComment": "股價跌破中長期均線且均線趨勢下彎，短線走勢轉弱，進入弱勢整理格局。",
-      "technicalScore": 15,
-      "overallComment": "長線基本面優異，但目前技術線型偏弱，建議待股價站穩均線並扭轉趨勢後再行布局。",
-      "totalScore": 53
+      "technicalComment": "股價站上各期均線且呈多頭排列，技術指標強勢，乖離率適中，動能穩定向上。",
+      "technicalScore": 48,
+      "overallComment": "能源龍頭財務體質優良，技術面多頭格局確立，適合長線配置並留意能源價格波動風險。",
+      "totalScore": 86
     },
-    "NKE": {
-      "fundamentalComment": "EPS維持正成長且ROE表現優異，本益比處於合理區間，高殖利率提供防禦性保護，基本面穩健。",
-      "fundamentalScore": 40,
-      "technicalComment": "股價跌破所有主要均線，且均線呈空頭排列向下彎曲，短線技術型態偏弱，賣壓沉重。",
-      "technicalScore": 15,
-      "overallComment": "公司營運體質良好且具配息優勢，但技術面處於下行趨勢，建議耐心等待築底訊號出現再考慮布局。",
+    "MSFT": {
+      "fundamentalComment": "獲利能力卓越，ROE逾34%且EPS穩定成長，本益比處於合理區間，基本面體質極佳。",
+      "fundamentalScore": 48,
+      "technicalComment": "均線呈現標準多頭排列，短中期趨勢強勢，乖離率適中無過熱疑慮，動能強勁。",
+      "technicalScore": 49,
+      "overallComment": "微軟具備優異的財務獲利基礎，技術面亦處於穩健多頭格局，長期投資價值與短期趨勢同步看好。",
+      "totalScore": 97
+    },
+    "CRWD": {
+      "fundamentalComment": "獲利能力極度疲弱，EPS接近零且ROE僅1.46%，本益比失真過高，基本面評價偏低。",
+      "fundamentalScore": 15,
+      "technicalComment": "股價呈現強勢多頭排列，均線全數上揚，但乖離率逾17%顯示短線過熱，須提防拉回風險。",
+      "technicalScore": 40,
+      "overallComment": "技術面強勢但基本面極度失衡，估值過高且獲利能力尚待改善，建議謹慎觀察，不宜追高。",
       "totalScore": 55
     },
-    "ABT": {
-      "fundamentalComment": "獲利能力穩定且現金流健康，惟近期本益比偏高，且ROE表現僅處於普通水準，長期成長動能需持續觀察。",
-      "fundamentalScore": 30,
-      "technicalComment": "股價跌破短中期均線且呈下彎趨勢，雖仍守住百日線，但整體動能轉弱，短線缺乏明顯攻擊力道。",
-      "technicalScore": 20,
-      "overallComment": "基本面體質穩健具防禦性，但技術面轉弱進入修正階段，建議待股價築底回穩、均線糾結後再行布局。",
-      "totalScore": 50
+    "AMD": {
+      "fundamentalComment": "獲利能力雖穩定但ROE表現普通，且當前本益比過高，估值偏貴，建議等待修正。",
+      "fundamentalScore": 25,
+      "technicalComment": "均線呈現多頭排列且強勢上揚，但短期乖離率過大，須留意追高風險及拉回整理。",
+      "technicalScore": 38,
+      "overallComment": "技術面處於強勁上升趨勢，惟基本面估值過高，操作上建議避開過熱乖離，伺機佈局。",
+      "totalScore": 63
     },
-    "CPRT": {
-      "fundamentalComment": "EPS獲利表現穩定，ROE處於16%以上的水準，且長期財務體質健全、自由現金流強勁，評價具備長期投資價值。",
+    "NVDA": {
+      "fundamentalComment": "獲利能力極強，ROE高達117%，且毛利率表現亮眼，本益比處於合理增長區間，基本面非常強健。",
+      "fundamentalScore": 48,
+      "technicalComment": "股價站上所有主要均線且呈多頭排列，乖離率適中無過熱跡象，技術指標趨勢強勢且穩定。",
+      "technicalScore": 48,
+      "overallComment": "公司營運成長強勁且具備極高獲利效率，技術面走勢穩健，整體呈現價量齊揚的多頭格局，值得持續追蹤。",
+      "totalScore": 96
+    },
+    "ANET": {
+      "fundamentalComment": "獲利能力極佳，ROE突破30%展現高成長潛力，惟本益比偏高反映市場對其未來成長有極高預期。",
       "fundamentalScore": 38,
-      "technicalComment": "股價跌破所有主要均線且呈現下彎，顯示中長期趨勢疲弱，雖乖離率達負值區但短線尚未見明顯築底反彈跡象。",
-      "technicalScore": 12,
-      "overallComment": "公司營運體質優異且評價合理，惟目前技術面處於均線空頭排列，建議待底部型態構築完成後再行分批布局。",
-      "totalScore": 50
+      "technicalComment": "均線呈現多頭排列且持續向上，乖離率適中，顯示短線趨勢強勢且動能穩健，技術型態極佳。",
+      "technicalScore": 48,
+      "overallComment": "ANET展現強勁成長動能，技術面多頭格局明確，雖評價偏高，但在雲端運算趨勢支撐下，仍具備長線成長潛力。",
+      "totalScore": 86
+    },
+    "WBD": {
+      "fundamentalComment": "EPS虧損且ROE為負值，整體獲利能力疲弱，財務結構尚需時間改善。",
+      "fundamentalScore": 15,
+      "technicalComment": "均線呈現多頭排列且持續上揚，股價表現強勢，短期乖離率適中。",
+      "technicalScore": 45,
+      "overallComment": "技術面強勢帶動股價，但基本面虧損隱憂仍在，建議以波段操作為主，嚴守停損。",
+      "totalScore": 60
+    },
+    "APH": {
+      "fundamentalComment": "獲利能力極強，ROE高達38%反映優異營運效率，惟本益比偏高，評價面需留意追高風險。",
+      "fundamentalScore": 38,
+      "technicalComment": "均線呈現標準多頭排列且持續上揚，乖離率適中，技術面維持強勢格局。",
+      "technicalScore": 48,
+      "overallComment": "基本面強勁但評價偏貴，技術面處於強勢多頭趨勢中，建議以長線持有心態逢回布局。",
+      "totalScore": 86
+    },
+    "RMBS": {
+      "fundamentalComment": "獲利表現穩健且毛利率極高，ROE近20%屬優質水準，惟本益比偏高反映市場給予較高評價。",
+      "fundamentalScore": 38,
+      "technicalComment": "均線排列呈現空頭或糾結，雖站上短期均線但乖離率過大，短線過熱風險增加，走勢震盪。",
+      "technicalScore": 25,
+      "overallComment": "基本面體質優異但技術面乖離過大，建議靜待股價回測支撐或均線收斂後，再考慮分批布局。",
+      "totalScore": 63
+    },
+    "CDNS": {
+      "fundamentalComment": "獲利能力穩健且毛利率極高，ROE表現亮眼，惟本益比偏高反映市場高度成長預期，估值壓力較大。",
+      "fundamentalScore": 38,
+      "technicalComment": "股價站回短線30日均線且呈現上揚，但中長期均線仍呈空頭排列，目前屬於跌深後的技術性反彈格局。",
+      "technicalScore": 25,
+      "overallComment": "公司營運體質強健但本益比過高，技術面上需觀察能否持續站穩均線並進一步扭轉中長期均線趨勢，建議逢回布局。",
+      "totalScore": 63
+    },
+    "PG": null,
+    "TTWO": {
+      "fundamentalComment": "獲利呈現虧損，且ROE為負數，財務體質偏弱，本益比因虧損失真，營運待改善。",
+      "fundamentalScore": 10,
+      "technicalComment": "股價跌破所有關鍵均線且均線同步下彎，整體呈現空頭走勢，短線雖有反彈但趨勢未扭轉。",
+      "technicalScore": 15,
+      "overallComment": "財務面虧損加上技術面趨勢向下，目前缺乏支撐動能，建議投資人暫且觀望，靜待獲利回穩與技術線型轉強。",
+      "totalScore": 25
+    },
+    "GOOG": null,
+    "ADBE": {
+      "fundamentalComment": "獲利能力極佳，ROE高達61.9%且EPS穩健，目前本益比僅約13.4倍，處於價值投資區間，基本面非常強勢。",
+      "fundamentalScore": 45,
+      "technicalComment": "股價跌破多條關鍵均線且均線趨勢向下，技術面轉弱，雖短線出現反彈訊號，但整體空頭格局尚未扭轉。",
+      "technicalScore": 15,
+      "overallComment": "公司獲利體質強健且股價估值偏低，具備長期投資價值，唯技術面仍處於弱勢調整階段，建議待均線翻揚後再佈局。",
+      "totalScore": 60
+    },
+    "WDAY": {
+      "fundamentalComment": "獲利能力穩健，ROE達16%屬中段水準，營收成長且毛利率表現強勁，惟本益比稍高，整體財務體質健康。",
+      "fundamentalScore": 38,
+      "technicalComment": "雖站上60及100日均線，但短期均線下彎且股價跌破30日線，技術面偏向震盪整理，短期缺乏強勢進攻力道。",
+      "technicalScore": 25,
+      "overallComment": "公司營運穩健，惟近期股價受短期均線下行壓力壓抑，建議待站回30日均線後再行布局，中長期趨勢仍看好。",
+      "totalScore": 63
+    },
+    "PEP": {
+      "fundamentalComment": "獲利能力極強，ROE高達51.51%，本益比16.6倍處於合理偏低區間，且擁有穩定高殖利率，基本面表現相當穩健。",
+      "fundamentalScore": 45,
+      "technicalComment": "股價跌破所有主要均線且均線呈空頭下彎，整體趨勢偏弱，目前處於修正階段，短線技術結構仍待轉強。",
+      "technicalScore": 15,
+      "overallComment": "公司獲利體質極佳且股息吸引力高，唯技術面呈現明顯空頭修正，建議逢低布局或靜待底部均線走平翻揚訊號。",
+      "totalScore": 60
     },
     "INTU": {
-      "fundamentalComment": "獲利能力穩健，ROE表現優異且本益比處於低檔區間，具備強勁現金流與高毛利優勢，基本面體質極佳。",
+      "fundamentalComment": "獲利能力強勁，ROE逾20%且毛利率卓越，現階段本益比偏低，具備長期投資價值。",
       "fundamentalScore": 42,
-      "technicalComment": "股價跌破所有關鍵均線且短中期均線下彎，短線乖離率過大顯示超跌，目前技術結構呈現空頭弱勢格局。",
+      "technicalComment": "股價跌破所有主要均線且呈空頭排列，目前乖離率過大，短線走勢極度疲弱，有超跌風險。",
       "technicalScore": 12,
-      "overallComment": "公司營運體質優異且評價偏低，具長線投資價值，但短線技術面尚未止跌，建議等待底部訊號明確再進場。",
+      "overallComment": "基本面體質優異，然技術面結構崩壞，建議等待股價止跌回穩或重返均線後再行佈局。",
       "totalScore": 54
     },
-    "PYPL": {
-      "fundamentalComment": "獲利能力穩健，ROE表現亮眼且本益比處於低檔區間，具備良好投資價值與長線保護。",
-      "fundamentalScore": 45,
-      "technicalComment": "股價跌破短中期均線且動能轉弱，技術面格局偏向修正整理，建議觀察支撐力道。",
-      "technicalScore": 25,
-      "overallComment": "公司基本面紮實、估值便宜，惟技術面處於調整期，建議分批佈局以等待趨勢重新轉強。",
-      "totalScore": 70
-    },
     "TRI": {
-      "fundamentalComment": "獲利表現穩健，ROE達14.17%且現金流充沛，本益比合理，具備長期投資價值。",
+      "fundamentalComment": "獲利能力穩健且毛利率優異，財務結構健全且現金流強勁，本益比合理，具備長期投資價值。",
       "fundamentalScore": 38,
-      "technicalComment": "股價跌破短中均線且30MA下彎，技術面呈現短期回檔整理趨勢，需關注支撐力道。",
+      "technicalComment": "股價跌破短中長期均線支撐，目前呈現弱勢整理格局，技術指標轉弱，需觀察支撐力道。",
       "technicalScore": 25,
-      "overallComment": "公司營運體質強健且配息穩定，惟目前股價處於技術性修正階段，建議待均線止跌回穩後再行佈局。",
+      "overallComment": "基本面表現穩健，但技術面轉弱進入修正階段，建議待股價築底回穩或突破壓力後再逢低布局。",
       "totalScore": 63
     },
-    "AMAT": {
-      "fundamentalComment": "獲利能力極佳，ROE突破40%，毛利率穩定維持高檔，惟本益比偏高，評價稍嫌昂貴。",
-      "fundamentalScore": 38,
-      "technicalComment": "股價站上均線，雖長線多頭架構未破，但中短期均線呈現下彎，短線乖離率略高，追價風險增加。",
-      "technicalScore": 32,
-      "overallComment": "公司營運體質強健，惟近期技術面中短期均線走弱，建議等待股價修正回穩或均線重新翻揚後再行布局。",
-      "totalScore": 70
-    },
-    "DASH": {
-      "fundamentalComment": "獲利由負轉正且營收成長強勁，惟ROE偏低且本益比極高，評價面溢價嚴重，基本面支撐力道不足。",
-      "fundamentalScore": 25,
-      "technicalComment": "股價跌破短中長期均線，且30MA與60MA呈現下彎趨勢，顯示短期賣壓沉重，技術型態明顯偏弱。",
-      "technicalScore": 15,
-      "overallComment": "公司營運具備成長動能，但高本益比面臨修正壓力，技術面結構轉差，建議等待底部型態明確再佈局。",
-      "totalScore": 40
-    },
-    "NVMI": {
-      "fundamentalComment": "獲利能力穩健，ROE表現優異，惟目前本益比偏高，評價端稍顯過熱，需留意未來獲利成長能否支撐高估值。",
-      "fundamentalScore": 38,
-      "technicalComment": "股價雖站上30MA但均線下彎，且處於60/100MA壓力區下方，顯示中長期趨勢仍偏弱，目前短線反彈整理中。",
-      "technicalScore": 25,
-      "overallComment": "公司具備優良獲利體質，但技術面中長期均線呈現下彎壓制，短線建議待突破上方壓力區並轉為多頭排列後再分批布局。",
-      "totalScore": 63
-    },
-    "ORCL": {
-      "fundamentalComment": "獲利能力極強，ROE超過40%且本益比合理，營收成長動能穩健，基本面表現相當亮眼。",
+    "PDD": {
+      "fundamentalComment": "獲利能力極佳，ROE突破20%且EPS穩健，本益比處於極低估區間，基本面體質強健。",
       "fundamentalScore": 45,
-      "technicalComment": "股價跌破所有主要均線且均線呈現下彎，技術面處於弱勢整理格局，需等待站穩均線後再觀察。",
+      "technicalComment": "股價跌破所有主要均線，且均線呈現下彎空頭排列，技術面處於明顯弱勢修正格局。",
+      "technicalScore": 10,
+      "overallComment": "公司獲利亮眼且本益比低廉，惟技術面均線空頭排列，建議待底部型態確立後再行分批布局。",
+      "totalScore": 55
+    },
+    "CPRT": {
+      "fundamentalComment": "獲利能力穩定且長期ROE表現亮眼，財務結構極佳，目前本益比低於歷史平均，具備長線投資價值。",
+      "fundamentalScore": 42,
+      "technicalComment": "股價跌破所有關鍵均線且均線呈現下彎，短線跌勢未止，乖離率雖達負值但不宜過早猜底。",
       "technicalScore": 15,
-      "overallComment": "Oracle具備強勁基本面支撐，惟短期技術指標偏弱，建議採取分批佈局策略，靜待股價回穩後再介入。",
-      "totalScore": 60
+      "overallComment": "基本面穩健且具備護城河，惟技術面偏空，建議待股價止跌回穩或重返均線後再行布局。",
+      "totalScore": 57
     },
-    "KLAC": {
-      "fundamentalComment": "獲利能力極強且ROE表現優異，惟本益比偏高反映市場高預期，整體基本面穩健但估值壓力較大。",
-      "fundamentalScore": 38,
-      "technicalComment": "均線排列凌亂且長短線呈現多空分歧，目前雖站上短期均線但趨勢尚未翻多，技術面仍偏弱勢整理。",
-      "technicalScore": 22,
-      "overallComment": "公司具備強大護城河，惟技術面修正未完，建議觀察均線是否轉折向上，短線操作應維持謹慎心態。",
-      "totalScore": 60
+    "ABT": {
+      "fundamentalComment": "獲利表現穩健且配息持續，ROE處於普通水準，本益比略高於歷史平均，整體基本面質優但缺乏爆發性成長。",
+      "fundamentalScore": 35,
+      "technicalComment": "股價跌破短中期均線且呈下彎，短線走勢轉弱，所幸仍守住長期百日均線支撐，整體型態呈現震盪整理。",
+      "technicalScore": 20,
+      "overallComment": "長線基本面體質穩健，惟近期技術面呈現修正，建議待股價站回短中期均線後再行佈局較為安全。",
+      "totalScore": 55
     },
-    "ARM": {
-      "fundamentalComment": "獲利能力尚可但EPS偏低，本益比超過300倍極度偏高，估值過熱風險顯著。",
-      "fundamentalScore": 15,
-      "technicalComment": "股價站上三條主要均線，惟60日線呈現下彎，乖離率逾11%顯示短線過熱風險。",
-      "technicalScore": 35,
-      "overallComment": "技術面雖維持多頭趨勢，但估值過高且基本面支撐力道不足，建議保守操作，提防回檔。",
-      "totalScore": 50
+    "ADSK": {
+      "fundamentalComment": "獲利能力極佳，ROE高達53.85%且毛利率穩定維持逾九成，本益比約27倍屬合理區間，營運表現強勁。",
+      "fundamentalScore": 45,
+      "technicalComment": "股價跌破多條關鍵均線且呈現下彎態勢，技術指標偏弱，短線處於底部築底後的弱勢修正整理格局。",
+      "technicalScore": 15,
+      "overallComment": "公司具備強大基本面競爭力，但近期股價技術面走勢疲弱，建議待股價重回均線之上再行布局。",
+      "totalScore": 60
     }
   }
 }

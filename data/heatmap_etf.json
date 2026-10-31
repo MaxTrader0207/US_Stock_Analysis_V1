@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T22:57:50.819998+00:00",
+  "updated": "2026-10-31T02:20:13.931353+00:00",
   "sectors": [
     {
       "name": "Broad Market",
@@ -9,35 +9,35 @@
           "name": "SPY",
           "price": 755.72,
           "changePercent": -1.77,
-          "marketCap": 77.14
+          "marketCap": 77.63
         },
         {
           "symbol": "QQQ",
           "name": "QQQ",
           "price": 690.49,
           "changePercent": -3.47,
-          "marketCap": 84.75
+          "marketCap": 85.11
         },
         {
           "symbol": "DIA",
           "name": "DIA",
           "price": 517.13,
           "changePercent": -1.07,
-          "marketCap": 4.49
+          "marketCap": 4.87
         },
         {
           "symbol": "IWM",
           "name": "IWM",
           "price": 279.33,
           "changePercent": -1.65,
-          "marketCap": 23.31
+          "marketCap": 23.48
         },
         {
           "symbol": "VTI",
           "name": "VTI",
           "price": 371.57,
           "changePercent": -1.76,
-          "marketCap": 4.67
+          "marketCap": 4.68
         }
       ]
     },
@@ -49,42 +49,42 @@
           "name": "XLK",
           "price": 179.51,
           "changePercent": -4.89,
-          "marketCap": 19.05
+          "marketCap": 19.17
         },
         {
           "symbol": "XLF",
           "name": "XLF",
           "price": 56.51,
           "changePercent": -0.76,
-          "marketCap": 36.99
+          "marketCap": 37.06
         },
         {
           "symbol": "XLE",
           "name": "XLE",
           "price": 70.02,
           "changePercent": 1.91,
-          "marketCap": 31.09
+          "marketCap": 31.53
         },
         {
           "symbol": "XLV",
           "name": "XLV",
           "price": 184.87,
           "changePercent": 0.45,
-          "marketCap": 18.67
+          "marketCap": 18.71
         },
         {
           "symbol": "XLY",
           "name": "XLY",
           "price": 115.38,
           "changePercent": -0.71,
-          "marketCap": 10.08
+          "marketCap": 10.13
         },
         {
           "symbol": "XLI",
           "name": "XLI",
           "price": 167.4,
           "changePercent": -1.6,
-          "marketCap": 10.75
+          "marketCap": 10.8
         }
       ]
     },
@@ -96,7 +96,7 @@
           "name": "TLT",
           "price": 81.84,
           "changePercent": 0.43,
-          "marketCap": 41.03
+          "marketCap": 41.05
         },
         {
           "symbol": "AGG",
@@ -117,7 +117,7 @@
           "name": "HYG",
           "price": 77.43,
           "changePercent": -0.19,
-          "marketCap": 60.09
+          "marketCap": 60.75
         }
       ]
     },
@@ -129,21 +129,21 @@
           "name": "GLD",
           "price": 355.78,
           "changePercent": -3.47,
-          "marketCap": 16.2
+          "marketCap": 16.23
         },
         {
           "symbol": "SLV",
           "name": "SLV",
           "price": 44.6,
           "changePercent": -5.67,
-          "marketCap": 40.25
+          "marketCap": 40.34
         },
         {
           "symbol": "USO",
           "name": "USO",
           "price": 168.83,
           "changePercent": 0.38,
-          "marketCap": 5.02
+          "marketCap": 5.06
         }
       ]
     },
@@ -162,14 +162,14 @@
           "name": "EEM",
           "price": 61.04,
           "changePercent": -2.68,
-          "marketCap": 37.55
+          "marketCap": 37.56
         },
         {
           "symbol": "FXI",
           "name": "FXI",
           "price": 33.08,
           "changePercent": 1.19,
-          "marketCap": 22.17
+          "marketCap": 22.18
         }
       ]
     }

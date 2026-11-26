@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-26T05:00:31.418424+00:00",
+  "updated": "2026-11-26T22:20:00.134935+00:00",
   "sectors": [
     {
       "name": "Broad Market",
@@ -9,14 +9,14 @@
           "name": "SPY",
           "price": 716.7,
           "changePercent": -0.29,
-          "marketCap": 72.92
+          "marketCap": 73.11
         },
         {
           "symbol": "QQQ",
           "name": "QQQ",
           "price": 633.93,
           "changePercent": -0.65,
-          "marketCap": 81.6
+          "marketCap": 82.0
         },
         {
           "symbol": "DIA",
@@ -30,7 +30,7 @@
           "name": "IWM",
           "price": 268.87,
           "changePercent": 0.65,
-          "marketCap": 33.29
+          "marketCap": 33.32
         },
         {
           "symbol": "VTI",
@@ -49,21 +49,21 @@
           "name": "XLK",
           "price": 155.79,
           "changePercent": -0.83,
-          "marketCap": 19.69
+          "marketCap": 19.72
         },
         {
           "symbol": "XLF",
           "name": "XLF",
           "price": 56.51,
           "changePercent": 0.71,
-          "marketCap": 38.64
+          "marketCap": 38.67
         },
         {
           "symbol": "XLE",
           "name": "XLE",
           "price": 60.9,
           "changePercent": 0.74,
-          "marketCap": 26.52
+          "marketCap": 26.53
         },
         {
           "symbol": "XLV",
@@ -96,7 +96,7 @@
           "name": "TLT",
           "price": 82.24,
           "changePercent": 0.92,
-          "marketCap": 48.93
+          "marketCap": 49.0
         },
         {
           "symbol": "AGG",
@@ -129,14 +129,14 @@
           "name": "GLD",
           "price": 327.45,
           "changePercent": 0.61,
-          "marketCap": 17.01
+          "marketCap": 17.06
         },
         {
           "symbol": "SLV",
           "name": "SLV",
           "price": 37.1,
           "changePercent": 0.71,
-          "marketCap": 50.87
+          "marketCap": 51.07
         },
         {
           "symbol": "USO",
@@ -162,14 +162,14 @@
           "name": "EEM",
           "price": 56.4,
           "changePercent": -0.51,
-          "marketCap": 39.86
+          "marketCap": 39.87
         },
         {
           "symbol": "FXI",
           "name": "FXI",
           "price": 31.3,
           "changePercent": -0.41,
-          "marketCap": 31.7
+          "marketCap": 31.72
         }
       ]
     }
